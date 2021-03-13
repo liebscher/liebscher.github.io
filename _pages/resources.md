@@ -17,6 +17,7 @@ nav: true
 | Acid Stag                         | <https://acidstag.com/>                           | [Music News]                                  |
 | Adventures in Why               	| <https://www.adventuresinwhy.com/>              	| [Data Science]                               	|
 | AI Now Institute                	| <https://medium.com/@AINowInstitute>            	| [AI / Philosophy]                            	|
+| Aiga Eye on Design                | <https://eyeondesign.aiga.org/>                   | [Design]                                      |
 | Apple Machine Learning Journal  	| <https://machinelearning.apple.com/>            	| [Machine Learning]                           	|
 | Atoms & Void                    	| <https://atomsandvoid.wordpress.com/>           	| [Topology / Geometry / Philosophy]           	|
 | Cathay O’Neal                   	| <https://mathbabe.org/>                         	| [Data Science / AI]                          	|
@@ -44,7 +45,10 @@ nav: true
 | NonCompositional                	| <https://fh295.github.io/noncompositional.html> 	| [Cognitive Science / AI]                     	|
 | Off the Convex Path             	| <https://www.offconvex.org/>                    	| [Machine Learning]                           	|
 | Pragmatic Engineer, The           | <https://blog.pragmaticengineer.com/>             | [Software Engineering]                        |
+| Richard Sutton                    | <http://www.incompleteideas.net/>                 | [Reinforcement Learning / AI]                 |
+| Rodney Brooks                     | <http://rodneybrooks.com/blog/>                   | [CS / AI / Robotics]                          |
 | Sean Trott                      	| <https://seantrott.github.io/blog/>             	| [Cognitive Science / Language / Statistics]  	|
+| Sebastian Raschka                 | <https://sebastianraschka.com/blog/index.html>    | [Machine Learning]                            |
 | Shreya Shankar                  	| <https://www.shreya-shankar.com/>               	| [ML / Academia]                              	|
 | Simply Statistics               	| <https://simplystatistics.org/>                 	| [Statistics]                                 	|
 | stas aki                          | <https://stasaki.com/>                            | [Design]                                      |
