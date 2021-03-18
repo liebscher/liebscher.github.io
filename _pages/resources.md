@@ -32,6 +32,7 @@ nav: true
 | Google AI Blog                  	| <https://ai.googleblog.com/>                    	| [Machine Learning]                           	|
 | Gradient, The                     | <https://thegradient.pub/>                        | [Machine Learning / AI]                       |
 | Gwern                           	| <https://www.gwern.net/>                        	| [Lots]                                       	|
+| Hacking Semantics                 | <https://hackingsemantics.xyz/>                   | [NLP / Academia]                              |
 | James Yu                          | <https://jamesyu.org/>                            | [Science Fiction / Writing]                   |
 | Language Hat                      | <http://languagehat.com/>                         | [Linguistics / Language]                      |
 | LingPipe Blog                   	| <https://lingpipe-blog.com/>                    	| [NLP / CS]                                   	|
