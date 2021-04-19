@@ -13,3 +13,22 @@
 .header-bar h1 { font-size: 4rem !important; }
 
 .social .contact-icon { font-size: 2rem !important; }
+
+.epigraph {
+  font-size: 0.75em;
+  margin-bottom: 1em;
+  p.tab {
+    margin-left: 2em;
+  }
+}
+
+.detail-selector {
+  padding: 2px 5px;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+
+.detail-level1 { background-color: #83c5be; }
+.detail-level2 { background-color: #e9c46a; }
+.detail-level3 { background-color: #f4a261; }
+.detail-level4 { background-color: #df7c6a; }
