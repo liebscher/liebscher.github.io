@@ -49,9 +49,9 @@ Given that these types of generative language models have really only been aroun
 
 Given such complex and multi-faceted influences, it's no easy ask of the field. As I'll soon explain though, it is all but necessary that when these models behave poorly, we have some method for explaining why.
 
-<div class="row mt-3 justify-content-center">
-    <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid z-depth-1" src="{{ site.baseurl }}/assets/img/figma-explainability.png">
+<div class="row justify-content-center">
+    <div class="col-sm">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/img/figma-explainability.png">
     </div>
 </div>
 <div class="caption">
@@ -80,9 +80,9 @@ Generative models are being picked up across a numbing variety of industries as 
 
 The issues crop up when the model produces some harmful, ignorant, or wrong output, and someone needs to explain why the model did that. Stakeholders and end-users will not feel safe or comfortable upon hearing that those outputs are out of the engineers' control. I could come up with dozens of hypothetical examples of harmful generative models in the wild, but we already have crystal clear illustrations such as [Microsoft's Tay](https://www.theverge.com/2016/3/24/11297050/tay-microsoft-chatbot-racist).
 
-<div class="row mt-3 justify-content-center">
-    <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid z-depth-1" src="{{ site.baseurl }}/assets/img/huggingface-transformers-swear.png">
+<div class="row justify-content-center">
+    <div class="col-sm">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/img/huggingface-transformers-swear.png">
     </div>
 </div>
 <div class="caption">
@@ -156,19 +156,28 @@ While this literature is critical and welcome, demonstrations of biased data and
 
 In terms of tools, we see most recently, the [SummVis tool](https://arxiv.org/pdf/2104.07605.pdf) from Salesforce and Stanford offers model-agnostic, post-hoc visualization tools to explain outputs from abstract summarization models (which are a form of generative models). A predecessor to this tool was the [Language Interpretability Tool](https://github.com/pair-code/lit), which provides a tool for [Debugging Text Generation](https://github.com/PAIR-code/lit/blob/main/documentation/user_guide.md#debugging-text-generation). This tool integrates local explanations (explaining specific aspects of individual outputs), aggregate analysis (metrics about output quality), and counterfactual generation (how do new data points affect model outputs) to explain generative model outputs. The former is too new to be widely adopted, and the latter is only one piece of the puzzle.
 
-Explaining generative models is clearly not a new issue, but nonetheless it appears underfunded or at least underrepresented in the big picture of NLP. The conversation needs to grow, more individuals need to be included in the conversation, and new perspectives need to contribute to the discussion.
+Explaining generative models is clearly not a new issue, but nonetheless it appears underfunded or at least underrepresented in the big picture of NLP<d-footnote>One thing I learned while writing this article is the importance of doing a thorough literature review <i>before</i> embarking on my own ideas. I'm frankly a bit embarrassed by the paucity of background here. Part of me doesn't want to write big long lit reviews to preface my ideas so as to not bore my audience more than I already do, but I know that it would only serve me well. Plus, I toyed around in this article with collapsable sections, which is something I could do with a detailed lit review in the future (only the academic masochist would choose to expand those sections). Lesson learned!</d-footnote>. The conversation needs to grow, more individuals need to be included in the conversation, and new perspectives need to contribute to the discussion.
 
 ## Future directions
 Humans frequently fail to communicate. Unlike with statistical NLP models though, it is easy to ask a human to explain what they said, or why they said it.
 
+<div class="row justify-content-center">
+    <div class="col-sm">
+        <img class="img-fluid" src="{{ site.baseurl }}/assets/img/explainability-future-directions.jpeg">
+    </div>
+</div>
+<div class="caption">
+  Photo credit: <a href="https://unsplash.com/@henniestander?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hennie Stander</a> via Unsplash
+</div>
+
 In fact, there's evidence we do it about once ever minute and a half <d-cite key="dingemanse2015universal"></d-cite>. And although most modern linguists refrain from saying there's anything universal across languages, the conversational repair initiator *Huh?* might in fact be a candidate universal word <d-cite key="dingemanse2013huh"></d-cite>. This suggests that humans are constantly and consistently asking other humans to clarify or explain what's been uttered.
 
-Unlike with other humans, our communication with language models is not necessarily driven by shared communicative goals, costs of production, or prior belief states. This immediately introduces issues for cooperation. How could a person understand a language model's reasoning if the directions or motivations of such reasoning are orthogonal to human reasoning? This also surfaces issues for public science communication and basic understanding of technology: many people in our communities do not have the background necessary to reasonably understand the foundations of language model productions.
+Unlike with other humans, our communication with language models is not necessarily driven by shared communicative goals, costs of production, or prior belief states. Therefore, how could a person understand a language model's reasoning if the directions or motivations of such reasoning are orthogonal to human reasoning? This also creates issues for public science communication and the understanding of this technology: our communities do not have the background necessary to reasonably understand the foundations of language model productions.
 
 I note this because explainability should span audiences: the lay-person, who will be near daily affected in some shape by generative models, to the machine learning researcher, who is invested in explaining model outputs to determine scientific contributions. Hence, the future should see explainability at a variety of levels.
 
-**Human-esque explainability might be a misguided ask of contemporary language models, given that they most likely fail to truly attribute meaning to form** <d-cite key="glenberg2000symbol,bender2020climbing"></d-cite>. One way to explain an outcome is simply to say that a generative model produces what it produces because that would have been the statistically most likely next-prediction conditional on the training data. But to know that the probability of a token was higher than some other token is insufficient explanation in real world settings. More likely, we would be interested in knowing the parts of the training data, or source of those data, that led to that production<d-footnote>But data is not the entire answer to degenerate machine learning systems. These models are thoroughly embedded in sociocultural settings, and thus reflect their origins in ways which propagate both the good and the bad. In fact, the common trope that training data are the one and only cause of algorithmic bias is misleading and even harmful. Model architecture and design are just as culpable as the datasets upon which they work <d-cite key="hooker2021moving"></d-cite>. In the case of large language models, inducing explainability may be less of a data problem and more of a model problem.
-</d-footnote>. Alternatively, it would also be useful to know if the model architecture induced such a production: given a different model, but the same training data, what difference would be made? Lastly, architectural decisions are fundamentally made by a small group of individuals which inherently encodes their own biases and knowledge into these widely distributed models: could these biases not be a necessary explanation for why a model produced a certain output?
+**Human-esque explainability might be a misleading ask of contemporary language models, given that they most likely fail to truly attribute meaning to form** <d-cite key="glenberg2000symbol,bender2020climbing"></d-cite>. One way to explain an outcome is simply to say that a generative model produces what it produces because that would have been the statistically most likely next-prediction conditional on the training data. But to know that the probability of a token was higher than some other token is not a good enough explanation in the real world. More likely, we would be interested in knowing the parts of the training data, or source of those data, that led to that production<d-footnote>But data is not the entire answer to degenerate machine learning systems. These models are thoroughly embedded in sociocultural settings, and thus reflect their origins in ways which propagate both the good and the bad. In fact, the common trope that training data are the one and only cause of algorithmic bias is misleading and even harmful. Model architecture and design are just as culpable as the datasets upon which they work <d-cite key="hooker2021moving"></d-cite>. In the case of large language models, inducing explainability may be less of a data problem and more of a model problem.
+</d-footnote>. Alternatively, it would also be useful to know if the model *architecture* caused the production: given a different model, but the same training data, would there be a difference? Lastly, development decisions are typically made by a small group of individuals which inherently encodes their own biases and knowledge into these widely distributed models: could these biases not be a necessary explanation for why a model produced a certain output?
 
 Lastly, I'd like to reiterate Zachary Lipton's distinction between models transparent to humans and post-hoc explanations <d-cite key="lipton2018mythos"></d-cite>. Post-hoc methods for explaining generative language models might accomplish certain goals, but it might be in our favor to continue researching methods which are inherently more understandable to humans.
 
