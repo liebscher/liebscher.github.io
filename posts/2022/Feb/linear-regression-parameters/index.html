@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Linear Regression: Parameter Estimation</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="statistics" />
+    <meta name="tags" content="python" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>Linear Regression: Parameter&nbsp;Estimation</span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/posts/2022/Feb/linear-regression-parameters/" rel="bookmark" title="Permalink to Linear Regression: Parameter Estimation">Linear Regression: Parameter&nbsp;Estimation</a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2022-02-21T00:00:00-08:00">
+        Mon 21 February 2022
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/statistics.html">statistics</a>, 
+        <a href="/tag/python.html">python</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <p><img class="uk-align-center" width="90%" height="" src="/images/regr-header.png" uk-img></p>
+<div class="caption">
+Image by Alex Liebscher
+</div>
+
+<p>Ask yourself: how often do you run linear regression models? Now ask: how are the results actually&nbsp;calculated?</p>
+<p>You&#8217;re not alone if the answer to the first question was &#8220;often&#8221; and to the second &#8220;hmm.&#8221; Truly understanding the workings of linear regression isn&#8217;t as straightforward as an introductory stats class makes it out to be. Because of its utility and storied history, linear regression can now be understood in too many ways for most scientists and data-folks to fully&nbsp;grasp.</p>
+<p>This article makes a chip away at this complexity by explaining three routine methods for estimating linear regression parameters. We&#8217;ll discuss Least Squares, Gradient Descent, and Bayesian&nbsp;estimation.</p>
+<p>We&#8217;ll walk through each with code examples notebook-style and some sparse math to help illustrate what&#8217;s happening. Before we get started, we&#8217;ve got a few packages to load up. If you don&#8217;t have them installed, create a <code>conda</code> environment and <code>pip install</code> them.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">minimize</span>
+
+<span class="kn">import</span> <span class="nn">pymc3</span> <span class="k">as</span> <span class="nn">pm</span>
+</code></pre></div>
+
+<h2><a name="s1"></a>Creating our&nbsp;Data</h2>
+<p>We will first create a fake dataset, also known as a simulated dataset. We do this so later on we can compare our model results to the true data generation process. Imagine a phenomenom that, when nothing happens, with an input of 0, the output is 5. Now imagine that when the process is input with -1, the output is 3; and when input with 1, the output is 7. We can build this simulation by specifying a line like <span class="math">\(y = 5 + 2x + \epsilon\)</span>, where <span class="math">\(\epsilon\)</span> is some random error on each output (for example <span class="math">\(\pm 1\)</span>).</p>
+<div class="highlight"><pre><span></span><code><span class="n">alpha</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">2</span>
+<span class="n">sigma</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="n">N</span> <span class="o">=</span> <span class="mi">20</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We can then plot these predictor values, ordered by which the data were&nbsp;generated,</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="n">X</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Index&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;X value&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<pre class="code-output">
+    <img src="/images/regression-fig1.svg" uk-svg >
+</pre>
+
+<p>and also related with the outcome&nbsp;values,</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<pre class="code-output">
+    <img src="/images/regression-fig2.svg" uk-svg >
+</pre>
+
+<p>The human eye easily picks up a pattern here. There&#8217;re data that, when the horizontal variable increases, corresponds to an increase in the vertical variable. The pattern looks linear. There also appears to be some noise in the data; one data point doesn&#8217;t relate to the next in an exactly predictable&nbsp;way.</p>
+<p>You&#8217;re likely familiar with this scenario. As taught (either through instruction or experience), you&#8217;d next feel a craving to model this pattern using a linear regression model. This would help you describe, in numerical terms, exactly the pattern you see. If you&#8217;re jumping the gun, you&#8217;d probably dart your eyes to those p-values too. This article won&#8217;t discuss p-values, but it will discuss exactly how those &#8220;numerical terms&#8221; are&nbsp;identified.</p>
+<h2>Estimating <span class="math">\(\alpha\)</span> and <span class="math">\(\beta\)</span></h2>
+<p>Given these simulated data, what can we do to understand what the pattern we&nbsp;see?</p>
+<h3>Least&nbsp;Squares</h3>
+<p>The first and most transparent method for understanding the relationship we see is called Least Squares, or Ordinary Least&nbsp;Squares.</p>
+<p>It&#8217;s called least squares because our goal with this method is to find the line which <span style="color: red;">minimize</span> the <span style="color: purple;">sum</span> of the <span style="color: orange;">squares</span> of the residuals&#8212;the <span style="color: blue;">true outcome</span> minus the <span style="color: green;">model prediction</span>:</p>
+<div class="math">$$
+\color{red}{\text{argmin}}_{\alpha, \beta} \color{purple}{\sum}_{i=1}^N \color{orange}{(}\color{blue}{y_i} - (\color{green}{\alpha + \beta x_i})\color{orange}{)^2}
+$$</div>
+<p>The parameter values, or <strong>regression coefficients</strong>, are defined as the best solution to this minimization&nbsp;problem.</p>
+<h4>Algabraic&nbsp;Solution</h4>
+<p>Our first stop is the algabraic solution to regression. By taking <a href="https://seismo.berkeley.edu/~kirchner/eps_120/Toolkits/Toolkit_10.pdf">some calculus</a> for granted, we arrive at a solution that requires nothing more than&nbsp;algebra.</p>
+<p>In code, we can use our <code>X</code> and <code>y</code> vectors to compute the values for <span class="math">\(\alpha\)</span> and <span class="math">\(\beta\)</span> quite&nbsp;easily,</p>
+<div class="highlight"><pre><span></span><code><span class="n">x_mean</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">beta_hat</span> <span class="o">=</span> <span class="p">((</span><span class="n">X</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">)</span><span class="o">*</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="p">((</span><span class="n">X</span> <span class="o">-</span> <span class="n">x_mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">alpha_hat</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">beta_hat</span><span class="o">*</span><span class="n">x_mean</span>
+
+<span class="n">alpha_hat</span><span class="p">,</span> <span class="n">beta_hat</span>
+</code></pre></div>
+
+<pre class="code-output">(4.441, 2.789)</pre>
+
+<p>To visually assess the fit of this model, let&#8217;s plot the fitted regression line on the data as well as the true data generation&nbsp;line,</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Truth&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">alpha_hat</span> <span class="o">+</span> <span class="n">beta_hat</span><span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Estimated&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<pre class="code-output">
+    <img src="/images/regression-fig3.svg" uk-svg >
+</pre>
+
+<p>And that&#8217;s it, we&#8217;ve calculated a fitted line to the data at hand. As you can see, we came quite close to the true data generation line. Unfortunately, this method really only works if you only have a single predictor, which in many cases is too much of a&nbsp;constraint.</p>
+<h4>Measuring&nbsp;Error</h4>
+<p>It&#8217;s common to assess the fit of the model by aggregating the <em>residuals</em>. The residuals are the difference between either the true in-sample outcomes or a set of out-of-sample outcomes, and the predicted outcomes for those observations. Since we&#8217;re not working with any out-of-sample data (like a testing or hold-out set), let&#8217;s just calculate the in-sample&nbsp;residuals:</p>
+<div class="highlight"><pre><span></span><code><span class="n">y_pred</span> <span class="o">=</span> <span class="n">alpha_hat</span> <span class="o">+</span> <span class="n">beta_hat</span><span class="o">*</span><span class="n">X</span>
+
+<span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y_pred</span>
+</code></pre></div>
+
+<p>With this <code>residuals</code> vector, we can compute the Mean Squared Error (<span class="math">\(\text{MSE} = \frac{1}{df}\sum_{i=0}^n(residuals_i^2)\)</span>), Root Mean Squared Error (<span class="math">\(\text{RMSE} = \sqrt{\text{MSE}}\)</span>), or Mean Absolute Error. <a href="http://zerospectrum.com/2019/06/02/mae-vs-mse-vs-rmse/">Each of these</a> is a method for quantitatively assessing how well the model fit the data. If we had a test set of data, we could assess how well the model fits new data, i.e. its ability to&nbsp;generalize.</p>
+<p>The error in the model <span class="math">\(\epsilon\)</span> is assumed to be normally distributed, and there is in fact a strong relationship between how the variance of a Gaussian sample can be computed and the formula for the <span class="caps">MSE</span>. Both are drawn from the idea that there are measurable differences between the true value (the true <span class="math">\(x\)</span> or true <span class="math">\(y\)</span>) and the mean or predicted value (<span class="math">\(\mu\)</span> or <span class="math">\(\hat{y}\)</span>). The general form for either the sample variance or the <span class="caps">MSE</span>&nbsp;is</p>
+<div class="math">$$
+\text{Var}(\theta) = \text{MSE}(\theta) = \mathbb{E}_\theta[(\theta - \hat{\theta})^2]
+$$</div>
+<p>which can be defined then for either the sample&nbsp;variance</p>
+<div class="math">$$
+\text{Var}(X) = \mathbb{E}_X[(X - \mu)^2] = \frac{1}{n}\sum_{i=0}^n (x_i - \mu)^2
+$$</div>
+<p>or the <span class="caps">MSE</span>, where <span class="math">\(p\)</span> is the number of model parameters (and the 1 indicates a degree of freedom for the&nbsp;intercept)</p>
+<div class="math">$$
+\text{MSE}(y) = \mathbb{E}_y[(y - \hat{y})^2] = \frac{1}{n-p-1}\sum_{i=0}{n} (y_i - \hat{y_i})^2
+$$</div>
+<p>The ability of the model to minimize the squared error is also closely related to how well the model captures variance in the data. This is known as the <a href="https://en.wikipedia.org/wiki/Coefficient_of_determination">coefficient of determination</a> <span class="math">\(r^2\)</span>, and can be computed&nbsp;like</p>
+<div class="highlight"><pre><span></span><code><span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+0.3728
+</pre>
+
+<h4>Linear Algebraic&nbsp;Solution</h4>
+<p>The algabraic method is good pedalogically, but suffers at estimation when we want more than a single predictor and two parameters. So we&#8217;ll graduate to a new method, which is actually equivalent to the algabraic method. We&#8217;ll start by putting our intercept data (just 1&#8217;s <sup class="uk-link" uk-tooltip="Why 1's? To estimate a constant intercept, the data shouldn't change the estimate when multiplied. The one number which satisfies that identity mapping is 1.">✳︎</sup>) and <span class="math">\(X\)</span> data into a matrix <span class="math">\(M\)</span></p>
+<div class="highlight"><pre><span></span><code><span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="n">M</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">M</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">X</span>
+<span class="n">M</span><span class="p">[:</span><span class="mi">5</span><span class="p">,</span> <span class="p">:]</span>
+</code></pre></div>
+
+<pre class="code-output">
+[[1.        , 0.77395605],
+ [1.        , 0.43887844],
+ [1.        , 0.85859792],
+ [1.        , 0.69736803],
+ [1.        , 0.09417735]]
+</pre>
+
+<p>From this we multiply the transpose of this matrix <span class="math">\(M\)</span> by <span class="math">\(M\)</span> itself. If <span class="math">\(M\)</span> is originally <span class="math">\(N\)</span> by <span class="math">\(2\)</span>, then this creates a <span class="math">\(2\)</span> by <span class="math">\(2\)</span> matrix. We then invert this matrix. There are tricks to doing this for models with many parameters, such as the <span class="caps">LU</span> decomposition or Choleskly decomposition, which I won&#8217;t go into detail about here. With the inverse, we multiply this by <span class="math">\(M\)</span> transpose to get an <span class="math">\(2 \times N\)</span>. Lastly, this is multiplied by <span class="math">\(\bf{y}\)</span> to get our parameter solution, a <span class="math">\(2 \times 1\)</span>&nbsp;vector.</p>
+<div class="math">$$
+\require{boldsymbol}
+\boldsymbol{\hat{\beta}} = (M^TM)^{-1}M^T\boldsymbol{y}
+$$</div>
+<p>in one line of Python this looks&nbsp;like</p>
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">M</span><span class="p">)),</span> <span class="n">M</span><span class="o">.</span><span class="n">T</span><span class="p">),</span> <span class="n">y</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This is an excellent progression from the algabraic solution we just had because this allows us to find the parameter values for an arbitrarily large model, constrained only by our ability to take the inverse of a potentially large matrix. Luckily, as I mentioned, modern methods have tricks to increase the power of this&nbsp;method.</p>
+<p>This matrix multiplication method is what R is doing when you call <code>lm()</code> with a formula and a data frame. Granted, under the hood of this function there&#8217;re layers of optimization and numerical tricks, but it&#8217;s conceptually the same. For an excellent dive into the machinery behind <code>lm</code> I highly recommend <a href="https://madrury.github.io/jekyll/update/statistics/2016/07/20/lm-in-R.html">this blog article</a> on the&nbsp;matter.</p>
+<h3>Gradient&nbsp;Descent</h3>
+<p>Least squares is sufficient for your typical linear regression model, and has the great benefit of having an analytical solution. But other regression models require other forms of finding the best parameter&nbsp;values.</p>
+<p>One such alternative form is Gradient&nbsp;Descent.</p>
+<p>First, a function to calculate the mean squared&nbsp;error.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">mean_squared_error</span><span class="p">(</span><span class="n">Beta</span><span class="p">):</span>
+    <span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">Beta</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">residuals</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We need to set uniform random initial values for our parameters <sup class="uk-link" uk-tooltip="True, you could start with any values between -Inf and Inf, but most models don't have parameter estimates that large (if they do, you might consider transforming/scaling your data.">✳︎</sup>, <span class="math">\(\alpha\)</span> and <span class="math">\(\beta\)</span>, or in this case <span class="math">\(\hat{\beta}\)</span>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">beta_hat</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="mi">2</span><span class="p">,))</span>
+<span class="n">beta_hat</span>
+</code></pre></div>
+
+<pre class="code-output">
+[0.437, 0.832]
+</pre>
+
+<p>This means that without fitting the model to our data, we believe the intercept is 0.437 and the slope is 0.832. Compared to the true values (5 and 2, respectively), this is a very bad model. But that&#8217;s expected; we haven&#8217;t fit the model. How do we use the data to find parameter values that generalize better to the&nbsp;data?</p>
+<p>The basic idea is to measure how bad the current parameter values are, and over many iterations, slowly adjust these parameter values in a better direction. Commonly, this is depicted like a person walking down a mountain in the dark with just a flashlight. The person can&#8217;t see exactly where the bottom of the mountain is, but with their flashlight, they can look around them and move in a direction that takes them down. Sometimes, if the mountain is rocky, they&#8217;ll hit a plateau or even start going uphill again. This is called a <em>local minimum</em>. They really should get to the <em>global minimum</em>. How can we prevent hitting local minima and get to the global minima? There&#8217;s no perfect answer, but two answers do come up first: step size (how long are the hiker&#8217;s legs?) and number of iterations (how many steps does the hiker take before they stop walking and throw their hands&nbsp;up?).</p>
+<p>The step size, also called the <em>learning rate</em>, is usually very small. The smaller it is, the more likely it is the hiker won&#8217;t miss the right trail down; the larger it is, the faster they could reach the bottom, if they don&#8217;t hit a local minima on their way. In our case, we&#8217;ll set our learning rate to 0.01. This was chosen by running the cell a few times with values from 0.1 to 0.00001 and seeing how much progress we made down the mountain (i.e. did we barely move from the randomly set parameter values, or did they overshoot the true&nbsp;model?).</p>
+<p>The number of iterations is somewhat inversely related to our step size. If you don&#8217;t take very big steps, you&#8217;ll need more steps to get to the bottom of the mountain. If you take big steps, you&#8217;ll need fewer. We chose 1000 steps here, found by trial and&nbsp;error.</p>
+<p>How do we decide which direction to step in? By computing the <em>gradient</em> of the least squares error function. Computing the gradient means taking the partial derivate of a function <span class="math">\(\mathcal{f}\)</span> at values <span class="math">\(p\)</span>, written as <span class="math">\(\nabla \mathcal{f}(p)\)</span>. In our case of least squares errors, <span class="math">\(\mathcal{f}(p) = \mathcal{f}(\beta) = \sum_{i=0}^N E_i(\beta)\)</span> where <span class="math">\(E_i(\beta)\)</span> is the error of our model at the <span class="math">\(i\)</span> observation given the parameters <span class="math">\(\beta\)</span>.</p>
+<p>In notation, we have the least squares error function,&nbsp;and </p>
+<div class="math">$$
+\mathcal{f}(\beta) = \sum_{i=0}^N (y_i - \beta \, X_i)^2
+$$</div>
+<p>The gradient with respect to <span class="math">\(\beta\)</span> (our only parameter)&nbsp;is</p>
+<div class="math">$$
+\begin{align}
+\nabla_\beta \; \mathcal{f}(\beta) &amp;= \frac{\partial}{\partial \beta} \; \mathcal{f} \\
+&amp;= \sum_{i=0}^N 2(y_i - \beta \, X_i)(-X_i) \\
+&amp;= -2 \sum_{i=0}^N (y_i - \hat{y_i})(X_i) \\
+&amp;= -2 \sum_{i=0}^N r_i X_i \\
+&amp;= -2 \, X^T \, \boldsymbol{r}
+\end{align}
+$$</div>
+<p>where <span class="math">\(r_i\)</span> is the residual value for the <span class="math">\(i\)</span>th observation. We can then scale this down according to our step size and subtract it from our current parameter values to move in the &#8220;downhill&#8221;&nbsp;direction.</p>
+<p>We would write this&nbsp;like</p>
+<div class="highlight"><pre><span></span><code><span class="n">beta_hat_copy</span> <span class="o">=</span> <span class="n">beta_hat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="n">history</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;gradient&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;beta_hat&#39;</span><span class="p">:</span> <span class="p">[],</span> <span class="s1">&#39;mse&#39;</span><span class="p">:</span> <span class="p">[]}</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+
+    <span class="n">residuals</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">X_mtx</span><span class="p">,</span> <span class="n">beta_hat_copy</span><span class="p">)</span>
+    <span class="n">gradient</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">X_mtx</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">residuals</span><span class="p">)</span>
+    <span class="n">beta_hat_copy</span> <span class="o">=</span> <span class="n">beta_hat_copy</span> <span class="o">-</span> <span class="n">learning_rate</span><span class="o">*</span><span class="n">gradient</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">epoch</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;gradient&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;beta_hat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">beta_hat_copy</span><span class="p">)</span>
+        <span class="n">history</span><span class="p">[</span><span class="s1">&#39;mse&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">beta_hat_copy</span><span class="p">))</span>
+
+<span class="n">history</span><span class="p">[</span><span class="s1">&#39;beta_hat&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+
+<pre class="code-output">
+[4.898, 2.244]
+</pre>
+
+<p>And then we can plot the altitude of our hiker as they traversed down the&nbsp;mountain</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MSE:</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">history</span><span class="p">[</span><span class="s1">&#39;mse&#39;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Iteration&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Squared Error&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">history</span><span class="p">[</span><span class="s1">&#39;mse&#39;</span><span class="p">])</span>
+</code></pre></div>
+
+<pre class="code-output">
+MSE:     0.163
+
+<img src="/images/regression-fig5.svg" uk-svg >
+</pre>
+
+<p>As you can see, gradient descent looks like it found the bottom of the mountain! The final parameter values it determined were <span class="math">\(\alpha = 4.898\)</span> and <span class="math">\(\beta = 2.244\)</span>, which is close to the true values of 5 and&nbsp;2.</p>
+<p>How does the fitted model look compared to our sample and true data generation&nbsp;line?</p>
+<div class="highlight"><pre><span></span><code><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">xp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">beta</span><span class="o">*</span><span class="n">xp</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Truth&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xp</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;beta_hat&quot;</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]),</span> <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Estimated&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<pre class="code-output">
+    <img src="/images/regression-fig6.svg" uk-svg >
+</pre>
+
+<p>Not too bad, given the low number of&nbsp;observations.</p>
+<p>Although this is intuitive, researchers have developed far more efficient and less problematic methods for large datasets and models with many parameters. Gradient descent can <a href="https://stats.stackexchange.com/questions/278755/why-use-gradient-descent-for-linear-regression-when-a-closed-form-math-solution">out-perform least squares</a> in a number of situations, which is part of the reason why I included it here. Bonus concept: this is essentially the backdown of most modern <span class="caps">AI</span>, being a critical ingredient of neural networks and forming <a href="https://brilliant.org/wiki/backpropagation/">the workhorse of backpropogation</a>.</p>
+<h3>Bayes</h3>
+<p>The third and last method of parameter estimation I&#8217;ll talk about is the Bayesian&nbsp;form.</p>
+<p>Unlike the past two models, Bayesian estimation puts a lot more emphasis on building the right model. This includes the distributions of parameters and the way they relate, which in frequentist linear regression seems typically taught as assumed or&nbsp;given.</p>
+<p>A Bayesian linear model has two to three key components: the outcome distribution, the linear model, and if necessary, the variance parameter. In some linear models, the last two are combined. For example, in a Poisson regression there&#8217;s only a single parameter, <span class="math">\(\lambda\)</span>, whereas in a Gaussian regression there&#8217;re both <span class="math">\(\mu\)</span> and <span class="math">\(\sigma\)</span>.</p>
+<p>The first component though is the outcome distribution. If we&#8217;re modeling a phenomenon that is real-valued and continuous, and tends to not be too skewed or dispersed, then a Gaussian outcome distribution might be a good first attempt. If we&#8217;re modeling a phenomenon that consists of positive, integer count data, then a Poisson distribution might be most appropriate. There are a plethora of options here, but we&#8217;ll stick with the Gaussian&nbsp;example.</p>
+<p>The Gaussian distribution is parameterized by <span class="math">\(\mathcal{N}(\mu, \sigma)\)</span>. Instead of finding the one value that maximizes some function for both of these parameters, we&#8217;ll consider each of these parameters as functions of other values <sup class="uk-link" uk-tooltip="I recognize this is confusing, put another way, these mu and sigma values are not computed directly, and they're not even values. They're distributions, and we compute them through other, more descriptive parameters.">✳︎</sup>.</p>
+<p>It&#8217;s called a linear model because in this case, we&#8217;ll define <span class="math">\(\mu\)</span> as the <strong>function of a linear combination of other parameters</strong>. For example, we might say <span class="math">\(\mu = 5\)</span>. This is a linear combination of exactly one value and a terrible model because it always will predict something around the value 5. We could add a parameter though, and fit the parameter to the data, like <span class="math">\(\mu = \alpha\)</span>. Then with <em>only</em> our outcome data we&#8217;d figure out what <span class="math">\(\alpha\)</span> could be. But if we want to use other data to predict our outcome, we need to include that, like <span class="math">\(\mu = \alpha + \beta \, X\)</span>. Now we have two parameters to fit, and our new one will be fit so as to reflect the relationship between our outcome and <span class="math">\(X\)</span>.</p>
+<p>As you can see though, <span class="math">\(\mu\)</span> is just a linear combination. In other models, like the Poisson or a binomial/logistic, we&#8217;d need to transform <span class="math">\(\mu\)</span> so that it lines up with what the outcome distribution expects for parameters. For example, in the binomial model we&#8217;d need <span class="math">\(\mu\)</span> to be a probability, which wouldn&#8217;t line up if we just let it vary as high or low as <span class="math">\(\alpha\)</span>, <span class="math">\(\beta\)</span>, and <span class="math">\(X\)</span> want it to go. Therefore we&#8217;d need a <a href="https://en.wikipedia.org/wiki/Logit">logit function</a> to constrain those values back to the model parameter&nbsp;space.</p>
+<p>But what are <span class="math">\(\alpha\)</span> and <span class="math">\(\beta\)</span>? They are parameters we must estimate. How? By letting them reflect a certain distribution. Which distribution? Well, we must consider what values these parameters can take on. What&#8217;s reasonable given our problem? Let&#8217;s say we know from theory that our data very rarely exceed -50 or 50. That means if there&#8217;s no relationship between our outcome and <span class="math">\(X\)</span>, we might expect <span class="math">\(\alpha\)</span> to be approximated by <span class="math">\(\mathcal{N}(0, 20)\)</span>. Why 20? In a normal distribution with mean 0, there&#8217;s about 99% of the density between -50 and 50 with a standard deviation of 20. What about <span class="math">\(\beta\)</span> though? Suppose we don&#8217;t expect the rate of change between <span class="math">\(X\)</span> and <span class="math">\(y\)</span> to be more than 5 units. So if <span class="math">\(X\)</span> increases by 1 unit, we shouldn&#8217;t expect <span class="math">\(y\)</span> to increase by more than 5 or decrease by more than -5. Therefore, <span class="math">\(\beta\)</span> may be approximated by <span class="math">\(\mathcal{N}(0, 2)\)</span>.</p>
+<p>The other component we know of is <span class="math">\(\sigma\)</span>. We don&#8217;t really think <span class="math">\(\sigma\)</span> will vary with any data, so we can represent <span class="math">\(\sigma\)</span> as a value or a space of values (a distribution). For example, in <span class="math">\(\mathcal{N}(\mu, \sigma)\)</span> we could say <span class="math">\(\sigma=2\)</span> if we knew that the variance of the Gaussian was 2, or we could say <span class="math">\(\sigma \sim \text{Exp}(1)\)</span>, as in <span class="math">\(\sigma\)</span> reflects values from an exponential distribution with rate&nbsp;1.</p>
+<p>Bringing it all together, we can write out our linear model like&nbsp;so
+</p>
+<div class="math">$$
+\begin{aligned}
+y &amp; \sim \mathcal{N}(\mu, \sigma)\\
+\mu &amp; = \alpha + \beta X\\
+\alpha &amp; \sim \mathcal{N}(0, 20)\\
+\beta &amp; \sim \mathcal{N}(0, 2)\\
+\sigma &amp; \sim \text{Exp}(1)
+\end{aligned}
+$$</div>
+<p>At the end of the day though, enough data will allow this model to fit very well and the distributions we used for <span class="math">\(\alpha\)</span>, <span class="math">\(\beta\)</span>, and <span class="math">\(\sigma\)</span> will get washed out by the data. In other words, their only function will be to constrain the shape of the parameter, not necessary its&nbsp;values.</p>
+<p>What does this model look like in&nbsp;code?</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">pm</span><span class="o">.</span><span class="n">Model</span><span class="p">()</span> <span class="k">as</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;alpha&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+    <span class="n">beta</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;beta&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">sigma</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">HalfNormal</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">mu</span> <span class="o">=</span> <span class="n">alpha</span> <span class="o">+</span> <span class="n">X</span><span class="nd">@beta</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="s2">&quot;y_pred&quot;</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span> <span class="n">observed</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="n">posterior</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">chains</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">return_inferencedata</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Running this cell fits the model and its parameters to the data. The model works by guessing random numbers in a related sequence for the parameters. As it guesses these numbers, it starts to figure out what the space of the parameter distribution looks like, or what the most likely numbers are in the distribution if you were to pull from it at&nbsp;random.</p>
+<p>If we pull out the parameters, you&#8217;ll find that they&#8217;re each actually a vector. This is that set of numbers the model guessed and identified as best representative of the distribution. It contains the sampling noise that comes with observing a natural phenomenon. Everything is a little noisy after&nbsp;all.</p>
+<p>If we want to get just one number for our parameters, we can take the mean of the parameter&nbsp;vectors:</p>
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">posterior</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">alpha</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">posterior</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">beta</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">posterior</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">sigma</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">values</span>
+</code></pre></div>
+
+<pre class="code-output">
+[5.207, 1.734, 0.431]
+</pre>
+
+<p>In other words, the model believes <span class="math">\(\alpha\)</span> is centered around 5.2, <span class="math">\(\beta\)</span> around 1.7, and our variance around 0.4. Compared to the true values of 5, 2, and 0.5, this is not bad given only 20&nbsp;observations.</p>
+<p>Another way to see what the model found is by plotting the distributions of the parameters. Here they are with the <em>mode</em> of the distribution overlaid in black. I picked the mode because this is then the <a href="https://en.wikipedia.org/wiki/Maximum_a_posteriori_estimation">Maximum a Posteriori estimate</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="n">layout</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Estimated Parameter Values&quot;</span><span class="p">)</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">alpha</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">mode</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Posterior alpha values&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">mode</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Posterior beta values&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="n">posterior</span><span class="o">.</span><span class="n">posterior</span><span class="o">.</span><span class="n">sigma</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;lightblue&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">mode</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">mode</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Posterior sigma values&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Frequency&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+    <img src="/images/regression-fig7.svg" uk-svg >
+</pre>
+
+<p>This is confusing because compared to our previous two methods of parameter estimation where we had a single estimate for each parameter, how we see a histogram for each. Like I said, this is because a Bayesian model determines the values of parameters through random sampling. There was no random sampling in Least Squares and Gradient Descent. Because of the random sampling, we never know the exact values. This is unhelpful conceptually, but practically it provides us with concrete and sane estimates of confidence or certainty. Now we can compute the single parameter values using the mean, median, or mode; and we can also easily compute how accurate those measures&nbsp;are.</p>
+<p>Don&#8217;t let the histograms make you believe anything conceptually different is happening: we&#8217;re still figuring out what the parameters should be, now we just have more information about&nbsp;each.</p>
+<h4>Measuring&nbsp;Error</h4>
+<p>We&#8217;ve estimated the parameters using Bayes and random sampling, and just like the previous two sections, we&#8217;d like to measure the error of the model and see how closely it matched the true data&nbsp;generator.</p>
+<p>We&#8217;re going to do this a little different to get more utility out of the Bayesian&nbsp;framework.</p>
+<p>For each point, we can calculate the <em>posterior predictive outcome</em>. An outcome like this is what the model believes the outcome could be knowing the (un)certainty of the outcomes to begin&nbsp;with.</p>
+<p>The posterior predictive accounts for all the uncertainty in <span class="math">\(\alpha\)</span>, <span class="math">\(\beta\)</span>, and <span class="math">\(\sigma\)</span> to produce a distribution <em>for each observation</em>. The uncertainty in the distributions get propogated through the linear model and into the outcome distribution. Through this propogation of uncertainty, each of our 20 observations can be given a distribution. This distribution says, &#8220;Given a predictor value for the model, here are roughly the most likely outcomes values of that&nbsp;predictor.&#8221;</p>
+<p>In the following code chunk, we sample and compute the posterior predictive values for each observed predictor. This produces a matrix of 20 observations and many possible outcomes for each observation. We take the 95% interval of each of those points (plus the median), and plot the median point and credible intervals around each&nbsp;point.</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="n">model</span><span class="p">:</span>
+    <span class="n">post_pred</span> <span class="o">=</span> <span class="n">pm</span><span class="o">.</span><span class="n">sample_posterior_predictive</span><span class="p">(</span><span class="n">posterior</span><span class="o">.</span><span class="n">posterior</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)],</span> <span class="p">[</span><span class="nb">min</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">y</span><span class="p">)],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">post_pred</span><span class="p">[</span><span class="s1">&#39;y_pred&#39;</span><span class="p">],</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">y_i</span><span class="p">,</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">post_pred</span><span class="p">[</span><span class="s1">&#39;y_pred&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">q025</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">)</span>
+    <span class="n">q975</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="mf">0.975</span><span class="p">)</span>
+    <span class="n">q050</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">point</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">vlines</span><span class="p">(</span><span class="n">y_i</span><span class="p">,</span> <span class="n">q025</span><span class="p">,</span> <span class="n">q975</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;True y value&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Posterior predicted value&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Posterior predicted values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;with 95</span><span class="si">% c</span><span class="s2">redible intervals&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+    <img src="/images/regression-fig8.svg" uk-svg >
+</pre>
+
+<p>This is arguably the most interesting plot of the entire article! Here we see on the x-axis the true data generator value. On the y-axis is the posterior predictive outcome. Each point is what the model believes the outcome should be for that observation&#8217;s predictors (which we don&#8217;t see anything of in this plot). And then for each point there&#8217;s also a representation of the uncertainty of that estimate. The estimate can be interpreted as saying, this observation&#8217;s outcome is most likely to be this red point, but there&#8217;s a 95% probability it falls somewhere in the line range.&#8221; This is of course dependent on the model (so really, there&#8217;s a 95% probability <em>given this model</em>).</p>
+<p>A perfectly accurate model would have all the blue points exactly on the dashed line. A perfectly precise model would have very small error bars. A perfectly accurate and precise model would have the blue poitns right on the line and very small error&nbsp;bars.</p>
+<p>We see all the error bars include the line at some point, which signals this model seems to be doing pretty&nbsp;good!</p>
+<h2>Overview</h2>
+<p>We&#8217;ve gone over three (really four) methods for estimating the parameters of a linear regression model. We had the least squares method (both formulated through algabra and matrices), gradient descent, and a Bayesian method. It&#8217;s also possible to think of estimating linear regression parameters using <a href="https://kaomorphism.com/socraticregression/ols.html">geometry</a> and <a href="https://www.cs.toronto.edu/~rgrosse/courses/csc321_2017/readings/L02%20Linear%20Regression.pdf">calculus</a>. Not too mention the many methods of regularization, like <a href="https://en.wikipedia.org/wiki/Linear_regression#Maximum-likelihood_estimation_and_related_techniques"><span class="caps">LASSO</span> and ridge regression</a>, and <a href="https://en.wikipedia.org/wiki/Linear_regression#Other_estimation_techniques">robust estimation</a>. This is all to say that linear regression is a topic with great complexity, making it a daunting, mysterious, and fruitful concept for data-folk to&nbsp;study.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@m">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>

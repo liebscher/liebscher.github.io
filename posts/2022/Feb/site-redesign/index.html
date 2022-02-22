@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - 2022 Site Redesign</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="blogging" />
+    <meta name="tags" content="design" />
+    <meta name="tags" content="programming" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>2022 Site&nbsp;Redesign</span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/posts/2022/Feb/site-redesign/" rel="bookmark" title="Permalink to 2022 Site Redesign">2022 Site&nbsp;Redesign</a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2022-02-20T00:00:00-08:00">
+        Sun 20 February 2022
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/blogging.html">blogging</a>, 
+        <a href="/tag/design.html">design</a>, 
+        <a href="/tag/programming.html">programming</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <p>I&#8217;ve set out on redesigning my personal site. Why? I find Jekyll fairly picky, unstable, and hard to work with. Moreover, in using the Jekyll theme that I was (<a href="https://github.com/alshedivat/al-folio">al-folio</a>), I found that to also be unstable, hard to keep up to date, and kind of clunky. I appreciate all the people that went in to building both of these tools, but neither has really served me as well as I had once hoped they&nbsp;would.</p>
+<p>It&#8217;s time to not only rework the site generation process, but to update the look of my site to better reflect how I feel and what I need to make the best content I&nbsp;can.</p>
+<p>I was actually inspired to do this by the typographer <a href="Miklós Tótfalusi Kis">Miklós Tótfalusi Kis</a>. His design of the Janson typeface is beautiful and inspiring, and it forced me to reflect deeply on it. I discovered it in a book I recently started reading, <a href="https://en.wikipedia.org/wiki/A_Garden_of_Earthly_Delights">A Garden of Earthly Delights</a> by Joyce Carol Oates, in which it is the typefont the book is set&nbsp;in.</p>
+<p>So I&#8217;ve embarked on redesigning my site in a way that resembles this spacing, consistency, sophistication, freedom, and&nbsp;elegance.</p>
+<hr />
+
+<p>I started out with the simple theme from <a href="https://blog.getpelican.com/">Pelican</a>, a Python static site generator. I pruned back the Pelican dependencies in the source &#8212; the custom classes, specific element IDs, and some <span class="caps">HTML</span> that I wasn&#8217;t interested&nbsp;in.</p>
+<p>Then I added <a href="https://getuikit.com/"><span class="caps">UI</span> Kit</a> to the base template. I chose <span class="caps">UI</span> Kit because I recently discovered it as an alternative to Bulma. I really like Bulma, but <span class="caps">UI</span> Kit so far has seemed less authortarian in the degree which a site can be built. It also seems to have an impressive range of components and standards for how pieces of a site should be built. In other words, it&#8217;s minimalistic but featureful when you&nbsp;want.</p>
+<p>Although <span class="caps">UI</span> Kit seemed promising, I quickly realized how much effort it was going to take to update all of my past articles to the new <span class="caps">CSS</span> framework. I try not to let the sunken cost fallacy hold me back, and in this case it seemed worth it to expend that&nbsp;effort.</p>
+<p>I spent some time looking for an appropriate font, and I landed on Lora from Google Fonts. One day I might leap into full realization of Janson by buying that typefont, but for now, a free font allows me to prototype and iterate&nbsp;quickly.</p>
+<p>I then took some time to figure out the code highlighting features of Pelican. While there is inline code, like <code>print("text")</code>, I still haven&#8217;t figured out how to get syntax highting for these inline snippets. However, there is beautiful looking code block highlighting. For example, some&nbsp;Python:</p>
+<div class="highlight"><pre><span></span><code>    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pelican is a static site generator.&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>and also&nbsp;R:</p>
+<div class="highlight"><pre><span></span><code>    <span class="n">var</span> <span class="o">&lt;-</span> <span class="nf">as.character</span><span class="p">(</span><span class="m">1L</span><span class="p">)</span>
+</code></pre></div>
+
+<p>I knew that I would want to write some articles in a Jupyter notebook style, with code blocks and associated outcomes. So I built a custom <span class="caps">CSS</span> solution which attaches an output block to any given code block, like&nbsp;so,</p>
+<div class="highlight"><pre><span></span><code><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+hello world
+</pre>
+
+<p>I snagged this Pygment Github theme from the Pelican theme <a href="https://github.com/arulrajnet/attila">attila</a>.</p>
+<p>It&#8217;s also important to me that there&#8217;s <span class="math">\(\LaTeX\)</span> support, of which there is, both inline <span class="math">\(y \sim N(0, 1)\)</span> and&nbsp;block:</p>
+<div class="math">$$
+y = \beta_0 + \beta_1 x
+$$</div>
+<p>In order to render this Mathjax though I had to install the <code>pelican-render-math</code> plugin.</p>
+<p>I realized that reStructredText files, which are common in the Pelican world, are unfamiliar and difficult to use. For example, the syntax between Markdown and <span class="caps">RST</span> for a link is wildly different. Everything feels unnatural and forced. But most of all, if I want to port my work over from my last site to this new one, it is easiest if I use Markdown since everything is already written with&nbsp;Markdown.</p>
+<p>Next, I moved on to polishing the article page since that would be a crucial aspect of the site design. I tweaked the width of the page so it&#8217;s about a 2/3 width, which seemed natural to my own eyes. I also justified the text because I think that looks really nice with longer content, almost like one sees in a book. I spent probably too much time figuring out the ideal syntax highlighting stylesheet and making slight modifications to it. For example, I decided that the Github theme was pretty, but its numerals were gray. In contrast, Jupyter Notebooks light them green, which I like better. Therefore I had to get into the stylesheet and update that one span to reflect my&nbsp;tastes.</p>
+<p>I also added a modal for the subscribe form. This only took a few minutes with UIKit&#8217;s built-in <code>uk-modal</code> classes and Javascript add-on, which is a huge improvement compared to other solutions out there that&#8217;d require custom <span class="caps">JS</span> for the click and close&nbsp;events.</p>
+<p>I chose an article header image from Unsplash by <a href="https://unsplash.com/@drew_beamer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Drew Beamer</a>. It took half a dozen tried but I found one with the right texture, energy, and framing that really makes the title&nbsp;pop.</p>
+<p>Then I moved over to the tags. I cleaned up the design of the footer on the index page that lists out the tags for quick navigation. I also cleaned up the individual tag page, removing some of the things that the default page had put in. Overall, I&#8217;m still not 100% satisfied. Some sort of abaility for the user to rank by number of articles or another heuristic would be ideal. For now though it will stay as a static alphabetical&nbsp;list.</p>
+<p>I wanted to embed readers comments on the blog too because it seems like, for those who don&#8217;t troll, it can be a useful way to quickly and easily give feedback and, well, comments. For some reason it seems like adding a comments section takes my site to a different realm, like adding this level of dynamic interface is breaking the flow or consistency. I found <a href="https://shahayush.com/2020/05/web-pelican-pt5-disqus-analytics/">a quick guide</a> which I gave a look, and then went to sign up for Disqus. Turns out, Disqus sucks. It&#8217;s extremely unpleasant to look at. It&#8217;s slow to load. It makes no commitment to privacy and overall seems nefarious. To top it all off, it&#8217;s got ads galore. I was hopeful yet was disappointed by their complete lack of innovation, simplicity, and respect. I spent a little more time looking for an alternative service, but I&#8217;m not ready to spend money on something I&#8217;m not even sure will have success. In an ideal world, there&#8217;d be a service which had a free tier for sites with less than 1,000 or 10,000 monthly views, and paid tiers for anything above. I would sign up for this knowing that I could use the service while it suited my needs and easily upgrade when I knew it&#8217;d be a worthwhile invest. I think this would also be a good business model because at the point where a site owner wants to upgrade, they&#8217;ve already invested their engineering and social capital into the platform and (if they are looking to upgrade) are very familiar with the effectiveness of the&nbsp;service.</p>
+<p>After getting these elements to a comfortable spot, I&#8217;m fairly content with how the site looks and feels right now. From my perspective, it&#8217;s crisp, smooth, and elegant, just like&nbsp;Janson.</p>
+<p>I&#8217;ve made a couple other tweaks, but have now been drafting with the design for a few weeks and haven&#8217;t gotten tired by the look yet. I take this to be a good sign. It&#8217;s a little rough around the edges (e.g. things like the copyright page and my resources page), but it&#8217;s in the right direction and an improvement over my previous site&#8217;s&nbsp;theme.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@m">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>

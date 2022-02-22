@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Deploying a containerized Heroku app with Apple’s M1 processor</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="programming" />
+    <meta name="tags" content="docker" />
+    <meta name="tags" content="python" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>Deploying a containerized Heroku app with Apple&#8217;s M1&nbsp;processor</span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/posts/2021/Nov/deploying-heroku-app/" rel="bookmark" title="Permalink to Deploying a containerized Heroku app with Apple’s M1 processor">Deploying a containerized Heroku app with Apple&#8217;s M1&nbsp;processor</a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2021-11-19T00:00:00-08:00">
+        Fri 19 November 2021
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/programming.html">programming</a>, 
+        <a href="/tag/docker.html">docker</a>, 
+        <a href="/tag/python.html">python</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <style >
+.file-name {
+  color: #bbb;
+  font-size: 0.9em;
+}
+</style>
+
+<p>It&#8217;s common to want to deploy an app beyond your local machine and onto the web. A plethora of services and platforms now make this easy, compared to what it would have taken 10 or 20 years&nbsp;ago.</p>
+<p>In this article, I&#8217;d like to outline one way to do so. Particularly, building a Python app, using Flask as a back-end server, bundling all the source files together with <a href="https://www.heroku.com/">Docker</a>, and deploying on Heroku. To add a twist, we&#8217;re going to do this from a MacBook Pro with an Apple Silicon M1 processor, which demands special treatment in the eyes of&nbsp;Heroku.</p>
+<h2>1. Build your&nbsp;app</h2>
+<p>We&#8217;re going to build a simple site that lands the user on a page, allows them fill out a form, and then shows them their&nbsp;submission.</p>
+<p>To route traffic, handle requests, and serve static content, we&#8217;ll be using <a href="https://flask.palletsprojects.com/">Flask</a>. A popular alternative is <a href="https://www.djangoproject.com/">Django</a>.</p>
+<p>We&#8217;ll start with our <span class="caps">HTML</span> landing&nbsp;page.</p>
+<div class="file-name">templates/index.html</div>
+
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;!doctype html&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">html</span> <span class="na">lang</span><span class="o">=</span><span class="s">&quot;en&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">charset</span><span class="o">=</span><span class="s">&quot;utf-8&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width, initial-sclae=1&quot;</span><span class="p">&gt;</span>
+
+  <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>Example Heroku Deployment<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;description&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;Deploying a containerized Heroku app with Apple&#39;s M1 processor&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Example Heroku Deployment with Apple&#39;s M1 Processor<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">form</span> <span class="na">action</span><span class="o">=</span><span class="s">&quot;&quot;</span> <span class="na">method</span><span class="o">=</span><span class="s">&quot;post&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">value</span><span class="o">=</span><span class="s">&quot;Submit Form&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+  {% if name_data %}
+  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Welcome, {{ name_data }}!<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+  {% endif %}
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>This shouldn&#8217;t look alien; it is a simple <span class="caps">HTML</span> page with a form that submits by button, through <span class="caps">POST</span>, to&nbsp;itself. </p>
+<p>Then we&#8217;ll build our Flask&nbsp;server.</p>
+<div class="file-name">server.py</div>
+
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">render_template</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index_get</span><span class="p">():</span>
+  <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index_post</span><span class="p">():</span>
+  <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;index.html&#39;</span><span class="p">,</span> <span class="n">name_data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+  <span class="n">port</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;PORT&#39;</span><span class="p">,</span> <span class="mi">5000</span><span class="p">))</span>
+  <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span>
+</code></pre></div>
+
+<p>When the user lands on the page without submitting anything, we just show the form. When the server receives a <span class="caps">POST</span> request, we pull out the <em>name</em> field from the request (assuming it&#8217;s there, but default to <code>''</code> if not) and display that&nbsp;result.</p>
+<p>We also look for the environment variable, <code>PORT</code>, which is really <a href="https://blog.heroku.com/python_and_django">for Heroku</a>. Heroku will choose and set the port which your app will use. We also set <code>host</code> to 0.0.0.0 which overrides the default locahost parameter so that the site is <a href="https://stackoverflow.com/q/30323224/3234482">accessible through Docker</a>.</p>
+<h2>2. Test&nbsp;locally</h2>
+<p>To test our web app locally, we can just&nbsp;run,</p>
+<div class="highlight"><pre><span></span><code>python server.py
+</code></pre></div>
+
+<p>This launches our Flask app as a local server on a localhost port, specifically port 5000. Visit the <span class="caps">URL</span> <code>127.0.0.1:5000</code> to&nbsp;test.</p>
+<h2>3. Containerize your&nbsp;app</h2>
+<p>Now that we see our app working locally, we can <a href="https://www.docker.com/blog/containerized-python-development-part-1/">containerize the app</a>. By creating a container for our app, Heroku will be faster at deploying (since it won&#8217;t have to rebuild the entire app every deployment), and it will ensure dependencies and architectures are&nbsp;platform-agnostic.</p>
+<p>Or, almost platform-agnostic. I learned the hard way that Docker is particular in certain ways about the host build machine and its architecture. In particular, the architecture of an M1 Mac requires Docker to build apps differently than what Heroku wants to deploy&nbsp;them.</p>
+<p>In any case, we need to start with a Dockerfile, so we&#8217;ll do&nbsp;that.</p>
+<p>First, we&#8217;ll be starting from a Python 3.8 image as the base&nbsp;layer.</p>
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8</span>
+</code></pre></div>
+
+<p>We need to install our Python dependencies. This could also be done with a requirements file, but here we just write them&nbsp;out.</p>
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>pip install flask
+</code></pre></div>
+
+<p>We need to copy our <span class="caps">HTML</span> and Python source files into the&nbsp;image.</p>
+<div class="highlight"><pre><span></span><code><span class="k">COPY</span><span class="w"> </span>. .
+</code></pre></div>
+
+<p>Flask expects to host the server through an open port, so we&#8217;ll expose a port just for&nbsp;Flask.</p>
+<div class="highlight"><pre><span></span><code><span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+</code></pre></div>
+
+<p>Lastly, the launch command when we run the image as a container is to launch the server. We&#8217;ll bring it all together here&nbsp;now,</p>
+<div class="file-name">Dockerfile</div>
+
+<div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8</span>
+
+<span class="k">RUN</span><span class="w"> </span>pip install flask
+
+<span class="k">COPY</span><span class="w"> </span>. .
+
+<span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
+
+<span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&quot;python&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;server.py&quot;</span><span class="w"> </span><span class="p">]</span>
+</code></pre></div>
+
+<p>For more of this process, see the <a href="https://devcenter.heroku.com/articles/container-registry-and-runtime">documentation</a>. Now we need to build the image. Typically, we&#8217;d&nbsp;see,</p>
+<div class="highlight"><pre><span></span><code>docker build . -t example-app
+</code></pre></div>
+
+<p>but because we&#8217;re working on a different architecture, we actually&nbsp;need,</p>
+<div class="highlight"><pre><span></span><code>docker buildx build --platform linux/amd64 -t example-app .
+</code></pre></div>
+
+<p><code>buildx</code> allows the devloper to, among other things, build an image to run cross-platform. This is important to us since our source machine, an Apple M1 device, is a different architecture (<code>arm64</code>) than the destination machine (<code>amd64</code>).</p>
+<p>Now that we have it setup with the right architecture, we can test the image locally by building a container. For&nbsp;example,</p>
+<div class="highlight"><pre><span></span><code>docker run --rm -e <span class="nv">PORT</span><span class="o">=</span><span class="m">5000</span> -p <span class="m">5000</span>:5000 example-app
+</code></pre></div>
+
+<p>To break down the arguments here: <code>--rm</code> removes the container from the running container list once it exits, <code>-e PORT=5000</code> sets our port environment variable, and <code>-p 5000:5000</code> opens the port 5000 within the container to the host machine&#8217;s port 5000. The last argument is the name of our image to&nbsp;run.</p>
+<p>Now we can visit the exposed port (<code>127.0.0.1:5000/</code>) and see our app live,&nbsp;locally.</p>
+<h2>4. Push to&nbsp;Heroku</h2>
+<p>First, we need to create a Heroku account. After that&#8217;s been setup, create an app with any name you want, say <code>example-heroku-deployment</code>.</p>
+<p>We&#8217;ll be deploying to the Heroku registry manually, but we still will use the Heroku <span class="caps">CLI</span> for some parts, so make sure that&#8217;s <a href="https://devcenter.heroku.com/articles/heroku-cli#download-and-install">installed</a>.</p>
+<p>We&#8217;ll authenticate Heroku from the command line, make sure Docker is <a href="https://docs.docker.com/get-docker/">installed</a>, and login to the Heroku Container&nbsp;Registry,</p>
+<div class="highlight"><pre><span></span><code>heroku login
+docker ps
+heroku container:login
+</code></pre></div>
+
+<p>Now, we want to retag our image with the location of our Heroku app registry. For example, if we run <code>docker images</code>, we can view the image <span class="caps">ID</span> of the image we just built for <code>example-app</code>. In order to get our local image to the right place in the Heroku Registry, we need to label it&nbsp;correctly,</p>
+<div class="highlight"><pre><span></span><code>docker tag xxxxxxxxxxxx registry.heroku.com/example-heroku-deployment/web
+</code></pre></div>
+
+<p>where the image <span class="caps">ID</span> is copy and pasted from the <code>docker images</code> command.</p>
+<p>Next we want to manually push the image to the Registry,&nbsp;like,</p>
+<div class="highlight"><pre><span></span><code>docker push registry.heroku.com/example-heroku-deployment/web
+</code></pre></div>
+
+<p>Now our app is pushed up to Heroku, and we just need to tell Heroku to take the image&nbsp;live!</p>
+<div class="highlight"><pre><span></span><code>heroku container:release web -a example-heroku-deployment
+</code></pre></div>
+
+<p>To open your app, try <code>heroku open -a example-heroku-deployment</code>.</p>
+<h2>5. Wrap&nbsp;up</h2>
+<p>You should be seeing your site live at <em>example-heroku-deployment.heroku.com</em> (or whatever you named your app as, followed by <em>heroku.com</em>).</p>
+<p>A troubleshooting appendix should come&nbsp;soon!</p>
+<!-- # Troubleshooting
+
+## 1. Heroku H10 error
+
+Notorious! -->
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@m">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>
