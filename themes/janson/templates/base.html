@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock html_lang %}">
+
+<head>
+       {% block head %}
+       <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       {% if FEED_ALL_ATOM %}
+       <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}"
+              type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Full Atom Feed" />
+       {% endif %}
+       {% if FEED_ALL_RSS %}
+       <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_RSS_URL %}{{ FEED_ALL_RSS_URL }}{% else %}{{ FEED_ALL_RSS }}{% endif %}"
+              type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Full RSS Feed" />
+       {% endif %}
+       {% if FEED_ATOM %}
+       <link href="{{ FEED_DOMAIN }}/{%if FEED_ATOM_URL %}{{ FEED_ATOM_URL }}{% else %}{{ FEED_ATOM }}{% endif %}"
+              type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Atom Feed" />
+       {% endif %}
+       {% if FEED_RSS %}
+       <link href="{{ FEED_DOMAIN }}/{% if FEED_RSS_URL %}{{ FEED_RSS_URL }}{% else %}{{ FEED_RSS }}{% endif %}"
+              type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
+       {% endif %}
+       {% if CATEGORY_FEED_ATOM and category %}
+       <link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_ATOM_URL %}{{ CATEGORY_FEED_ATOM_URL.format(slug=category.slug) }}{% else %}{{ CATEGORY_FEED_ATOM.format(slug=category.slug) }}{% endif %}"
+              type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Categories Atom Feed" />
+       {% endif %}
+       {% if CATEGORY_FEED_RSS and category %}
+       <link href="{{ FEED_DOMAIN }}/{% if CATEGORY_FEED_RSS_URL %}{{ CATEGORY_FEED_RSS_URL.format(slug=category.slug) }}{% else %}{{ CATEGORY_FEED_RSS.format(slug=category.slug) }}{% endif %}"
+              type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Categories RSS Feed" />
+       {% endif %}
+       {% if TAG_FEED_ATOM and tag %}
+       <link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_ATOM_URL %}{{ TAG_FEED_ATOM_URL.format(slug=tag.slug) }}{% else %}{{ TAG_FEED_ATOM.format(slug=tag.slug) }}{% endif %}"
+              type="application/atom+xml" rel="alternate" title="{{ SITENAME }} Tags Atom Feed" />
+       {% endif %}
+       {% if TAG_FEED_RSS and tag %}
+       <link href="{{ FEED_DOMAIN }}/{% if TAG_FEED_RSS_URL %}{{ TAG_FEED_RSS_URL.format(slug=tag.slug) }}{% else %}{{ TAG_FEED_RSS.format(slug=tag.slug) }}{% endif %}"
+              type="application/rss+xml" rel="alternate" title="{{ SITENAME }} Tags RSS Feed" />
+       {% endif %}
+       {% endblock head %}
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="{{ SITEURL }}/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="{{ SITEURL }}/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="{{ SITEURL }}/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="{{ SITEURL }}/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="{{ SITEURL }}/">{{ SITENAME }}{% if SITESUBTITLE %}
+                                   <strong>{{ SITESUBTITLE }}</strong>{% endif %}</a>
+                     </h4>
+                     {% block breadcrumbs %}{% endblock %}
+              </div>
+       </header><!-- /#banner -->
+       {% block content %}
+       {% endblock %}
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@m">
+                     <address><a href="{{ SITEURL }}/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>

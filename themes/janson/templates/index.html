@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="uk-section">
+    <div class="uk-container uk-width-2-3">
+        <div class="uk-flex-middle uk-margin uk-margin-large" uk-grid>
+            <div class="uk-width-1-4@m">
+                <img src="{{static}}/images/portrait.jpg" alt="Portrait of Alex Liebscher">
+            </div>
+            <div class="uk-width-3-4@m">
+                <p class="uk-text-justify">
+                    I am a Jr. Technical Research Scientist at <a href="https://www.betterup.com/">BetterUp</a>. Here
+                    I’m studying mechanisms of positive communication, and physical and mental wellbeing. I graduated
+                    from the University of California: San Diego, where I studied Cognitive Science and Mathematics and
+                    researched metaphor’s impact on behavior under <a href="http://www.cogsci.ucsd.edu/~bkbergen/">Ben
+                        Bergen</a>
+                    and <a href="https://seantrott.github.io/">Sean Trott</a>. My passions lie at the
+                    intersection of statistics and human behavior, where I can contribute to the development of
+                    human-centered, data-driven technologies that positively impact people. I also enjoy staying
+                    fit, reading, backpacking, and gardening. For an explanation of my blog’s
+                    title, <a href="https://liebscher.github.io/blog/2020/blog-origins/">see here</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="uk-section">
+    <div class="uk-container uk-width-2-3">
+        {% block content_title %}
+        <h4 class="uk-heading-small smc uk-text-center">Tales From Diverse Spaces</h4>
+        <h5 class="uk-heading-xsmall uk-text-light uk-text-center">The Language I Read That Makes Ideas Fit Together</h5>
+        <button class="uk-button uk-button-default uk-align-center" uk-toggle="target: #subscribe-modal">Subscribe</button>
+        <div id="subscribe-modal" class="uk-flex-top" uk-modal>
+            <div class="uk-modal-dialog">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <div class="uk-modal-header">
+                    <h2 class="uk-modal-title">Subscribe</h2>
+                </div>
+                <div class="uk-modal-body uk-margin-auto-vertical">
+                    <form action="https://tinyletter.com/liebscher" method="post"
+                        class="uk-form-stacked"
+                        target="popupwindow"
+                        onsubmit="window.open('https://tinyletter.com/liebscher', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+                        <label for="tlemail" class="uk-form-label">Subscribe to my infrequently published newsletter:</label>
+                        <div class="uk-form-controls">
+                            <input type="text" class="uk-input" name="email" id="tlemail" placeholder="name@email.com" />
+                        </div>
+                        <div class="uk-margin">
+                            <input class="uk-button uk-button-default" type="submit" value="Submit" />
+                        </div>
+                        <input type="hidden" value="1" name="embed" />
+                        <p>
+                            <a href="https://tinyletter.com" target="_blank" style="font-size:70%;">Powered by TinyLetter</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+
+        <ul class="uk-list uk-list-divider">
+        {% for article in articles_page.object_list %}
+                <li><article class="uk-article">
+                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
+                            <header class="uk-width-3-4@m">
+                                <h4 class="uk-article-title smc"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h4>
+                            </header>
+                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
+                                <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                            </footer><!-- /.post-info -->
+                        </div>
+                        <div> {{ article.summary }} </div><!-- /.entry-content -->
+                </article></li>
+        {% endfor %}
+        </ul><!-- /#posts-list -->
+        {% if articles_page.has_other_pages() %}
+            {% include 'pagination.html' %}
+        {% endif %}
+    </div>
+</section><!-- /#content -->
+<section class="uk-section uk-section-muted">
+    <div class="uk-container uk-width-2-3">
+        <h4 class="uk-heading-4">Article Tags</h4>
+        {% for tag, articles in tags|sort %}
+        <a href="{{ SITEURL }}/{{ tag.url }}" class="uk-link-muted uk-text-capitalize">{{ tag }}</a>{{ ", " if not loop.last else "" }}
+        {% endfor %}
+    </div>
+</section>
+{% endblock content %}

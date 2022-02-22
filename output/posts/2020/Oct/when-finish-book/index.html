@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - When Will I Finish That Book?</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="statistics" />
+    <meta name="tags" content="rlang" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>When Will I Finish That&nbsp;Book?</span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/posts/2020/Oct/when-finish-book/" rel="bookmark" title="Permalink to When Will I Finish That Book?">When Will I Finish That&nbsp;Book?</a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2020-10-21T17:20:00-07:00">
+        Wed 21 October 2020
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/statistics.html">statistics</a>, 
+        <a href="/tag/rlang.html">rlang</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <!-- custom-javascript:
+  - "https://code.highcharts.com/highcharts.js"
+  - "https://code.highcharts.com/highcharts-more.js"
+  - "/assets/js/2020-10-21-when-finish-book.js" -->
+
+<p>It&#8217;s ironic that one of my first thoughts when I start a book is about when I&#8217;ll finish it. That thought seems to stem from the feeling of knowing there&#8217;re so many things to read, yet so little time<d-footnote>If there&#8217;s a name for this feeling, please let me know. The Japanese term <a href="https://en.wikipedia.org/wiki/Tsundoku" target="_blank">Tsundoku</a> is not quite what I&#8217;m thinking.</d-footnote>. No matter how much I&#8217;m enjoying a book, I&#8217;m somehow always looking forward to what&#8217;s&nbsp;next.</p>
+<p>Consequently, I wanted to figure out when I&#8217;d finish a book. In this essay, I introduce a model to estimate the days needed to complete a book given a small sample of one&#8217;s historical reading data for that&nbsp;book.</p>
+<h2>Existing&nbsp;Methods</h2>
+<p>The <em>de facto</em> method to estimate the amount of time to complete a book is no more than simple algebra, with little flexibility and insight. Specifically, if we know we have 100 pages left, and we&#8217;ve already calculated that we read 2 minutes per page, it is clear that we&#8217;d need 200 minutes. If we set a goal to read 20 minutes a day, then we can estimate we&#8217;ll be done in 10 days. This is fairly simple, and for that reason we&#8217;re spared much interesting information. For example, how sure are we that we&#8217;ll finish then? This also assumes we&#8217;ll read every day, but that might not be&nbsp;true.</p>
+<p>There&#8217;s a quick solution to overcome this last point. One may have read 6 days of the last week, which in one sense means there&#8217;s a 5/7 = 71.4% probability they&#8217;ll read on any given day. This reader might say they need 10 reading days of <em>reading</em> to finish the book. If they know there&#8217;s a 28.6% chance they won&#8217;t read on a given day, where <span class="math">\(10*0.286 = 2.86 \approx 3\)</span>, then they might conclude that they&#8217;ll finish the book in 10 + 3 = 13&nbsp;days.</p>
+<p>This is easily extended to another simple model, where one might specify the frequency that they read. For example, they might say they read every other day, which doubles the estimate then. The same idea holds over reading once every 2 days, or 3, or&nbsp;whatever.</p>
+<p>For many, this will suffice. For some, more is&nbsp;necessary.</p>
+<h2>Data&nbsp;Generation</h2>
+<blockquote>
+<p>the data analyst needs to incorporate the information describing the data collection process in the probability model used for&nbsp;analysis.</p>
+</blockquote>
+<p>&#8212;- Gelman et al. (2013), <em>Bayesian Data&nbsp;Analysis</em></p>
+<p>Taking a step back, how might we conceptually model the act of reading? Well, suppose you&#8217;re beginning a book. You wake up one morning, and, without commenting on whether nature is predetermined, let&#8217;s say there&#8217;s some probability you&#8217;ll read your book on that day (for any&nbsp;duration).</p>
+<p>Suppose you don&#8217;t read; you&#8217;ll simply log 0 hours. Suppose you do read; how much will it&nbsp;be?</p>
+<p>There&#8217;re a lot of factors that may enter the equation now, such as whether it&#8217;s a weekend, the outside weather, or maybe whether you&#8217;re nearing the end of the book and are motivated to read more to finish. For simplicity&#8217;s sake, we&#8217;ll assume that by some process, such as habit, you&#8217;ll read about <span class="math">\(x\)</span> hours. For many people, <span class="math">\(x=0.25, 0.5,\)</span> or <span class="math">\(1.0\)</span> (plus or minus some), but this widely varies from person to&nbsp;person.</p>
+<p>To put it all together, there&#8217;s a probability you&#8217;ll read on a given day, and when you do read, it might typically be around some number plus or minus a bit. With this model of how the world works (which probably fails in many ways, but for now we don&#8217;t care), we can estimate when and how much we&#8217;ll read, which can be used to calculate how many days left for us. Let&#8217;s explore a case study with real&nbsp;numbers.</p>
+<h2>Case&nbsp;Study</h2>
+<p>I am reading &#8221;The Brothers Karamazov&#8221; by Fyodor Dostoevesky at the moment. It&#8217;s long, so naturally I&#8217;m curious when I&#8217;ll finish it. I&#8217;ve used <a href="https://getbookly.com/">the Bookly iOS application</a> to log most of my reading for the novel so far. I&#8217;ve been reading for a bit more than a week, and have made a point to read each day. So far, here is a sample of my historical&nbsp;data:</p>
+<table>
+<thead>
+<tr>
+<th align="right">Date</th>
+<th>Oct 4</th>
+<th>Oct 5</th>
+<th>Oct 6</th>
+<th>Oct 7</th>
+<th>Oct 8</th>
+<th>Oct 9</th>
+<th>Oct 10</th>
+<th>Oct 11</th>
+<th>Oct 12</th>
+<th>Oct 13</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="right">Duration</td>
+<td>26:53</td>
+<td>28:25</td>
+<td>1:15:16</td>
+<td>47:35</td>
+<td>1:03:20</td>
+<td>1:01:21</td>
+<td>1:01:56</td>
+<td>44:55</td>
+<td>1:06:28</td>
+<td>24:23</td>
+</tr>
+<tr>
+<td align="right">Pages</td>
+<td>9</td>
+<td>9</td>
+<td>29</td>
+<td>15</td>
+<td>22</td>
+<td>22</td>
+<td>26</td>
+<td>15</td>
+<td>26</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<p>Including my other data, on average, I read about 49.4 minutes per day, and 20.7 pages per hour (2.9 minutes per page). At this point, I&#8217;m 321 pages in, with 475 to go. That means roughly 22.9 hours remaining. So far I&#8217;ve read every day. The naive estimate explained above puts me at 23 days away from&nbsp;completion.</p>
+<p>However, I know I won&#8217;t read every single day, and I&#8217;d like to account for this variation. Moreover, it is of little help to have just a point estimate. If possible, I&#8217;d like to know a probable range in which I&#8217;ll finish (for all I know without accounting for the variation, this point estimate might stretch from 10 to 100&nbsp;days).</p>
+<h2>Modeling</h2>
+<p>If you&#8217;re not interested in the math, you can skip to the next&nbsp;section.</p>
+<p>First off, let our potential data be denoted <span class="math">\(y = (y_1, \ldots, y_N)\)</span>. Soon we&#8217;ll introduce what values these can take&nbsp;on.</p>
+<p>Let <span class="math">\(B\)</span> be the event that we read on a given future day. We can model <span class="math">\(B\)</span> as a Bernoulli random event, <span class="math">\(B \sim \text{Bern}(\theta)\)</span> where <span class="math">\(\theta\)</span> is the probability of a positive result form the event. If <span class="math">\(\theta = 0.9\)</span>, then we&#8217;d say there&#8217;s a 90% probability we&#8217;ll read on a given future&nbsp;day.</p>
+<p>Let <span class="math">\(Y\)</span> be the event denoting the number of hours (in decimal form) we read on a given day <em>when we do read</em>. Using our historical data, we can model <span class="math">\(Y\)</span> as with a Student&#8217;s t distribution, to account for greater uncertainty if we have very little data, namely <span class="math">\(Y \sim \text{t}_\nu (\mu, \sigma)\)</span> where <span class="math">\(\nu\)</span> is the degrees of freedom of the distribution, and <span class="math">\(\mu\)</span> and <span class="math">\(\sigma\)</span> denote the mean and the standard deviation of the distribution. Including the mean and variance with the Student&#8217;s t distribution I think is slightly unorthodox, but concisely and conveniently allows us to vary them both. Now, if <span class="math">\(\mu = 1.0\)</span> for example, then we&#8217;d say that we&#8217;re most likely to read an hour a day when we do read. Of course, it is technically false for us to claim that <span class="math">\(Y\)</span> is Student&#8217;s t-distributed since in no world can we read less than zero hours in a day!<d-footnote>I&#8217;ve been thinking of how to model this as a positive continuous distribution, but I&#8217;m still new to this world and wanted to restrain myself for the time being. If you have helpful comments, please share.</d-footnote> This is merely a computational convenience. However, in the model parameter specifications, we won&#8217;t let the sampler sample values less than&nbsp;0.</p>
+<p>Finally, to flesh out <span class="math">\(y\)</span>, we&#8217;ll&nbsp;say:</p>
+<div class="math">$$
+y_i \sim \begin{cases}
+      \text{t}_\nu (\mu, \sigma) &amp; \text{if}\;B_i \\
+      0 &amp; \text{otherwise}
+   \end{cases}
+$$</div>
+<p>To incorporate all the necessary variance, we also will define the distributions of <span class="math">\(\theta\)</span>, <span class="math">\(\mu\)</span>, and <span class="math">\(\sigma\)</span> (<span class="math">\(\nu\)</span> will be supplied in the problem by the amount of data we&#8217;re inputing). A perfect distribution for a Bernoulli probability is the Beta distribution, so <span class="math">\(\theta \sim \text{Beta}(1,1)\)</span>. <span class="math">\(\mu\)</span> will be modeled by a normal distribution, centered around 10 minutes per day with a bit of variance (this number comes from a national average of how much Americans read per day). Lastly, <span class="math">\(\sigma\)</span> will be modeled by an inverse Gamma, with <span class="math">\(\alpha = 0.07/0.93\)</span> (to center the distribution over 0.93 hours) and <span class="math">\(\beta = 1\)</span>. All three of these help establish the larger model as a completely random data generation process. In <code>stan</code> this looks&nbsp;like:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">parameters</span> <span class="p">{</span>
+  <span class="kt">real</span><span class="o">&lt;</span><span class="k">lower</span><span class="p">=</span><span class="mf">0</span><span class="o">&gt;</span> <span class="n">mu</span><span class="p">;</span>
+  <span class="kt">real</span><span class="o">&lt;</span><span class="k">lower</span><span class="p">=</span><span class="mf">0</span><span class="o">&gt;</span> <span class="n">sigma</span><span class="p">;</span>
+  <span class="kt">real</span><span class="o">&lt;</span><span class="k">lower</span><span class="p">=</span><span class="mf">0</span><span class="p">,</span><span class="k">upper</span><span class="p">=</span><span class="mf">1</span><span class="o">&gt;</span> <span class="n">theta</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kn">model</span> <span class="p">{</span>
+  <span class="n">theta</span> <span class="o">~</span><span class="w"> </span><span class="nb">beta</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">1</span><span class="p">);</span>
+  <span class="n">mu</span> <span class="o">~</span><span class="w"> </span><span class="nb">normal</span><span class="p">(</span><span class="mf">0.1667</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+  <span class="n">sigma</span> <span class="o">~</span><span class="w"> </span><span class="nb">inv_gamma</span><span class="p">(</span><span class="mf">0.07</span><span class="o">/</span><span class="mf">0.93</span><span class="p">,</span> <span class="mf">1</span><span class="p">);</span>
+
+  <span class="n">B</span> <span class="o">~</span><span class="w"> </span><span class="nb">bernoulli</span><span class="p">(</span><span class="n">theta</span><span class="p">);</span>
+  <span class="n">Y</span> <span class="o">~</span><span class="w"> </span><span class="nb">student_t</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">sigma</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>We&#8217;re making some arguable assumptions here as well. First, that each day is independent of the others<d-footnote>My knowledge is limited on how to treat this assumption, but perhaps <a href="https://arxiv.org/pdf/1505.04321.pdf" target="_blank">sequential estimation</a> might be in order.</d-footnote>. Surely there&#8217;s also some psychological feeling of not wanting to break my reading streak, subliminally pushing me to reading each day. Here, we&#8217;re saying every day is a fresh day. Second, when we do read, the amount that we read is a random draw from a friendly distribution<d-footnote>As mentioned, this is likely an incredibly complex distribution, but like any statistician with proper due diligence, we&#8217;re reducing it to one of those incredibly natural, perfectly symmetrical distributions.</d-footnote>.</p>
+<h2>Prediction</h2>
+<p>With our model established, we would like to predict when we&#8217;ll finish our book. This harks back to our original question. So how do we do&nbsp;it?</p>
+<p>I will illustrate first with an example. Suppose we&#8217;re reading a book and know <em>a priori</em> that we have 10 hours remaining. We then calculate our reading pace so far, perhaps it&#8217;s 0.5 hours per day. Suppose also we&#8217;ve read 5 of 7 of the past&nbsp;days.</p>
+<p>Then, to determine the number of days remaining, we&#8217;ll start at day 1. On day 1, will we read? The probability we do will lie somewhere around <span class="math">\(\hat{\theta}\)</span>. Suppose we don&#8217;t read though. Fine, skip to day 2, still with 10 hours remaining. Will we read on day 2? Suppose we do, and in fact we end up reading about <span class="math">\(\tilde{\mu}_2\)</span> hours. To illustrate, let&#8217;s say it&#8217;s 24 minutes, or 0.4&nbsp;hours.</p>
+<p>So now we have <span class="math">\(10 - 0.4 = 9.6\)</span> hours remaining. Again, flip a biased coin (with probability of heads at <span class="math">\(\hat{\theta}\)</span>). It&#8217;s heads, so we read again on day 3. This time, <span class="math">\(\tilde{\mu}_3 = 0.6\)</span> hours. Now there&#8217;s <span class="math">\(9.6-0.6 = 9.0\)</span> hours&nbsp;remaining.</p>
+<p>Follow this procedure while <span class="math">\(10 - \sum^k_{i=1} B_k(\hat{\theta}) * \tilde{\text{t}}_{k+1} (\mu_k, \sigma_k) &gt; 0\)</span> (roughly). In the end, what is <span class="math">\(k\)</span>? Well, it is the number of days necessary to exhaust the pages in our book, given estimates of how often and how much we already&nbsp;read.</p>
+<p>In <code>R</code>, the algorithm looks like&nbsp;such:</p>
+<div class="highlight"><pre><span></span><code><span class="n">draw</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">remaining_hours</span><span class="p">,</span> <span class="n">posterior_theta</span><span class="p">,</span> <span class="n">posterior_mu</span><span class="p">,</span> <span class="n">posterior_sigma</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="n">total_read</span> <span class="o">&lt;-</span> <span class="m">0</span>
+  <span class="n">days</span> <span class="o">&lt;-</span> <span class="m">0</span>
+
+  <span class="nf">while </span><span class="p">(</span><span class="n">total_read</span> <span class="o">&lt;</span> <span class="n">remaining_hours</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">to_read</span> <span class="o">&lt;-</span> <span class="nf">rbernoulli</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="n">posterior_theta</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">))</span>
+    <span class="nf">if </span><span class="p">(</span><span class="n">to_read</span><span class="p">)</span> <span class="p">{</span>
+
+      <span class="n">mu</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="n">posterior_mu</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+      <span class="n">sigma</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="n">posterior_sigma</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+      <span class="n">est</span> <span class="o">&lt;-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="nf">rt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">days</span><span class="m">+1</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu</span>
+
+      <span class="nf">if </span><span class="p">(</span><span class="n">est</span> <span class="o">&lt;</span> <span class="m">0</span> <span class="o">||</span> <span class="n">est</span> <span class="o">&gt;</span> <span class="m">8</span><span class="p">)</span> <span class="n">next</span><span class="p">;</span>
+
+      <span class="n">total_read</span> <span class="o">=</span> <span class="n">total_read</span> <span class="o">+</span> <span class="n">est</span>
+    <span class="p">}</span>
+    <span class="n">days</span> <span class="o">=</span> <span class="n">days</span> <span class="o">+</span> <span class="m">1</span>
+  <span class="p">}</span>
+  <span class="nf">return</span><span class="p">(</span><span class="n">days</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2>Results</h2>
+<p>Let&#8217;s go back to my case study for &#8221;The Brothers Karamazov&#8221;. If we fit the model with my historical reading data for the book, our model samples each parameter like&nbsp;so:</p>
+<p><img class="uk-align-center" data-src="/images/parameter-estimates.png" height="" width="80%" alt="" uk-img></p>
+<div class="caption">
+    4,000 samples drawn for each parameter to estimate the parameter values.
+</div>
+
+<p>Ultimately, the estimates for each parameter are: <span class="math">\(\hat{\mu} = 0.81\)</span>, <span class="math">\(\hat{\sigma} = 0.37\)</span>, and <span class="math">\(\hat{\theta} = 0.95\)</span>. This means there&#8217;s an average 95% probability I&#8217;ll read on a given day, and when I do read it will on average be 48.6&nbsp;minutes.</p>
+<p>Using the algorithm described above, we will sample 2,000 draws of the posterior predictive distribution, which uses <span class="math">\(\mu\)</span>, <span class="math">\(\sigma\)</span>, and <span class="math">\(\theta\)</span> to determine the number of days remaining. Therefore, the posterior predictive distribution of the days remaining, given a sample of my historical reading data, looks&nbsp;like:</p>
+<p><img class="uk-align-center" data-src="/images/days-remaining-hist.png" height="" width="80%" alt="" uk-img></p>
+<div class="caption">
+    Histogram of days remaining on my book drawn from the posterior predictive distribution
+</div>
+
+<p>The mean here is 28.7, with a median of 29 (89% Credible Interval: [24, 34])<d-footnote>For an explanation of why I&#8217;m using 89% Credible Intervals, see <a href="https://easystats.github.io/bayestestR/articles/credible_interval.html#why-is-the-default-89" target="_blank">this nice summary</a>. In short, all intervals are arbitrary, so why not pick one that&#8217;s slightly less arbitrary.</d-footnote>. We can take this one step further and visualize how the prediction accuracy improves over time (i.e. with more&nbsp;data).</p>
+<p>For each day in sequence, we can re-estimate the model parameters (with progressively more data). On each re-fit, we&#8217;ll add up the hours we estimate we have left and the hours we know we will read on future days to say how long it will take to finish <em>from that day</em>. As we artificially gain information, our estimates naturally become more precise. This is because we home in on a better estimate for how often we read and much we read when we do. We can find 95% and 68.2% credible intervals as well. In fact, we can nicely display this all as&nbsp;such:</p>
+<div id="container" style="width:100%; height:400px;"></div>
+<div class="caption">
+    As our model sees more data with each new day, the parameter estimates become more precise. The dotted line represents the estimates from the simple model describes in the intro (pages remaining / cumulative pace). The complex model is much more pessimistic, eventually the two will converge though.
+</div>
+
+<p>We can see that the number of days remaining is decreasing over time, since we are taking off an absolute number of pages from the book. We can also see that our estimation is getting more precise, as a result of relying less on the priors and more on the data. You can also see how our model built here compares to the prediction from the simple model explained in Existing Models. The complex model, which factors in a variety of sources of variance, reflects our day to day behavior better but is clearly more pessimistic. However, as I near the end of my book the two lines will&nbsp;converge.</p>
+<p>To interpret this chart further, we might conclude that I am most likely to finish my book in 29 days, which at the time of writing is November 19, but there&#8217;s a full 89% probability that I&#8217;ll finish the book within 24 to 34&nbsp;days.</p>
+<p>Consider our original estimation: 23 days until completion. Although kind of close, it doesn&#8217;t account for the fact that I might not read every day in the near future. Moreover, if I do end up missing a day, the complex model will adapt and project the date further out. The simple model simply won&#8217;t&nbsp;change.</p>
+<h2>Overall</h2>
+<p>Overall, this is a case study of how one might predict when they&#8217;ll finish a book, but with a bit of humanity&#8217;s pitfalls injected in it (there <em>is</em> some chance I won&#8217;t read everyday!). I am happy to know how quickly I will finish my book since it allows me to set goals and feel good about my progress, knowing that sooner or later (most probably in less than Y days) I will be able to put the book aside and begin the next. I&#8217;m still a novice statistician, so if there&#8217;s gross misunderstandings in my work, please point them out (even if you&#8217;re not sure&nbsp;yourself).</p>
+<p>Reading is not all a numbers game. And I&#8217;m not racing anyone. I am, however, eager to read as much as a can before I can&#8217;t. Books are meant to be enjoyed. If you&#8217;re not enjoying them while reading none of the above has any validity. It can be tempting to scold or punish yourself or feel guilty for not meeting your reading goal. If you do not meet the estimated average time to completion&#8212;-keep in mind that the distribution is infinite and some books will either take a <em>very</em> long time to finish, or will never be finished, and that&#8217;s okay&nbsp;too.</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@m">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>

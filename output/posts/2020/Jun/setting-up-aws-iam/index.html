@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Setting up AWS IAM</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="cloud computing" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/posts/2020/Jun/setting-up-aws-iam/" rel="bookmark" title="Permalink to Setting up AWS IAM">Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2020-06-20T00:00:00-07:00">
+        Sat 20 June 2020
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/cloud-computing.html">cloud computing</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <p>Cloud computing and storage services are becoming an essential for many businesses. As a more versatile and easier to scale option than on-premise solutions, their demand has noticeably increased. As businesses look toward these solutions, developers must grow and adapt. Students or professionals without much <span class="caps">AWS</span> experience can broaden their skillset by playing around with these platforms. Luckily for this demographic (myself included), the three main cloud providers&#8212;-Amazon Web Services (<span class="caps">AWS</span>), Google Cloud Platform (<span class="caps">GCP</span>), and Microsoft Azure&#8212;-all offer free tiers to get started learning and&nbsp;experimenting.</p>
+<p>These services are much different than what’s learned in the sometimes archaic education system, so they can be confusing and easy to get wrong when learning. The goal for this article is to demonstrate how to set up a personal-use Amazon Web Services account according to some best practices for Identity and Access Management (<span class="caps">IAM</span>). This will be targeted at students and professionals without much <span class="caps">AWS</span> experience, and should be about a 10 minute read (although you’re encouraged to try things out yourself). Learning how to properly setup and authenticate your work in the cloud is important for three reasons: 1) to mitigate any opportunities to compromise yourself, your work, your billing information, or other sensitive data, 2) to mitigate any opportunities to mess up and get frustrated, and 3) it’s always good to follow best&nbsp;practices!</p>
+<p>If you&#8217;re just getting started working with cloud services or are looking to begin, I think this article presents a good first or second step. I recommend following the tips at the bottom as soon as you feel&nbsp;ready!</p>
+<p><img class="uk-align-center" data-src="/images/iam_workflow.png" width="80%" alt="" uk-img></p>
+<div class="caption">
+An example workflow of attributing permissions to an Administrator user on <span class="caps">AWS</span>. Source: <a href="https://wellarchitectedlabs.com/security/100_labs/100_basic_identity_and_access_management_user_group_role/1_iam/" target="_blank"><span class="caps">AWS</span> Well-Architected Labs</a>
+</div>
+
+<h2>Terminology</h2>
+<p>For me, one of the most difficult aspects of learning how to use cloud services was hurdling over the increase in vocabulary. Many terms are polysemous with other developer terms and appear to be drawn together from a variety of computing subdisciplines. Quickly, I&#8217;ll introduce some key terms which you should be familiar with as you endeavour into&nbsp;space.</p>
+<dl class="uk-description-list">
+    <dt><span class="caps">IAM</span></dt>
+    <dd>The Identity and Access Management section of <span class="caps">AWS</span> allows one to control the degree to which different people and services can access parts of the <span class="caps">AWS</span> account. It&#8217;s how permissions are set and security&nbsp;tightened.</dd>
+    <dt>Root</dt>
+    <dd>In a hierarchy of control, the root users has access to everything. It&#8217;s like using `sudo` in a shell program. We&#8217;ll cover this soon, but it&#8217;s strongly discouraged to use this login on a daily basis due to the power it holds. For example, under this user you can control the accounts billing information and payment&nbsp;methods.</dd>
+    <dt>User</dt>
+    <dd>A type of individual with less power than the root user. These can be granted unique login credentials. Some common users would be Administrators and Machine Learning Engineers – obviously the MLEs should have less power than the full admins, and by assigning people to user accounts, that can be&nbsp;controlled.</dd>
+    <dt>Group</dt>
+    <dd>A collection of users with a pre-specified set of permissions. These are useful because it&#8217;s easier to manage a collection of users rather than manually going through a list of users to change their individual permissions. Using groups is simply a way to attach permissions to multiple users at one time. A common example is an Administrators group, which can have multiple admins all with the same&nbsp;permissions.</dd>
+    <dt>Role</dt>
+    <dd>A collection of policies/permissions assigned to one or more users when needed. The key here is that, separately from groups, roles provide temporary security. These are useful if you want to, for example, provide credentials to an external group for auditing purposes, or to assign a set of permissions to an <span class="caps">AWS</span> service that allow it access another <span class="caps">AWS</span>&nbsp;service.</dd>
+    <dt>Policy</dt>
+    <dd>A policy is a marker that defines permissions. These can get complicated, so <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html" target="_blank">here&#8217;s a link to the in-depth explanation</a>. For example though, one might create a group called `MainTableAccess` and assign some users to it, and the policy attached to this group only <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_dynamodb_specific-table.html" target="_blank">allows those in the group to access a specific table</a> in a DynamoDB&nbsp;database.</dd>
+    <dt>Service</dt>
+    <dd>One of the many subplatforms on <span class="caps">AWS</span> that can cause functionality, such as Lambda or <span class="caps">EC2</span>.</dd>
+</dl>
+
+<h2>Quick&nbsp;Setup</h2>
+<h3>Tip&nbsp;#1</h3>
+<p>The first key to securing your <span class="caps">AWS</span> account and ensuring your permissions won&#8217;t allow you or others to intentionally, or otherwise, compromise your account, is to follow the <a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege" target="_blank">least privileges model</a>. Under this mindset, we only assign permissions as they&#8217;re needed. This ensures no user is too privileged, to the point where they may accidentally harm the&nbsp;account.</p>
+<p>Most importantly, make sure that you set up a non-root user. You&#8217;ll almost never want to use the root user. Instead, here I&#8217;ll guide you to setting up an Administrator user. Administrator accounts don&#8217;t get to access things like billing information and cost management, although they can do things like manage users and groups which less powerful users&nbsp;cannot.</p>
+<p>To add an administrator user to your personal <span class="caps">AWS</span> account, navigate to your <span class="caps">AWS</span> home, where you&#8217;ll see an option to add a user. Name your new user <code>Administrator</code> or something like it. I assume you&#8217;re working through the console, but may later want to set up the <span class="caps">AWS</span> command line tools, so check off programmatic and <span class="caps">AWS</span> Management Console access. Choose to set a password later (if you set one now you&#8217;ll still have to reset it later). We&#8217;ll create a new group of users called <code>Administrators</code> and select the <code>AdministratorAccess</code> policy. Skip the Tags section and review what you&#8217;ve done. There will be a link in the success box which, upon clicking, will log out the root user and prompt you to log in under a new user. Your username is <code>Administrator</code> (or whatever you chose) and the password was that which was&nbsp;generated.</p>
+<h3>Tip&nbsp;#2</h3>
+<p>My second tip is to <a href="https://aws.amazon.com/iam/features/mfa" target="_blank">set up Multi-Factor Authentication (<span class="caps">MFA</span>)</a>. This is an added layer of protection from anyone unwanted accessing your account, which becomes more important your projects and work scale up. For students at <span class="caps">UC</span> San Diego, we&#8217;ve become accustomed to using <a href="https://duo.com" target="_blank">Duo Security</a> as a two-factor authentication system. With Duo, when you log in with your username and password, you&#8217;ll also be prompted for an authentication response within the&nbsp;app.</p>
+<p><img class="uk-align-center" data-src="/images/aws_iam_mfa.png" height="" width="80%" alt="" uk-img></p>
+<div class="caption">
+Preview of setting up Multi-Factor Authentication in <span class="caps">AWS</span>. Using Duo is an easy solution and requires scanning a <span class="caps">QR</span> code and entering the corresponding authentication codes.
+</div>
+
+<p>To set up <span class="caps">MFA</span>, navigate to your <span class="caps">AWS</span> <span class="caps">IAM</span> home, where there will be an accordion of security credential options. Select to activate <span class="caps">MFA</span>, and choose <code>Virtual MFA Device</code>. Open Duo, scan the <span class="caps">QR</span> code, and enter in the authentication keys.&nbsp;Done!</p>
+<h2>Overview</h2>
+<p>That&#8217;s it for this post, but I encourage you go on and explore the <span class="caps">IAM</span> aspect of <span class="caps">AWS</span> further, especially in regards to the policies and roles that may be set. Once we begin setting up services like Lambda and DynamoDB, it will be important to only allow the bare minimum of what they need to&nbsp;access.</p>
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@m">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>

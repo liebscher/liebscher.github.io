@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }} - Tags{% endblock %}
+
+{% block breadcrumbs %}
+<ul class="uk-breadcrumb">
+  <li><a href="{{ SITEURL }}/index.html">Home</a></li>
+  <li><span>Tags</span></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<section class="uk-section">
+    <div class="uk-container uk-width-2-3">
+        <h1>All Tags</h1>
+        <div class="uk-column-1-3">
+            <ul>
+                {% for tag, articles in tags|sort %}
+                    <li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a> ({{ articles|count }})</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

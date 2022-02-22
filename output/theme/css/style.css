@@ -1,0 +1,41 @@
+html {
+  font-family: 'IBM Plex Serif', 'Times New Roman', Times, serif;
+  font-weight: 400;
+  font-size: 14px;
+  background-color: white;
+  color: #111;
+}
+
+h1, h2, h3, h4, h5, h6, .uk-heading-large, .uk-heading-medium, .uk-heading-small {
+    font-family: 'Playfair Display', 'Times New Roman', Times, serif;
+}
+
+.smc {
+    font-variant: small-caps;
+}
+
+.highlight pre, pre {
+    border: 0;
+}
+
+pre.code-output {
+    background-color: white !important;
+    border-bottom: 1px solid #f0f0f0;
+    border-left: 1px solid #f0f0f0;
+    border-right: 1px solid #f0f0f0;
+    margin-top: -22px;
+}
+
+.caption {
+    color: #333333;
+    font-size: 0.8rem;
+    text-align: center !important;
+}
+
+h1 a { color: inherit !important }
+h2 a { color: inherit !important }
+h3 a { color: inherit !important }
+h4 a { color: inherit !important }
+h5 a { color: inherit !important }
+h6 a { color: inherit !important }
+

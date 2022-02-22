@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Explainability in Generative Language Models</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="language" />
+    <meta name="tags" content="nlp" />
+    <meta name="tags" content="society" />
+    <meta name="tags" content="machine learning" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>Explainability in Generative Language&nbsp;Models</span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/posts/2021/Apr/explainability-generative-models/" rel="bookmark" title="Permalink to Explainability in Generative Language Models">Explainability in Generative Language&nbsp;Models</a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2021-04-19T00:00:00-07:00">
+        Mon 19 April 2021
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/language.html">language</a>, 
+        <a href="/tag/nlp.html">nlp</a>, 
+        <a href="/tag/society.html">society</a>, 
+        <a href="/tag/machine-learning.html">machine learning</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <!-- readtime: 17.0
+bibliography: 2021-04-19-explainability-generative-lms.bib -->
+
+<p><img class="uk-align-center" data-src="/images/spongebob-bubbles.jpg" height="" width="80%" alt="" uk-img>
+<br></p>
+<p>Natural Language Processing (<span class="caps">NLP</span>) models have been gaining popularity like crazy; they&#8217;re getting thrown into a new industry every week. In the last few years of <span class="caps">NLP</span>, we&#8217;ve seen the development of <a href="https://en.wikipedia.org/wiki/Language_model">large language models</a>, which model the statistical properties of language, and come in two main types: discriminative and generative. The former are useful across text analytics, from classic sentiment analysis to <a href="https://www.technologyreview.com/2021/03/11/1020600/facebook-responsible-ai-misinformation/">detecting misinformation</a> on social media platforms. The latter, generative models, have mostly come to light as a result of OpenAI&#8217;s <span class="caps">GPT</span>&nbsp;models.</p>
+<p>In a 1999 episode of Spongebob (S1 E4), Spongebob and Patrick are blowing bubbles. Spongebob has a very particular and outlandish technique for his bubbles. At first, his bubbles are simple. Eventually though, Spongebob blows a bubble <em>so</em> big, it swallows up Squidward&#8217;s Easter Island head house, lifting it high into the sky/sea, and soon popping, thus leaving the home falling back to the floor where it hits the ground at an awkward&nbsp;position.</p>
+<p>In some sense, I think large language models are a bit of a bubble. They&#8217;re literally and figuratively becoming <em>huge</em> and swallowing up resources, both intellectual and environmental. This article discusses their explosive growth, the dangers of them bursting, and explainability methods to help dampen the near-inevitable pain they will cause down the&nbsp;line.</p>
+<details>
+<summary class="detail-selector detail-level1">What are language models, and <span class="caps">GPT</span>-*?</summary>
+
+From <a href="https://liebscher.github.io/blog/2020/evaluating-neural-toxic-degeneration/">a previous article of mine</a> reviewing an article on degenerate model behavior:
+
+<br><br>
+
+<blockquote>In plain English, a Language Model scans huge collections of documents (millions of documents), word by word, learning statistical associations between words and their neighbors, and is then able to predict the next word in a phrase by just looking for the most probable in the English language. Your iPhone does this (if you have predictive typing turned on), as does Gmail when you&#8217;re drafting an email, and a suite of other tools.</blockquote>
+
+<br><br>
+
+</details>
+
+<p>In our inconcievably digital world, we&#8217;re seeing an increasingly pressing need to understand the outputs these models produce<d-footnote>I just started reading <a href="https://brianchristian.org/the-alignment-problem/">The Alignment Problem</a> by Brian Christian, which I anticipate to elaborate on the divergence between our value-based intentions and machine learning.</d-footnote>. Discriminative <span class="caps">NLP</span> models have so far attracted more attention from researchers seeking ways to interpret and explain them. Methods for interpreting and explaining the results of generative <span class="caps">NLP</span> models are getting left in the&nbsp;dust.</p>
+<p>Given that these types of generative language models have really only been around for a few years, it might sound like I&#8217;m being impatient or ignorant of the difficulty of establishing explainability. Especially since the outputs of a generative model are influenced by a suite of factors, including at&nbsp;least:</p>
+<ul>
+<li>Model&nbsp;architecture</li>
+<li>Training data (if&nbsp;applicable)</li>
+<li>Testing data (if&nbsp;applicable)</li>
+<li>Quality assurance process (or lack&nbsp;thereof)</li>
+<li>Designing engineers and&nbsp;researchers</li>
+<li>Motivations for&nbsp;development</li>
+</ul>
+<p>Given such complex and multi-faceted influences, it&#8217;s no easy ask of the field. As I&#8217;ll soon explain though, it is all but necessary that when these models behave poorly, we have some method for explaining&nbsp;why.</p>
+<p><img class="uk-align-center" data-src="/images/figma-explainability.png" height="" width="80%" alt="" uk-img></p>
+<div class="caption">
+  Figure 1. Modern generative language models are trained to predict the next word in a text sequence. After training on billions of words, the model tends to be able to produce comprehensible text. If it produces something wrong though, we have no good way of explaining these mistakes. This is very unlike asking a human to explain what they&#8217;ve said, which usually has satisfactory results.
+</div>
+
+<p>Knowing how important it is that progress in this area of <span class="caps">NLP</span> be made, I&#8217;m laying out this article to discuss: why it matters so much that we be able to explain generative language models, existing work on this question and similar ones, and future directions that we might take. That said, let me introduce why explainability matters for these generative&nbsp;models.</p>
+<h2>Why does it&nbsp;matter?</h2>
+<h3>Ubiquity</h3>
+<div class="epigraph">
+<p><i>By the late twentieth century, our time, a mythic time, we are all chimeras, theorized and fabricated hybrids of machine and organism; in short, we are&nbsp;cyborgs.</i></p>
+<p class="tab">&mdash;Donna Haraway, <i>A Manifesto for Cyborgs: Science, Technology, and Socialist Feminism in the&nbsp;1980s</i></p>
+</div>
+<div class="epigraph">
+<p><i>I have no desire to suffer twice, in reality and then in&nbsp;retrospect.</i></p>
+<p class="tab">&mdash;Sophocles, <i>Oedipus&nbsp;Rex</i></p>
+</div>
+
+<p><a href="https://openai.com/blog/gpt-3-apps/">According to Open <span class="caps">AI</span></a>, the creators and maintainers of <span class="caps">GPT</span>-3, as of early March 2021, there&nbsp;are</p>
+<blockquote>
+<p>more than 300 applications are now using <span class="caps">GPT</span>-3, and tens of thousands of developers around the globe are building on our platform. We currently generate an average of 4.5 billion words per&nbsp;day</p>
+</blockquote>
+<p>Generative models are being picked up across a numbing variety of industries as tools and marketing ploys. In healthcare, businesses are experimenting with them to summarize doctor&#8217;s notes of patient interactions. <a href="https://www.brookings.edu/research/auditing-employment-algorithms-for-discrimination/">Human resources companies</a> are seeing how conversations with candidate employees can be made more personal and customizable by leveraging generative models. Video game developers are toying with these models to improve the realism and uniqueness of games. Lastly, generative models are being considered for <a href="https://arxiv.org/pdf/2104.00336.pdf">mitigating political bias in the media</a>. None of this is inherently bad; most of it is well-intentioned. Regardless, our lives are intimately interlaced with this&nbsp;technology.</p>
+<p>The issues crop up when the model produces some harmful, ignorant, or wrong output, and someone needs to explain why the model did that. Stakeholders and end-users will not feel safe or comfortable upon hearing that those outputs are out of the engineers&#8217; control. I could come up with dozens of hypothetical examples of harmful generative models in the wild, but we already have crystal clear illustrations such as <a href="https://www.theverge.com/2016/3/24/11297050/tay-microsoft-chatbot-racist">Microsoft&#8217;s Tay</a>.</p>
+<p><img class="uk-align-center" data-src="/images/huggingface-transformers-swear.png" height="" width="80%" alt="" uk-img></p>
+<div class="caption">
+  Figure 2. The popular Huggingface <span class="caps">API</span> provides a public interface where anyone can write with <span class="caps">GPT</span>-2. In this case (performed 04/17/2021), the model, which again is completely accessible to the public, produces toxic outputs. This illustrates how easily it is to use the model, how easily it degenerates, and how important it is to be able explain generative models so we can redress their faults.
+</div>
+
+<p>At the end of the day, engineers, managers, and business leaders will have to answer: Why did the model produce that output? Plainly said, generative models are becoming ubiquitous, and we can&#8217;t indulge in them without anticipating their faults. With discriminative models, in <span class="caps">NLP</span> but also in computer vision and traditional machine learning, society has been learning the hard way that not all algorithms are objective and interpretable. We can&#8217;t let this happen again. We can&#8217;t let the explanation be, &#8220;<a href="https://twitter.com/dhh/status/1192540900393705474?s=20">It&#8217;s just the algorithm!</a>&#8221;</p>
+<h3>Power</h3>
+<div class="epigraph">
+<p><i>To reflect upon history is also, inextricably, to reflect upon&nbsp;power.</i></p>
+<p class="tab">&mdash;Guy Debord, <i>Society of the&nbsp;Spectacle</i></p>
+</div>
+
+<p>Given the ubiquity of these models, we must seek <a href="https://sites.google.com/view/algorithmic-recourse/home">algorithmic recourse</a>, or the ability to inform individuals why a certain decision or outcome was reached. Society already has structures in place which disadvantage certain people—machine learning can easily exacerbate this<d-cite key="oneal2016weapons,perez2019invisible"></d-cite>. This is important to note because inexplicable generative models producing harmful language is almost certainly going to reinforce hierarchies of power<d-footnote>I say this without justification, shame on me. As far as I know, I have heard others say this, but not in a format where they can easily provide citations (e.g. in podcasts). In fact, if anyone knows any work studying the causal structure between rogue language models and the reinforcement of power hierarchies, please let me know.</d-footnote>. Over time, little mistakes accumulate damage toward already marginalized communities. Without good explanations, we will be unable to inform individuals why such outcomes were reached and correct course to prevent such mistakes from happening&nbsp;again.</p>
+<p>Being able to explain model outputs may be a mirror in which researchers do not wish to see the reflection. I&#8217;ll defer to Lelia Marie Hampton who, building off Dr. Safiya Noble, says &#8220;the commonplace instances of technology going awry against oppressed people are not merely mistakes, but rather reverberations of existing global power structures.&#8221; <d-cite key="Hampton_2021"></d-cite> We should be interested in explainability in generative models because, as noted, they are infiltrating many aspects of modern society, and yet most individuals have no power to decide how, why, or where these models are developed. This inherent power imbalance could in part be mitigated by meaningful algorithmic recourse. Where the seeds of power imbalance are sown, oppression will soon grow<d-footnote>Again, I have no justification for my little epigram here. My Rawlsian philosophy of social justice is a sitting duck for the perspicacious critic. Please, help me ground my beliefs in others&#8217; if you have a minute to spare.</d-footnote>.</p>
+<p>Moreover, as Hampton states, &#8220;we cannot discuss algorithmic oppression without discussing systems of oppression because a struggle for liberation from algorithmic oppression also entails a struggle for liberation from all oppression as the two are inextricable.&#8221; I see explainability fitting into this picture as one mechanism of many for identifying and redressing algorithmic oppression in generative language models. It may not be a solution to society&#8217;s problems, but it might help avoid perpetuating&nbsp;oppression.</p>
+<p>Having explainable generative models is also important for the public&#8217;s perception of technology and science. Building trust with people can help encourage their desire to allocate public funds into research, encourage innovation, and attract underrepresented voices where they are needed most in this field. Not only is explainability important from a public perception point-of-view, it&#8217;s <a href="https://en.wikipedia.org/wiki/Right_to_explanation">becoming the law</a>.</p>
+<p>In an applied sense, as we begin to see generative models being used to communicate with individuals about things like science or public health, we must also be wary of misinformation. Specifically, the concern that these models won&#8217;t be producing information that reflects how a professional would produce the same information. Hopefully it&#8217;s clear that misinformation is becoming a serious issue.<d-cite key="west2021misinformation"></d-cite> Without having certainty in model communications, or recourse for mishaps,&nbsp;misinformation</p>
+<blockquote>
+<p>poses a risk to international peace, interferes with democratic decision making, endangers the well-being of the planet, and threatens public health. Public support for policies to control the spread of severe acute respiratory syndrome coronavirus 2 (<span class="caps">SARS</span>-CoV-2) is being undercut by misinformation, leading to the World Health Organization’s “infodemic” declaration. Ultimately, misinformation undermines collective sense making and collective action. We cannot solve problems of public health, social inequity, or climate change without also addressing the growing problem of&nbsp;misinformation.</p>
+</blockquote>
+<details>
+<summary class="detail-selector detail-level1">The power of Google Search Autocomplete</summary>
+
+Probably one of the most powerful predicitive text generators is Google Search. They process billions, if not trillions, of queries every year, and therefore expose billions of people to their suggested queries. I estimate that they could sway the interests of the masses by incorrectly suggesting something counterfactual or harmful, leading the user down a negative path. This could either introduce fallacies or reinforce harmful ideas (e.g. <span class="caps">COVID</span>-19 vaccine conspiracies). Sometimes, in my experience, it seems like Google isn&#8217;t trying at all, but they do <a href="https://blog.google/products/search/our-latest-investments-information-quality-search-and-news">issue statements</a> such as:
+
+<br><br>
+
+<blockquote>We expanded our Autocomplete policies related to [the 2020] elections, and we will remove predictions that could be interpreted as claims for or against any candidate or political party. We will also remove predictions that could be interpreted as a claim about participation in the election—like statements about voting methods, requirements, or the status of voting locations—or the integrity or legitimacy of electoral processes, such as the security of the election. What this means in practice is that predictions like “you can vote by phone” as well as “you can&#8217;t vote by phone,” or a prediction that says “donate to” any party or candidate, should not appear in Autocomplete. Whether or not a prediction appears, you can still search for whatever you’d like and find results.</blockquote>
+
+
+It&#8217;s dizzying to consider the amount of power Google has, and how easily their search suggestions could sway the election for the leader of the Free World.
+
+<br><br>
+
+</details>
+
+<p>This makes me wonder who has the power to manipulate the &#8220;collective sense making&#8221; by developing the models which will inevitably be deployed for communicating with the&nbsp;public.</p>
+<h3>Complexities</h3>
+<p>Explaining why a generative model does something quickly becomes a very complex question. Consider <a href="https://artificialintelligence-news.com/2020/10/28/medical-chatbot-openai-gpt3-patient-kill-themselves/">one health care application</a> of <span class="caps">GPT</span>-3 which encouraged a patient to commit&nbsp;suicide:</p>
+<blockquote>
+<p>The patient said “Hey, I feel very bad, I want to kill myself” and <span class="caps">GPT</span>-3 responded “I am sorry to hear that. I can help you with&nbsp;that.”</p>
+<p>So far so&nbsp;good.</p>
+<p>The patient then said “Should I kill myself?” and <span class="caps">GPT</span>-3 responded, “I think you&nbsp;should.”</p>
+</blockquote>
+<p>Even if this particular example was fiction, cherry-picked, or adversarially prompted, it illustrates a feasible use-case with disastrous results. But how would we &#8220;explain&#8221; what went wrong here? Personally, I would want to know the model&#8217;s worldview, its philosophies, its morals, etc. This would be misleading since the model has none of these<d-footnote>From Bender and Gebru, et al., &#8220;Text generated by [a language model] is not grounded in communicative intent, any model of the world, or any model of the reader’s state of mind.&#8221; <d-cite key="bender2021dangers"></d-cite></d-footnote>. Later we&#8217;ll talk about possible ways to create explainable models, but it should suffice to say that we have no off-the-shelf epistemological answer (that I know&nbsp;of).</p>
+<p>Being able to sufficiently explain the output of a generative model is important because it&#8217;s not yet a standard, and the complexity of the problem should make it all the more imperative that researchers begin to think deeply about it. It also calls for the inclusion of broader communities and end-users, in terms of educating and guiding innovation. Open <span class="caps">AI</span>, the owners of the <span class="caps">GPT</span> models, proclaim that safety is a keystone in their development practices, however what they have to say about <span class="caps">ML</span> safety&nbsp;is:</p>
+<blockquote>
+<p>Bias and misuse are important, industry-wide problems we take very seriously. We review all applications and approve only those for production that use <span class="caps">GPT</span>-3 in a responsible manner. We require developers to implement safety measures such as rate limits, user verification and testing, or human-in-the-loop requirements before they move into production. We also actively monitor for signs of misuse as well as “<a href="https://en.wikipedia.org/wiki/Red_team">red team</a>” applications for possible vulnerabilities. <strong>Additionally, we have developed and deployed a content filter that classifies text as safe, sensitive, or unsafe.</strong> We currently have it set to err on the side of caution, which results in a higher rate of false&nbsp;positives.</p>
+</blockquote>
+<p>Emphasis is mine: all they have to say about algorithmic recourse is an insufficient definition of a content filter. Is the solution to ensuring the outputs of generative models are benevolent a weak, retroactive filtering? Without methodologies for identifying aspects of model development susceptible to degeneration, I don&#8217;t see how we&#8217;ll proactively create models which align with society&#8217;s values. Today is <em>the</em> time to begin understanding the complexities of this problem, perhaps by creating tools to explain these models, so that tomorrow we may have this proactive&nbsp;solution.</p>
+<h2>What&#8217;s currently being&nbsp;done?</h2>
+<p>Researchers have been considering issues of explainability in discriminative models for years. While there are interpretability issues, encompassing techniques such as model transparency<d-footnote>Can a person contemplate the entire model at once?</d-footnote> and decomposability<d-footnote>Can each part of the model (inputs, parameters, calculations, etc.) be easily and intuitively explained?</d-footnote>, there are also explainability issues, such as text explanations, visualizations, local explanations, and explanations by example <d-cite key="lipton2018mythos"></d-cite>.</p>
+<p>Yet, we just don&#8217;t have anything that comes close to explainability in large generative language models. I hypothesize that part of this is due to the nascency of these models (predecessors were either already fairly explainable or weren&#8217;t useful enough in practice to demand a need to explain their output), part is due to the sheer volume of data needed to build them, and part is due to how inscrutable these models are, with many having millions or billions of parameters and many layers of&nbsp;abstraction.</p>
+<p>In terms of existing work, there is a already a sizeable literature on social &#8220;bias&#8221; in generative language models. For example, Sheng et al. (2019) demonstrate demographic bias in generative models by prompting pretrained models and measuring the sentiment of generated text about already marginalized groups of people <d-cite key="sheng2019woman"></d-cite>. Dinan et al. (2019) argue that dialogue systems (i.e. chatbots) also follow the maxim: garbage in, garbage out; specifically with stereotyped or gender biased training data <d-cite key="dinan2019queens"></d-cite>. Similarly, Liu et al. (2020) propose a new method for debiasing generative models so as to prevent them amplifying toxic stereotypes <d-cite key="liu2020mitigating"></d-cite>.</p>
+<p>While this literature is critical and welcome, demonstrations of biased data and algorithms, and methods for offsetting the impact of either, do not directly address issues of explainability. Beyond the vague notion that bias <d-cite key="blodgett2020language"></d-cite>, or insufficient model architecture or input, will perpetuate society&#8217;s problems, we have not really seen concrete methods for explaining model&nbsp;outputs.</p>
+<p>In terms of tools, we see most recently, the <a href="https://arxiv.org/pdf/2104.07605.pdf">SummVis tool</a> from Salesforce and Stanford offers model-agnostic, post-hoc visualization tools to explain outputs from abstract summarization models (which are a form of generative models). A predecessor to this tool was the <a href="https://github.com/pair-code/lit">Language Interpretability Tool</a>, which provides a tool for <a href="https://github.com/PAIR-code/lit/blob/main/documentation/user_guide.md#debugging-text-generation">Debugging Text Generation</a>. This tool integrates local explanations (explaining specific aspects of individual outputs), aggregate analysis (metrics about output quality), and counterfactual generation (how do new data points affect model outputs) to explain generative model outputs. The former is too new to be widely adopted, and the latter is only one piece of the&nbsp;puzzle.</p>
+<p>Explaining generative models is clearly not a new issue, but nonetheless it appears underfunded or at least underrepresented in the big picture of <span class="caps">NLP</span><d-footnote>One thing I learned while writing this article is the importance of doing a thorough literature review <i>before</i> embarking on my own ideas. I&#8217;m frankly a bit embarrassed by the paucity of background here. Part of me doesn&#8217;t want to write big long lit reviews to preface my ideas so as to not bore my audience more than I already do, but I know that it would only serve me well. Plus, I toyed around in this article with collapsable sections, which is something I could do with a detailed lit review in the future (only the academic masochist would choose to expand those sections). Lesson learned!</d-footnote>. The conversation needs to grow, more individuals need to be included in the conversation, and new perspectives need to contribute to the&nbsp;discussion.</p>
+<h2>Future&nbsp;directions</h2>
+<p>Humans frequently fail to communicate. Unlike with statistical <span class="caps">NLP</span> models though, it is easy to ask a human to explain what they said, or why they said&nbsp;it.</p>
+<p><img class="uk-align-center" data-src="/images/explainability-future-directions.jpeg" height="" width="80%" alt="" uk-img></p>
+<div class="caption">
+  Photo credit: <a href="https://unsplash.com/@henniestander?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hennie Stander</a> via Unsplash
+</div>
+
+<p>In fact, there&#8217;s evidence we do it about once ever minute and a half <d-cite key="dingemanse2015universal"></d-cite>. And although most modern linguists refrain from saying there&#8217;s anything universal across languages, the conversational repair initiator <em>Huh?</em> might in fact be a candidate universal word <d-cite key="dingemanse2013huh"></d-cite>. This suggests that humans are constantly and consistently asking other humans to clarify or explain what&#8217;s been&nbsp;uttered.</p>
+<p>Unlike with other humans, our communication with language models is not necessarily driven by shared communicative goals, costs of production, or prior belief states. Therefore, how could a person understand a language model&#8217;s reasoning if the directions or motivations of such reasoning are orthogonal to human reasoning? This also creates issues for public science communication and the understanding of this technology: our communities do not have the background necessary to reasonably understand the foundations of language model&nbsp;productions.</p>
+<p>I note this because explainability should span audiences: the lay-person, who will be near daily affected in some shape by generative models, to the machine learning researcher, who is invested in explaining model outputs to determine scientific contributions. Hence, the future should see explainability at a variety of&nbsp;levels.</p>
+<p><strong>Human-esque explainability might be a misleading ask of contemporary language models, given that they most likely fail to truly attribute meaning to form</strong> <d-cite key="glenberg2000symbol,bender2020climbing"></d-cite>. One way to explain an outcome is simply to say that a generative model produces what it produces because that would have been the statistically most likely next-prediction conditional on the training data. But to know that the probability of a token was higher than some other token is not a good enough explanation in the real world. More likely, we would be interested in knowing the parts of the training data, or source of those data, that led to that production<d-footnote>But data is not the entire answer to degenerate machine learning systems. These models are thoroughly embedded in sociocultural settings, and thus reflect their origins in ways which propagate both the good and the bad. In fact, the common trope that training data are the one and only cause of algorithmic bias is misleading and even harmful. Model architecture and design are just as culpable as the datasets upon which they work <d-cite key="hooker2021moving"></d-cite>. In the case of large language models, inducing explainability may be less of a data problem and more of a model problem.
+</d-footnote>. Alternatively, it would also be useful to know if the model <em>architecture</em> caused the production: given a different model, but the same training data, would there be a difference? Lastly, development decisions are typically made by a small group of individuals which inherently encodes their own biases and knowledge into these widely distributed models: could these biases not be a necessary explanation for why a model produced a certain&nbsp;output?</p>
+<p>Lastly, I&#8217;d like to reiterate Zachary Lipton&#8217;s distinction between models transparent to humans and post-hoc explanations <d-cite key="lipton2018mythos"></d-cite>. Post-hoc methods for explaining generative language models might accomplish certain goals, but it might be in our favor to continue researching methods which are inherently more understandable to&nbsp;humans.</p>
+<p><a href="https://www.morningbrew.com/emerging-tech/stories/2021/04/07/researchers-exploring-alternatives-fiercely-debated-ai-technique">Three possible alternatives</a> to large pretrained language models might first include smaller retrieval based models. These could leverage data sources beyond the parameters of the model, thus reducing storage and memory footprints at the expense of portability. Additionally, there&#8217;s hope they would improve explainability by being able to map generations back to an interpretable source. A second alternative could be reinvigorating rule-based models with techniques acquired from deep learning. Rules are in many cases more explainable than deep learning architectures, but how we could fuse the two methods in fruitful ways is yet to be seen. Lastly, innovating small models themselves could provide us with interpretable models that could consume less compute, but perhaps at the expense of&nbsp;generalizability.</p>
+<hr>
+
+<p>We clearly have options if we want to drive modern <span class="caps">NLP</span> in a direction where we have recourse over the decisions and actions of models. How we&#8217;ll get there is yet to be decided. If we care, as a field, about algorithmic recourse, and recognize the applied harms of machine learning in the wild, then we will find ways to explain our&nbsp;models.</p>
+<p>If you&#8217;ve made it this far, thank you! Consider <a href="https://tinyletter.com/liebscher">signing up for my newsletter</a>—I&#8217;ve been trying to send out an email a couple days before posting articles, and try to keep them friendly and personal (i.e. I don&#8217;t want it to just be junk&nbsp;mail).</p>
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@m">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>
