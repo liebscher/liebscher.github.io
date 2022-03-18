@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Solving the Grecian Computer</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="python" />
+    <meta name="tags" content="algorithms" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>Solving the Grecian&nbsp;Computer</span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3@l">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/posts/2022/Mar/solving-grecian-computer/" rel="bookmark" title="Permalink to Solving the Grecian Computer">Solving the Grecian&nbsp;Computer</a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2022-03-18T00:00:00-07:00">
+        Fri 18 March 2022
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/python.html">python</a>, 
+        <a href="/tag/algorithms.html">algorithms</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+    <p>My family celebrated my grandma&#8217;s 88th birthday a couple weekends ago. She, however, was prepared to give out gifts to everyone else. Knowing what my family enjoys doing, she mail ordered (from a catalogue, yes) a puzzle for us all to solve. It&#8217;s called the Grecian Computer puzzle. Unfortunately, I can&#8217;t find any reliable background on it. Barnes and Noble <a href="https://www.barnesandnoble.com/w/true-genius-greek-computer-2-wooden-brainteaser-puzzle-project-genius/1137585230">claims</a> it was inspired by an astronomical tool found in an old Grecian shipwreck. I think it&#8217;s just a puzzle someone came up with. However skeptical I am of its origins, the puzzle is hard, very hard. My sister, dad, and I took turns trying to solve it and none of us made any progress. Not that we&#8217;re numerical geniuses, but collectively we were&nbsp;stumped.</p>
+<p>To help you picture what we were up against, here is what the puzzle looks&nbsp;like:</p>
+<p><img data-src="/images/grecian-computer-start.jpg" class="uk-align-center" width="90%" height="" alt="Starting position of the Grecian Computer puzzle" uk-img></p>
+<p>Each of the concentric circles rotates, and the goal is to turn these dials until each of the 12 columns add up to&nbsp;42.</p>
+<p>The dials aren&#8217;t purely concentric &#8212; some of the spaces are &#8220;blank&#8221;, revealing the number on the dial&nbsp;below.</p>
+<p>After turning the dials for a while without success, I took out a piece of paper and started writing out numbers. It took me a moment before realizing how to write them out: each dial being a &#8220;layer&#8221; and represented as a matrix. I could leave a cell empty to represent a hole in a dial. Here&#8217;s one of my&nbsp;notes:</p>
+<p><img data-src="/images/grecian-computer-notes.jpg" class="uk-align-center" width="60%" height="" alt="A piece of scratch paper with a collection of numbers written out to describe my thoughts while trying to represent the puzzle numerically" uk-img></p>
+<p>This started to make sense in my head and I noticed a couple patterns, but nothing meaningful enough to help solve the puzzle. I thought, Well since these are really just matrices, could we write an algorithm to solve&nbsp;this?</p>
+<p>Let me first get it out of the way that yes, I solved the puzzle. Yes, I did it using a computer. No, I have no idea how to solve the puzzle without the computer&#8217;s brute force. Puzzles are for meant to be fun, and reveling in Algorithm Land is my version of&nbsp;fun.</p>
+<p>That made clear, I&#8217;m sure the reader is most interested in the computational solution. Without further delay, I first will describe the solution, then my progress and&nbsp;learnings.</p>
+<h2>Solution</h2>
+<p>I represented our puzzle as a 3-dimensional tensor. A tensor is a generalization of a scalar, a vector, or a matrix. A scalar is a 0-dimensional tensor, a vector 1-dimensional, and a matrix 2-dimensional. The puzzle has 5 dials, with 4 rows of numbers, and 12 columns. Naturally then, this is a tensor with shape&nbsp;5x4x12.</p>
+<p>The solution is given to us: all columns must sum to 42. Mathematically, we can represent this solution as a vector of length 12, each value equal to&nbsp;42.</p>
+<p>We have two unanswered questions. First, how do we represent those &#8220;blank&#8221; or &#8220;empty&#8221; cells? Second, how do we &#8220;rotate&#8221; the&nbsp;dials?</p>
+<p>My answer to the first is that the &#8220;empty&#8221; cells in the tensor are set to 0. A zero signals, through masking and multiplication, that the value beneath is&nbsp;used.</p>
+<p>My answer to the second is to &#8220;rotate&#8221; or &#8220;roll&#8221; a specific axis of the tensor. The matrix gets pushed to the right and the column that falls off gets placed on the&nbsp;left.</p>
+<p>I&#8217;m intentionally grounding this explanation in metaphors of the physical world. Without the metaphors, we would quickly become lost in&nbsp;terminology.</p>
+<p>Another hidden difficulty in this is summing the columns. What&#8217;s trivial for the human eye to pick up as a &#8220;column&#8221; is less so in this computational framework. I thought of this as working down, or outward. First, we consider the innermost or top dial. Suppose on a dial, <span class="math">\(A\)</span>, with two numbers (but four spaces) there&nbsp;are</p>
+<div class="highlight"><pre><span></span><code>[0, 5, 0, 1]
+</code></pre></div>
+
+<p>Then if we sum over each column we get the result: <code>[0, 5, 0, 1]</code>.</p>
+<p>Suppose there&#8217;s a dial underneath, call this <span class="math">\(B\)</span>:</p>
+<div class="highlight"><pre><span></span><code>[
+  [1,1,1,1],
+  [2,2,2,2]
+]
+</code></pre></div>
+
+<p>How would we add this with the innermost dial? Overlay the first dial onto the second. The first column would be 1 + 2 = 3. Second, 1 + 5 = 6. Third, 1 + 2 = 3. Fourth, 1 + 1 = 2. Resulting in <code>[3, 6, 3, 2]</code>.</p>
+<p>I represented the innermost dial <span class="math">\(A\)</span> then&nbsp;as</p>
+<div class="highlight"><pre><span></span><code>[
+  [0, 0, 0, 0],
+  [0, 5, 0, 1]
+]
+</code></pre></div>
+
+<p>To quickly compute the result of <span class="math">\(A\)</span> overlaid on <span class="math">\(B\)</span>,&nbsp;solve:</p>
+<div class="highlight"><pre><span></span><code>A + (A == 0)*B
+</code></pre></div>
+
+<p>where <code>(A == 0)</code> becomes a masking matrix of 1s (<code>True</code>) and 0s (<code>False</code>). Thus this only uses values of <span class="math">\(B\)</span> where <span class="math">\(A\)</span> is empty. Bringing it all together, this sums the values of <span class="math">\(B\)</span> where <span class="math">\(A\)</span> is empty, with all values of <span class="math">\(A\)</span>.</p>
+<p>We extend this for all five puzzle dials until we have something that looks&nbsp;like:</p>
+<div class="highlight"><pre><span></span><code><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+    <span class="n">game</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span>
+    <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">game</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span>
+    <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">game</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span>
+    <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">game</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span>
+    <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">game</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">game</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+    <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>Here <code>game</code> is just a copy of the game board after rotating it. Consider <code>game[4]</code> as <span class="math">\(A\)</span> and <code>game[3]</code> as <span class="math">\(B\)</span>. Now extend the logic to the next dial, say <span class="math">\(C\)</span>, where the values of <span class="math">\(C\)</span> are only relevant where we can see them (i.e. where the values of both <span class="math">\(A\)</span> and <span class="math">\(B\)</span> are&nbsp;0).</p>
+<p>Now what about rotating the dials? Numpy has an <code>np.roll</code> method that performs exactly what we need: rolling an axis of a tensor so that the &#8220;columns&#8221; are shifted, with the final column being carried over to the&nbsp;front.</p>
+<p>Lastly, we must represent the state of the dial somehow. I did this with a vector of length 5, with each element representing the rotation (up to 12) of one of the five dials. The starting point of the game is arbitrary, and doesn&#8217;t matter since we can brute force all combinations&nbsp;anyways.</p>
+<p>We have a function for summing the puzzle and checking the&nbsp;score:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">equals</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+    <span class="c1"># first roll the board so the dials are at the right positions</span>
+    <span class="n">sub_copy</span> <span class="o">=</span> <span class="n">roll_board</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
+
+    <span class="c1"># now sum all the columns, for each dial taking into account how it&#39;s masked</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span>
+        <span class="n">sub_copy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span>
+        <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sub_copy</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span>
+        <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sub_copy</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span>
+        <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sub_copy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span>
+        <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">sub_copy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sub_copy</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">axis</span><span class="o">=</span><span class="mi">0</span>
+    <span class="p">)</span>
+
+    <span class="c1"># do all our columsn equal our solution?</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="n">solution</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We also have a function for rotating the board, according to a given&nbsp;state:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">roll_board</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+    <span class="c1"># first, create a copy of the game (so we don&#39;t modify the original)</span>
+    <span class="n">sub_copy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">game</span><span class="p">)</span>
+
+    <span class="c1"># for each of the 5 dials</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">offset</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">game</span><span class="p">[[</span><span class="n">i</span><span class="p">]])</span>
+        <span class="c1"># roll the dial (on axis 2) and keep the new position in the copy</span>
+        <span class="n">selected</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">selected</span><span class="p">,</span> <span class="n">offset</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">sub_copy</span><span class="p">[[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">selected</span>
+
+    <span class="k">return</span> <span class="n">sub_copy</span>
+</code></pre></div>
+
+<p>I saw this as a recursive problem, instead of writing out many loops. This recursive function looks like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@tail_recursive</span>
+<span class="k">def</span> <span class="nf">recursive</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">tally</span><span class="p">):</span>
+
+    <span class="c1"># exit condition</span>
+    <span class="k">if</span> <span class="n">equals</span><span class="p">(</span><span class="n">layers</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">tally</span><span class="p">)</span>
+
+    <span class="c1"># create a copy of the puzzle state that may be masked</span>
+    <span class="n">masked</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">layers</span><span class="p">)</span>
+    <span class="c1"># we want to know if any of the dials have been exhausted</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">masked</span> <span class="o">==</span> <span class="mi">12</span><span class="p">)</span>
+
+    <span class="c1"># if none have, turn the outermost dial one place</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">top</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">masked</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># recurse with one change in the state</span>
+        <span class="n">recurse</span><span class="p">(</span><span class="n">masked</span><span class="p">,</span> <span class="n">tally</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># if one of dials has been exhausted, we increment the dial</span>
+    <span class="c1"># just greater than it, and wipe clean the dials less than it</span>
+    <span class="n">top</span> <span class="o">=</span> <span class="n">top</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">masked</span><span class="p">[</span><span class="n">top</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">masked</span><span class="p">[</span><span class="n">top</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">recurse</span><span class="p">(</span><span class="n">masked</span><span class="p">,</span> <span class="n">tally</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We can initiate the algorithm and&nbsp;solve:</p>
+<div class="highlight"><pre><span></span><code><span class="n">recursive</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+(array([0, 5, 9, 2, 7]), 10871)
+</pre>
+
+<p>It took 10,871 dial turns to reach the solution: [0, 5, 9, 2,&nbsp;7].</p>
+<p>Here is what the puzzle looks like at this state, with all columns adding to&nbsp;42:</p>
+<p><img data-src="/images/grecian-computer-end.jpg" class="uk-align-center" width="90%" height="" alt="Completed position of the Grecian Computer puzzle, with all five columns adding to 42" uk-img></p>
+<h2>Progress and&nbsp;Learnings</h2>
+<p>I&#8217;m glad to be able to share this solution, and I did my best to explain it simply. There was a handful of attempts to get here though, and it wasn&#8217;t a straight&nbsp;shot.</p>
+<p>First, I didn&#8217;t immediately realize that I&#8217;d need to mask numbers. I was confused why the columns weren&#8217;t adding up digitally like they were on the puzzle. Eventually I understood that numbers on outer dials were being &#8220;hidden&#8221; by inner dials. I found that I could mask the outer dials by converting the inner dial to &#8220;mask&#8221; or &#8220;no&nbsp;mask&#8221;.</p>
+<p>I also wasn&#8217;t aware of the <code>np.roll</code> method going into this. I thought I was going to have to&#8230; roll my own. Luckily, it took me one or two Google searches to find the pre-built roll method. It did however take me some time to understand how best to use it in this case. Through trial-and-error, I rolled different tensors and tried matching the output with what I&nbsp;expected.</p>
+<p>It was about this point that a <a href="https://en.wikipedia.org/wiki/Recursion">recursive strategy</a> came to mind. I prototyped a looping method, but it seemed too &#8220;hardcoded&#8221;, messy, and &#8220;stateful.&#8221; I have not taken any algorithms courses though. My understanding of algorithms, and recursion, is very&nbsp;limited.</p>
+<p>I also realized around this time that I wouldn&#8217;t be able to continue on without using simplified toy data. The real data was too complex, and if I wanted to prototype with only one or two layers I wouldn&#8217;t have a known solution. So, I created a toy dataset of size 3x3x3 (3 dials, with 3 rows, and 3&nbsp;columns).</p>
+<p>I came up with a first recursive attempt, but, surprisingly, it wasn&#8217;t recursive enough. I was really only iterating down a single dimension, not all dimensions. So, many of the possible combinations weren&#8217;t getting tried out. I paused and thought about what I needed in a recursive function. I tried&nbsp;again.</p>
+<p>There were a couple updates to adapt my previous recursive function to the real data. The toy data was necessary for getting the mechanics down, but I needed to see how things would flow in reality. This included putting quite a few print statements in the recursive&nbsp;function.</p>
+<p>As I was testing, I hit a <a href="https://stackoverflow.com/questions/2401447/python-recursive-function-error-maximum-recursion-depth-exceeded">RecursionError</a> saying I reached the maximum recursion depth. I had to Google what this meant. I went back to the drawing board to start fresh with some of the implementations I saw&nbsp;online.</p>
+<p>I created a new function and again hit a recursion error. This forced me to go learn about <a href="https://stackoverflow.com/questions/33923/what-is-tail-recursion">(non-)tail recursion</a> and how Python handles this type of computation. I discovered that Guido in fact <a href="https://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html">does not believe</a> that Python should be designed with recursion in&nbsp;mind:</p>
+<blockquote>
+<p>Third, I don&#8217;t believe in recursion as the basis of all programming. This is a fundamental belief of certain computer scientists, especially those who love Scheme and like to teach programming by starting with a &#8220;cons&#8221; cell and recursion. But to me, seeing recursion as the basis of everything else is just a nice theoretical approach to fundamental mathematics (<a href="http://en.wikipedia.org/wiki/Turtles_all_the_way_down">turtles all the way down</a>), not a day-to-day&nbsp;tool.</p>
+</blockquote>
+<p>So trying to use recursion had come back to bite me. I read that Python only allowed at most about 1000 levels deep in a recursive function. After this, the memory stack has too much to keep track of, and opts to fail. Next time I think I will favor an iterative approach, at least when using&nbsp;Python.</p>
+<p>I found a snippet of code on <a href="https://chrispenner.ca/posts/python-tail-recursion">a kind person&#8217;s blog</a> which catches any tail recursion error, if there is one. If it catches an error, it restarts a new stack of memory after closing out the original function. This allows the recursive function to continue on even if it hits Python&#8217;s recursive limit. In my case, this was a good enough solution to carry onward. You can see how this decorator is used in my code above. I copy here the&nbsp;snippet:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Recurse</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+<span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">Recurse</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">tail_recursive</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">Recurse</span> <span class="k">as</span> <span class="n">r</span><span class="p">:</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">args</span>
+                <span class="n">kwargs</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">kwargs</span>
+                <span class="k">continue</span>
+    <span class="k">return</span> <span class="n">decorated</span>
+</code></pre></div>
+
+<p>Eventually, I hit run and the function carried out for about 5 to 10 seconds. As I mentioned, after 10,871 iterations, the function reached an output. I determined what the board would be at that result and tested it out on the game in my hand.&nbsp;Success!</p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@l">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>

@@ -59,3 +59,7 @@ h4 a { color: inherit !important }
 h5 a { color: inherit !important }
 h6 a { color: inherit !important }
 
+blockquote {
+    font-size: 1.1rem !important;
+    margin: 0 2em !important;
+}

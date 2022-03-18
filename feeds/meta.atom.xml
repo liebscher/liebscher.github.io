@@ -1,5 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Alex Liebscher - meta</title><link href="/" rel="alternate"></link><link href="/feeds/meta.atom.xml" rel="self"></link><id>/</id><updated>2022-02-21T00:00:00-08:00</updated><entry><title>Linear Regression: Parameter Estimation</title><link href="/posts/2022/Feb/linear-regression-parameters/" rel="alternate"></link><published>2022-02-21T00:00:00-08:00</published><updated>2022-02-21T00:00:00-08:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-02-21:/posts/2022/Feb/linear-regression-parameters/</id><summary type="html">&lt;p&gt;Three methods of fitting a line to&amp;nbsp;data&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img class="uk-align-center" width="90%" height="" src="/images/regr-header.png" uk-img&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Alex Liebscher - meta</title><link href="/" rel="alternate"></link><link href="/feeds/meta.atom.xml" rel="self"></link><id>/</id><updated>2022-03-18T00:00:00-07:00</updated><entry><title>Solving the Grecian Computer</title><link href="/posts/2022/Mar/solving-grecian-computer/" rel="alternate"></link><published>2022-03-18T00:00:00-07:00</published><updated>2022-03-18T00:00:00-07:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-03-18:/posts/2022/Mar/solving-grecian-computer/</id><summary type="html">&lt;p&gt;Solving Grandma&amp;#8217;s puzzle with a little algorithmic&amp;nbsp;help&lt;/p&gt;</summary><content type="html">&lt;p&gt;My family celebrated my grandma&amp;#8217;s 88th birthday a couple weekends ago. She, however, was prepared to give out gifts to everyone else. Knowing what my family enjoys doing, she mail ordered (from a catalogue, yes) a puzzle for us all to solve. It&amp;#8217;s called the Grecian Computer puzzle. Unfortunately, I can&amp;#8217;t find any reliable background on it. Barnes and Noble &lt;a href="https://www.barnesandnoble.com/w/true-genius-greek-computer-2-wooden-brainteaser-puzzle-project-genius/1137585230"&gt;claims&lt;/a&gt; it was inspired by an astronomical tool found in an old Grecian shipwreck. I think it&amp;#8217;s just a puzzle someone came up with. However skeptical I am of its origins, the puzzle is hard, very hard. My sister, dad, and I took turns trying to solve it and none of us made any progress. Not that we&amp;#8217;re numerical geniuses, but collectively we were&amp;nbsp;stumped.&lt;/p&gt;
+&lt;p&gt;To help you picture what we were up against, here is what the puzzle looks&amp;nbsp;like:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/grecian-computer-start.jpg" class="uk-align-center" width="90%" height="" alt="Starting position of the Grecian Computer puzzle" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;Each of the concentric circles rotates, and the goal is to turn these dials until each of the 12 columns add up to&amp;nbsp;42.&lt;/p&gt;
+&lt;p&gt;The dials aren&amp;#8217;t purely concentric &amp;#8212; some of the spaces are &amp;#8220;blank&amp;#8221;, revealing the number on the dial&amp;nbsp;below.&lt;/p&gt;
+&lt;p&gt;After turning the dials for a while without success, I took out a piece of paper and started writing out numbers. It took me a moment before realizing how to write them out: each dial being a &amp;#8220;layer&amp;#8221; and represented as a matrix. I could leave a cell empty to represent a hole in a dial. Here&amp;#8217;s one of my&amp;nbsp;notes:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/grecian-computer-notes.jpg" class="uk-align-center" width="60%" height="" alt="A piece of scratch paper with a collection of numbers written out to describe my thoughts while trying to represent the puzzle numerically" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;This started to make sense in my head and I noticed a couple patterns, but nothing meaningful enough to help solve the puzzle. I thought, Well since these are really just matrices, could we write an algorithm to solve&amp;nbsp;this?&lt;/p&gt;
+&lt;p&gt;Let me first get it out of the way that yes, I solved the puzzle. Yes, I did it using a computer. No, I have no idea how to solve the puzzle without the computer&amp;#8217;s brute force. Puzzles are for meant to be fun, and reveling in Algorithm Land is my version of&amp;nbsp;fun.&lt;/p&gt;
+&lt;p&gt;That made clear, I&amp;#8217;m sure the reader is most interested in the computational solution. Without further delay, I first will describe the solution, then my progress and&amp;nbsp;learnings.&lt;/p&gt;
+&lt;h2&gt;Solution&lt;/h2&gt;
+&lt;p&gt;I represented our puzzle as a 3-dimensional tensor. A tensor is a generalization of a scalar, a vector, or a matrix. A scalar is a 0-dimensional tensor, a vector 1-dimensional, and a matrix 2-dimensional. The puzzle has 5 dials, with 4 rows of numbers, and 12 columns. Naturally then, this is a tensor with shape&amp;nbsp;5x4x12.&lt;/p&gt;
+&lt;p&gt;The solution is given to us: all columns must sum to 42. Mathematically, we can represent this solution as a vector of length 12, each value equal to&amp;nbsp;42.&lt;/p&gt;
+&lt;p&gt;We have two unanswered questions. First, how do we represent those &amp;#8220;blank&amp;#8221; or &amp;#8220;empty&amp;#8221; cells? Second, how do we &amp;#8220;rotate&amp;#8221; the&amp;nbsp;dials?&lt;/p&gt;
+&lt;p&gt;My answer to the first is that the &amp;#8220;empty&amp;#8221; cells in the tensor are set to 0. A zero signals, through masking and multiplication, that the value beneath is&amp;nbsp;used.&lt;/p&gt;
+&lt;p&gt;My answer to the second is to &amp;#8220;rotate&amp;#8221; or &amp;#8220;roll&amp;#8221; a specific axis of the tensor. The matrix gets pushed to the right and the column that falls off gets placed on the&amp;nbsp;left.&lt;/p&gt;
+&lt;p&gt;I&amp;#8217;m intentionally grounding this explanation in metaphors of the physical world. Without the metaphors, we would quickly become lost in&amp;nbsp;terminology.&lt;/p&gt;
+&lt;p&gt;Another hidden difficulty in this is summing the columns. What&amp;#8217;s trivial for the human eye to pick up as a &amp;#8220;column&amp;#8221; is less so in this computational framework. I thought of this as working down, or outward. First, we consider the innermost or top dial. Suppose on a dial, &lt;span class="math"&gt;\(A\)&lt;/span&gt;, with two numbers (but four spaces) there&amp;nbsp;are&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[0, 5, 0, 1]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then if we sum over each column we get the result: &lt;code&gt;[0, 5, 0, 1]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Suppose there&amp;#8217;s a dial underneath, call this &lt;span class="math"&gt;\(B\)&lt;/span&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[
+  [1,1,1,1],
+  [2,2,2,2]
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;How would we add this with the innermost dial? Overlay the first dial onto the second. The first column would be 1 + 2 = 3. Second, 1 + 5 = 6. Third, 1 + 2 = 3. Fourth, 1 + 1 = 2. Resulting in &lt;code&gt;[3, 6, 3, 2]&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;I represented the innermost dial &lt;span class="math"&gt;\(A\)&lt;/span&gt; then&amp;nbsp;as&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;[
+  [0, 0, 0, 0],
+  [0, 5, 0, 1]
+]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;To quickly compute the result of &lt;span class="math"&gt;\(A\)&lt;/span&gt; overlaid on &lt;span class="math"&gt;\(B\)&lt;/span&gt;,&amp;nbsp;solve:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;A + (A == 0)*B
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;code&gt;(A == 0)&lt;/code&gt; becomes a masking matrix of 1s (&lt;code&gt;True&lt;/code&gt;) and 0s (&lt;code&gt;False&lt;/code&gt;). Thus this only uses values of &lt;span class="math"&gt;\(B\)&lt;/span&gt; where &lt;span class="math"&gt;\(A\)&lt;/span&gt; is empty. Bringing it all together, this sums the values of &lt;span class="math"&gt;\(B\)&lt;/span&gt; where &lt;span class="math"&gt;\(A\)&lt;/span&gt; is empty, with all values of &lt;span class="math"&gt;\(A\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;We extend this for all five puzzle dials until we have something that looks&amp;nbsp;like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+    &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+    &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here &lt;code&gt;game&lt;/code&gt; is just a copy of the game board after rotating it. Consider &lt;code&gt;game[4]&lt;/code&gt; as &lt;span class="math"&gt;\(A\)&lt;/span&gt; and &lt;code&gt;game[3]&lt;/code&gt; as &lt;span class="math"&gt;\(B\)&lt;/span&gt;. Now extend the logic to the next dial, say &lt;span class="math"&gt;\(C\)&lt;/span&gt;, where the values of &lt;span class="math"&gt;\(C\)&lt;/span&gt; are only relevant where we can see them (i.e. where the values of both &lt;span class="math"&gt;\(A\)&lt;/span&gt; and &lt;span class="math"&gt;\(B\)&lt;/span&gt; are&amp;nbsp;0).&lt;/p&gt;
+&lt;p&gt;Now what about rotating the dials? Numpy has an &lt;code&gt;np.roll&lt;/code&gt; method that performs exactly what we need: rolling an axis of a tensor so that the &amp;#8220;columns&amp;#8221; are shifted, with the final column being carried over to the&amp;nbsp;front.&lt;/p&gt;
+&lt;p&gt;Lastly, we must represent the state of the dial somehow. I did this with a vector of length 5, with each element representing the rotation (up to 12) of one of the five dials. The starting point of the game is arbitrary, and doesn&amp;#8217;t matter since we can brute force all combinations&amp;nbsp;anyways.&lt;/p&gt;
+&lt;p&gt;We have a function for summing the puzzle and checking the&amp;nbsp;score:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;equals&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="c1"&gt;# first roll the board so the dials are at the right positions&lt;/span&gt;
+    &lt;span class="n"&gt;sub_copy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;roll_board&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# now sum all the columns, for each dial taking into account how it&amp;#39;s masked&lt;/span&gt;
+    &lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;
+        &lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt;
+        &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+        &lt;span class="n"&gt;axis&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+    &lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# do all our columsn equal our solution?&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;s&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="n"&gt;solution&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We also have a function for rotating the board, according to a given&amp;nbsp;state:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;roll_board&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="c1"&gt;# first, create a copy of the game (so we don&amp;#39;t modify the original)&lt;/span&gt;
+    &lt;span class="n"&gt;sub_copy&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# for each of the 5 dials&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;enumerate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;selected&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;game&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]])&lt;/span&gt;
+        &lt;span class="c1"&gt;# roll the dial (on axis 2) and keep the new position in the copy&lt;/span&gt;
+        &lt;span class="n"&gt;selected&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;roll&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;selected&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;offset&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="n"&gt;sub_copy&lt;/span&gt;&lt;span class="p"&gt;[[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;selected&lt;/span&gt;
+
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;sub_copy&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;I saw this as a recursive problem, instead of writing out many loops. This recursive function looks like&amp;nbsp;this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nd"&gt;@tail_recursive&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;recursive&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tally&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# exit condition&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;equals&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tally&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# create a copy of the puzzle state that may be masked&lt;/span&gt;
+    &lt;span class="n"&gt;masked&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;layers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="c1"&gt;# we want to know if any of the dials have been exhausted&lt;/span&gt;
+    &lt;span class="n"&gt;top&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;argwhere&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;masked&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# if none have, turn the outermost dial one place&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;masked&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+        &lt;span class="c1"&gt;# recurse with one change in the state&lt;/span&gt;
+        &lt;span class="n"&gt;recurse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;masked&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tally&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# if one of dials has been exhausted, we increment the dial&lt;/span&gt;
+    &lt;span class="c1"&gt;# just greater than it, and wipe clean the dials less than it&lt;/span&gt;
+    &lt;span class="n"&gt;top&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;masked&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="n"&gt;masked&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;top&lt;/span&gt;&lt;span class="p"&gt;:]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="n"&gt;recurse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;masked&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;tally&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We can initiate the algorithm and&amp;nbsp;solve:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;recursive&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;np&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;array&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]),&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre class="code-output"&gt;
+(array([0, 5, 9, 2, 7]), 10871)
+&lt;/pre&gt;
+
+&lt;p&gt;It took 10,871 dial turns to reach the solution: [0, 5, 9, 2,&amp;nbsp;7].&lt;/p&gt;
+&lt;p&gt;Here is what the puzzle looks like at this state, with all columns adding to&amp;nbsp;42:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/grecian-computer-end.jpg" class="uk-align-center" width="90%" height="" alt="Completed position of the Grecian Computer puzzle, with all five columns adding to 42" uk-img&gt;&lt;/p&gt;
+&lt;h2&gt;Progress and&amp;nbsp;Learnings&lt;/h2&gt;
+&lt;p&gt;I&amp;#8217;m glad to be able to share this solution, and I did my best to explain it simply. There was a handful of attempts to get here though, and it wasn&amp;#8217;t a straight&amp;nbsp;shot.&lt;/p&gt;
+&lt;p&gt;First, I didn&amp;#8217;t immediately realize that I&amp;#8217;d need to mask numbers. I was confused why the columns weren&amp;#8217;t adding up digitally like they were on the puzzle. Eventually I understood that numbers on outer dials were being &amp;#8220;hidden&amp;#8221; by inner dials. I found that I could mask the outer dials by converting the inner dial to &amp;#8220;mask&amp;#8221; or &amp;#8220;no&amp;nbsp;mask&amp;#8221;.&lt;/p&gt;
+&lt;p&gt;I also wasn&amp;#8217;t aware of the &lt;code&gt;np.roll&lt;/code&gt; method going into this. I thought I was going to have to&amp;#8230; roll my own. Luckily, it took me one or two Google searches to find the pre-built roll method. It did however take me some time to understand how best to use it in this case. Through trial-and-error, I rolled different tensors and tried matching the output with what I&amp;nbsp;expected.&lt;/p&gt;
+&lt;p&gt;It was about this point that a &lt;a href="https://en.wikipedia.org/wiki/Recursion"&gt;recursive strategy&lt;/a&gt; came to mind. I prototyped a looping method, but it seemed too &amp;#8220;hardcoded&amp;#8221;, messy, and &amp;#8220;stateful.&amp;#8221; I have not taken any algorithms courses though. My understanding of algorithms, and recursion, is very&amp;nbsp;limited.&lt;/p&gt;
+&lt;p&gt;I also realized around this time that I wouldn&amp;#8217;t be able to continue on without using simplified toy data. The real data was too complex, and if I wanted to prototype with only one or two layers I wouldn&amp;#8217;t have a known solution. So, I created a toy dataset of size 3x3x3 (3 dials, with 3 rows, and 3&amp;nbsp;columns).&lt;/p&gt;
+&lt;p&gt;I came up with a first recursive attempt, but, surprisingly, it wasn&amp;#8217;t recursive enough. I was really only iterating down a single dimension, not all dimensions. So, many of the possible combinations weren&amp;#8217;t getting tried out. I paused and thought about what I needed in a recursive function. I tried&amp;nbsp;again.&lt;/p&gt;
+&lt;p&gt;There were a couple updates to adapt my previous recursive function to the real data. The toy data was necessary for getting the mechanics down, but I needed to see how things would flow in reality. This included putting quite a few print statements in the recursive&amp;nbsp;function.&lt;/p&gt;
+&lt;p&gt;As I was testing, I hit a &lt;a href="https://stackoverflow.com/questions/2401447/python-recursive-function-error-maximum-recursion-depth-exceeded"&gt;RecursionError&lt;/a&gt; saying I reached the maximum recursion depth. I had to Google what this meant. I went back to the drawing board to start fresh with some of the implementations I saw&amp;nbsp;online.&lt;/p&gt;
+&lt;p&gt;I created a new function and again hit a recursion error. This forced me to go learn about &lt;a href="https://stackoverflow.com/questions/33923/what-is-tail-recursion"&gt;(non-)tail recursion&lt;/a&gt; and how Python handles this type of computation. I discovered that Guido in fact &lt;a href="https://neopythonic.blogspot.com/2009/04/tail-recursion-elimination.html"&gt;does not believe&lt;/a&gt; that Python should be designed with recursion in&amp;nbsp;mind:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Third, I don&amp;#8217;t believe in recursion as the basis of all programming. This is a fundamental belief of certain computer scientists, especially those who love Scheme and like to teach programming by starting with a &amp;#8220;cons&amp;#8221; cell and recursion. But to me, seeing recursion as the basis of everything else is just a nice theoretical approach to fundamental mathematics (&lt;a href="http://en.wikipedia.org/wiki/Turtles_all_the_way_down"&gt;turtles all the way down&lt;/a&gt;), not a day-to-day&amp;nbsp;tool.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So trying to use recursion had come back to bite me. I read that Python only allowed at most about 1000 levels deep in a recursive function. After this, the memory stack has too much to keep track of, and opts to fail. Next time I think I will favor an iterative approach, at least when using&amp;nbsp;Python.&lt;/p&gt;
+&lt;p&gt;I found a snippet of code on &lt;a href="https://chrispenner.ca/posts/python-tail-recursion"&gt;a kind person&amp;#8217;s blog&lt;/a&gt; which catches any tail recursion error, if there is one. If it catches an error, it restarts a new stack of memory after closing out the original function. This allows the recursive function to continue on even if it hits Python&amp;#8217;s recursive limit. In my case, this was a good enough solution to carry onward. You can see how this decorator is used in my code above. I copy here the&amp;nbsp;snippet:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Recurse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="ne"&gt;Exception&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="fm"&gt;__init__&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;args&lt;/span&gt;
+        &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;kwargs&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;recurse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;raise&lt;/span&gt; &lt;span class="n"&gt;Recurse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;tail_recursive&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;decorated&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="n"&gt;Recurse&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;args&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;args&lt;/span&gt;
+                &lt;span class="n"&gt;kwargs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;kwargs&lt;/span&gt;
+                &lt;span class="k"&gt;continue&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;decorated&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Eventually, I hit run and the function carried out for about 5 to 10 seconds. As I mentioned, after 10,871 iterations, the function reached an output. I determined what the board would be at that result and tested it out on the game in my hand.&amp;nbsp;Success!&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="meta"></category><category term="python"></category><category term="algorithms"></category></entry><entry><title>Linear Regression: Parameter Estimation</title><link href="/posts/2022/Feb/linear-regression-parameters/" rel="alternate"></link><published>2022-02-21T00:00:00-08:00</published><updated>2022-02-21T00:00:00-08:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-02-21:/posts/2022/Feb/linear-regression-parameters/</id><summary type="html">&lt;p&gt;Three methods of fitting a line to&amp;nbsp;data&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img class="uk-align-center" width="90%" height="" src="/images/regr-header.png" uk-img&gt;&lt;/p&gt;
 &lt;div class="caption"&gt;
 Image by Alex Liebscher
 &lt;/div&gt;
