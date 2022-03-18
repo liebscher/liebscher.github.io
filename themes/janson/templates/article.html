@@ -30,7 +30,7 @@
 
 {% block content %}
 <section class="uk-section uk-background-cover" style="background-image: url({{static}}/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3">
+  <div class="uk-container uk-width-2-3@l">
     <header>
       <h2 class="uk-text-center">
         <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{
@@ -65,7 +65,7 @@
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
     {{ article.content }}
   </div><!-- /.entry-content -->
 </section>

@@ -4,7 +4,7 @@ Tags: statistics, python
 Category: meta
 Slug: linear-regression-parameters
 Authors: Alex Liebscher
-Summary: three methods of fitting a line to data
+Summary: Three methods of fitting a line to data
 Status: published
 
 
@@ -13,9 +13,7 @@ Status: published
 Image by Alex Liebscher
 </div>
 
-Ask yourself: how often do you run linear regression models? Now ask: how are the results actually calculated?
-
-You're not alone if the answer to the first question was "often" and to the second "hmm." Truly understanding the workings of linear regression isn't as straightforward as an introductory stats class makes it out to be. Because of its utility and storied history, linear regression can now be understood in too many ways for most scientists and data-folks to fully grasp.
+Truly understanding the workings of linear regression isn't as straightforward as an introductory stats class makes it out to be. Because of its utility and storied history, linear regression can now be understood in too many ways for most scientists and data-folks to fully grasp.
 
 This article makes a chip away at this complexity by explaining three routine methods for estimating linear regression parameters. We'll discuss Least Squares, Gradient Descent, and Bayesian estimation.
 
@@ -29,6 +27,8 @@ We'll walk through each with code examples notebook-style and some sparse math t
 
     import pymc3 as pm
 
+    rng = np.random.default_rng(42)
+
 ## <a name="s1"></a>Creating our Data
 
 We will first create a fake dataset, also known as a simulated dataset. We do this so later on we can compare our model results to the true data generation process. Imagine a phenomenom that, when nothing happens, with an input of 0, the output is 5. Now imagine that when the process is input with -1, the output is 3; and when input with 1, the output is 7. We can build this simulation by specifying a line like $y = 5 + 2x + \epsilon$, where $\epsilon$ is some random error on each output (for example $\pm 1$).
@@ -39,8 +39,8 @@ We will first create a fake dataset, also known as a simulated dataset. We do th
 
     N = 20
 
-    X = np.random.random((N, ))
-    y = alpha + beta * X + np.random.normal(0, sigma, N)
+    X = rng.random((N, ))
+    y = alpha + beta * X + rng.normal(0, sigma, N)
 
 We can then plot these predictor values, ordered by which the data were generated,
 
@@ -66,7 +66,7 @@ and also related with the outcome values,
 
 The human eye easily picks up a pattern here. There're data that, when the horizontal variable increases, corresponds to an increase in the vertical variable. The pattern looks linear. There also appears to be some noise in the data; one data point doesn't relate to the next in an exactly predictable way.
 
-You're likely familiar with this scenario. As taught (either through instruction or experience), you'd next feel a craving to model this pattern using a linear regression model. This would help you describe, in numerical terms, exactly the pattern you see. If you're jumping the gun, you'd probably dart your eyes to those p-values too. This article won't discuss p-values, but it will discuss exactly how those "numerical terms" are identified.
+You're likely familiar with this scenario. As taught (either through instruction or experience), you'd next feel a craving to model this pattern using a linear regression model. This would help you describe, in numerical terms, exactly the pattern you see. If you're jumping the gun, you'd probably dart your eyes to those p-values too. This article won't discuss p-values, but it will discuss how our coefficients are determined.
 
 ## Estimating $\alpha$ and $\beta$
 
@@ -76,7 +76,7 @@ Given these simulated data, what can we do to understand what the pattern we see
 
 The first and most transparent method for understanding the relationship we see is called Least Squares, or Ordinary Least Squares.
 
-It's called least squares because our goal with this method is to find the line which <span style="color: red;">minimize</span> the <span style="color: purple;">sum</span> of the <span style="color: orange;">squares</span> of the residuals--the <span style="color: blue;">true outcome</span> minus the <span style="color: green;">model prediction</span>:
+It's called least squares because our goal with this method is to find the line which <span style="color: red;">minimizes</span> the <span style="color: purple;">sum</span> of the <span style="color: orange;">squares</span> of the residuals--the <span style="color: blue;">true outcome</span> minus the <span style="color: green;">model prediction</span>:
 
 $$
 \color{red}{\text{argmin}}_{\alpha, \beta} \color{purple}{\sum}_{i=1}^N \color{orange}{(}\color{blue}{y_i} - (\color{green}{\alpha + \beta x_i})\color{orange}{)^2}
@@ -131,7 +131,7 @@ It's common to assess the fit of the model by aggregating the *residuals*. The r
 
 With this `residuals` vector, we can compute the Mean Squared Error ($\text{MSE} = \frac{1}{df}\sum_{i=0}^n(residuals_i^2)$), Root Mean Squared Error ($\text{RMSE} = \sqrt{\text{MSE}}$), or Mean Absolute Error. [Each of these](http://zerospectrum.com/2019/06/02/mae-vs-mse-vs-rmse/) is a method for quantitatively assessing how well the model fit the data. If we had a test set of data, we could assess how well the model fits new data, i.e. its ability to generalize.
 
-The error in the model $\epsilon$ is assumed to be normally distributed, and there is in fact a strong relationship between how the variance of a Gaussian sample can be computed and the formula for the MSE. Both are drawn from the idea that there are measurable differences between the true value (the true $x$ or true $y$) and the mean or predicted value ($\mu$ or $\hat{y}$). The general form for either the sample variance or the MSE is
+The error in the model $\epsilon$ is assumed to be normally distributed, and there is in fact a strong relationship between how the variance of a Gaussian sample can be computed and the formula for the MSE. Both are drawn from the idea that the squared difference between the true value (the true $x$ or true $y$) and the mean or predicted value ($\mu$ or $\hat{y}$) is a meaningful quantity of dispersion. The general form for either the sample variance or the MSE is
 
 $$
 \text{Var}(\theta) = \text{MSE}(\theta) = \mathbb{E}_\theta[(\theta - \hat{\theta})^2]
@@ -158,6 +158,8 @@ The ability of the model to minimize the squared error is also closely related t
 0.3728
 </pre>
 
+This says that, on a scale from 0 to 1, the model captures about 37% of the variance in the response data. Normally we'd need to place this in the context of other studies or research to decide if it's good or bad, but here we know the true data generation process. It's lower than I would have expected, but still it's good to see that the model captures some degree of variance.
+
 #### Linear Algebraic Solution
 
 The algabraic method is good pedalogically, but suffers at estimation when we want more than a single predictor and two parameters. So we'll graduate to a new method, which is actually equivalent to the algabraic method. We'll start by putting our intercept data (just 1's <sup class="uk-link" uk-tooltip="Why 1's? To estimate a constant intercept, the data shouldn't change the estimate when multiplied. The one number which satisfies that identity mapping is 1.">✳︎</sup>) and $X$ data into a matrix $M$
@@ -176,7 +178,7 @@ The algabraic method is good pedalogically, but suffers at estimation when we wa
  [1.        , 0.09417735]]
 </pre>
 
-From this we multiply the transpose of this matrix $M$ by $M$ itself. If $M$ is originally $N$ by $2$, then this creates a $2$ by $2$ matrix. We then invert this matrix. There are tricks to doing this for models with many parameters, such as the LU decomposition or Choleskly decomposition, which I won't go into detail about here. With the inverse, we multiply this by $M$ transpose to get an $2 \times N$. Lastly, this is multiplied by $\bf{y}$ to get our parameter solution, a $2 \times 1$ vector.
+From this we multiply the transpose of this matrix $M$ by $M$ itself. If $M$ is originally $N$ by $2$, then this creates a $2$ by $2$ matrix. We then invert this matrix. There are tricks to doing this for models with many parameters, such as the LU decomposition or Cholesky decomposition, which I won't go into detail about here. With the inverse, we multiply this by $M$ transpose to get an $2 \times N$. Lastly, this is multiplied by $\bf{y}$ to get our parameter solution, a $2 \times 1$ vector.
 
 $$
 \require{boldsymbol}
@@ -325,7 +327,7 @@ It's called a linear model because in this case, we'll define $\mu$ as the **fun
 
 As you can see though, $\mu$ is just a linear combination. In other models, like the Poisson or a binomial/logistic, we'd need to transform $\mu$ so that it lines up with what the outcome distribution expects for parameters. For example, in the binomial model we'd need $\mu$ to be a probability, which wouldn't line up if we just let it vary as high or low as $\alpha$, $\beta$, and $X$ want it to go. Therefore we'd need a [logit function](https://en.wikipedia.org/wiki/Logit) to constrain those values back to the model parameter space.
 
-But what are $\alpha$ and $\beta$? They are parameters we must estimate. How? By letting them reflect a certain distribution. Which distribution? Well, we must consider what values these parameters can take on. What's reasonable given our problem? Let's say we know from theory that our data very rarely exceed -50 or 50. That means if there's no relationship between our outcome and $X$, we might expect $\alpha$ to be approximated by $\mathcal{N}(0, 20)$. Why 20? In a normal distribution with mean 0, there's about 99% of the density between -50 and 50 with a standard deviation of 20. What about $\beta$ though? Suppose we don't expect the rate of change between $X$ and $y$ to be more than 5 units. So if $X$ increases by 1 unit, we shouldn't expect $y$ to increase by more than 5 or decrease by more than -5. Therefore, $\beta$ may be approximated by $\mathcal{N}(0, 2)$.
+But what are $\alpha$ and $\beta$? They are parameters we must estimate. How? By letting them reflect certain distributions. Which distributions? Well, we must consider what values these parameters can take on. What's reasonable given our problem? Let's say we know from theory that our data very rarely exceed -50 or 50. That means if there's no relationship between our outcome and $X$, we might expect $\alpha$ to be approximated by $\mathcal{N}(0, 20)$. Why 20? In a normal distribution with mean 0, there's about 99% of the density between -50 and 50 with a standard deviation of 20. What about $\beta$ though? Suppose we don't expect the rate of change between $X$ and $y$ to be more than 5 units. So if $X$ increases by 1 unit, we shouldn't expect $y$ to increase by more than 5 or decrease by more than -5. Therefore, $\beta$ may be approximated by $\mathcal{N}(0, 2)$.
 
 The other component we know of is $\sigma$. We don't really think $\sigma$ will vary with any data, so we can represent $\sigma$ as a value or a space of values (a distribution). For example, in $\mathcal{N}(\mu, \sigma)$ we could say $\sigma=2$ if we knew that the variance of the Gaussian was 2, or we could say $\sigma \sim \text{Exp}(1)$, as in $\sigma$ reflects values from an exponential distribution with rate 1.
 
@@ -399,7 +401,7 @@ Another way to see what the model found is by plotting the distributions of the 
     <img src="{static}/images/regression-fig7.svg" uk-svg >
 </pre>
 
-This is confusing because compared to our previous two methods of parameter estimation where we had a single estimate for each parameter, how we see a histogram for each. Like I said, this is because a Bayesian model determines the values of parameters through random sampling. There was no random sampling in Least Squares and Gradient Descent. Because of the random sampling, we never know the exact values. This is unhelpful conceptually, but practically it provides us with concrete and sane estimates of confidence or certainty. Now we can compute the single parameter values using the mean, median, or mode; and we can also easily compute how accurate those measures are.
+This may be confusing because compared to our previous two methods of parameter estimation where we had a single estimate for each parameter, now we see a histogram for each. Like I said, this is because a Bayesian model determines the values of parameters through random sampling. There was no random sampling in Least Squares and Gradient Descent. Because of the random sampling, we never know the exact values. This is unhelpful conceptually, but practically it provides us with concrete and sane estimates of *uncertainty*. Now we can compute the single parameter values using the mean, median, or mode; and we can also easily compute how accurate those measures are.
 
 Don't let the histograms make you believe anything conceptually different is happening: we're still figuring out what the parameters should be, now we just have more information about each.
 
@@ -421,7 +423,7 @@ In the following code chunk, we sample and compute the posterior predictive valu
     
     plt.plot([min(y), max(y)], [min(y), max(y)], linestyle='--', color='gray', zorder=0)
 
-    plt.scatter(y, np.quantile(post_pred['y_pred'], 0.5, axis=0), zorder=2, color="red")
+    plt.scatter(y, np.quantile(post_pred['y_pred'], 0.5, axis=0), zorder=2, color="#2777b4")
 
     for y_i, point in zip(y, post_pred['y_pred'].T):
         q025 = np.quantile(point, 0.025)

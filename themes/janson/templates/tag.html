@@ -15,7 +15,7 @@
 
 {% block content %}
 <section class="uk-section">
-    <div class="uk-container uk-width-2-3">
+    <div class="uk-container uk-width-2-3@l">
         <h3>Articles tagged with <span class="uk-text-italic">{{ tag }}</span></h3>
         <ul class="uk-list uk-list-divider">
         {% for article in articles_page.object_list %}
@@ -38,7 +38,7 @@
     </div>
 </section><!-- /#content -->
 <section class="uk-section uk-section-muted">
-    <div class="uk-container uk-width-2-3">
+    <div class="uk-container uk-width-2-3@l">
         <h4 class="uk-heading-4">Article Tags</h4>
         {% for tag_name, articles in tags|sort %}
         <a href="{{ tag_name.slug }}.html" class="uk-link-muted uk-text-capitalize">{{ tag_name }}</a>{{ ", " if not loop.last else "" }}

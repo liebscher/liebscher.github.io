@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="uk-section">
-    <div class="uk-container uk-width-2-3">
+    <div class="uk-container uk-width-2-3@l">
         <div class="uk-flex-middle uk-margin uk-margin-large" uk-grid>
-            <div class="uk-width-1-4@m">
+            <div class="uk-width-1-4@l uk-width-2-3 uk-align-center">
                 <img src="{{static}}/images/portrait.jpg" alt="Portrait of Alex Liebscher">
             </div>
-            <div class="uk-width-3-4@m">
+            <div class="uk-width-3-4@l">
                 <p class="uk-text-justify">
                     I am a Jr. Technical Research Scientist at <a href="https://www.betterup.com/">BetterUp</a>. Here
                     I’m studying mechanisms of positive communication, and physical and mental wellbeing. I graduated
@@ -24,7 +24,7 @@
     </div>
 </section>
 <section class="uk-section">
-    <div class="uk-container uk-width-2-3">
+    <div class="uk-container uk-width-2-3@l">
         {% block content_title %}
         <h4 class="uk-heading-small smc uk-text-center">Tales From Diverse Spaces</h4>
         <h5 class="uk-heading-xsmall uk-text-light uk-text-center">The Language I Read That Makes Ideas Fit Together</h5>
@@ -69,6 +69,7 @@
                             </footer><!-- /.post-info -->
                         </div>
                         <div> {{ article.summary }} </div><!-- /.entry-content -->
+                        <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not loop.last else "" }}{% endfor %}</div><!-- /.entry-content -->
                 </article></li>
         {% endfor %}
         </ul><!-- /#posts-list -->
@@ -78,7 +79,7 @@
     </div>
 </section><!-- /#content -->
 <section class="uk-section uk-section-muted">
-    <div class="uk-container uk-width-2-3">
+    <div class="uk-container uk-width-2-3@l">
         <h4 class="uk-heading-4">Article Tags</h4>
         {% for tag, articles in tags|sort %}
         <a href="{{ SITEURL }}/{{ tag.url }}" class="uk-link-muted uk-text-capitalize">{{ tag }}</a>{{ ", " if not loop.last else "" }}

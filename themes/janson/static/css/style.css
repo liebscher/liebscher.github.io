@@ -1,10 +1,30 @@
 html {
   font-family: 'IBM Plex Serif', 'Times New Roman', Times, serif;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 28px;
   background-color: white;
   color: #111;
 }
+
+/* this was in default.css but I had to move here 
+in order to have media tag too */
+.highlight pre, pre, .highlight .hll {
+    font-size: 22px;
+    background-color: #f8f8f8;
+    padding: 10px 10px;
+    border-radius: 2px;
+}
+
+
+@media screen and (min-width: 1200px) {
+    html {
+      font-size: 14px;
+    }
+    .highlight pre, pre, .highlight .hll {
+        font-size: 12px;
+    }
+}
+  
 
 h1, h2, h3, h4, h5, h6, .uk-heading-large, .uk-heading-medium, .uk-heading-small {
     font-family: 'Playfair Display', 'Times New Roman', Times, serif;
@@ -39,3 +59,7 @@ h4 a { color: inherit !important }
 h5 a { color: inherit !important }
 h6 a { color: inherit !important }
 
+blockquote {
+    font-size: 1.1rem !important;
+    margin: 0 2em !important;
+}
