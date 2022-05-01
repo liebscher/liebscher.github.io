@@ -1,11 +1,8 @@
 Title: Copyright
 Slug: copyright
 Authors: Alex Liebscher
+Status: published
 
-<!-- {% block title %}{{ SITENAME }} - {{ tag }} tag{% endblock %} -->
-<!-- 
-{% block content_title %}
-{% endblock %} -->
 
 <!-- {% block breadcrumbs %}
 <ul class="uk-breadcrumb">
@@ -18,4 +15,4 @@ Authors: Alex Liebscher
     <div class="uk-container uk-width-2-3">
         <h3>Site Copyright</h3>
     </div>
-</section><!-- /#content -->
+</section>
