@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-         <title>Alex Liebscher - Joining Property Data Works</title>
+         <title>Alex Liebscher - Oddities and Surprises: Unusual Behaviors in R and Python</title>
        <meta charset="utf-8" />
        <meta name="generator" content="Pelican" />
        <link href="/feeds/all.atom.xml"
@@ -13,7 +13,8 @@
 
 
 
-    <meta name="tags" content="news" />
+    <meta name="tags" content="Python" />
+    <meta name="tags" content="Rlang" />
 
 
        <!-- UIkit CSS -->
@@ -49,7 +50,7 @@
                      </h4>
 <ul class="uk-breadcrumb">
   <li><a href="/index.html">Home</a></li>
-  <li><span>Joining Property Data&nbsp;Works</span></li>
+  <li><span>Oddities and Surprises: Unusual Behaviors in R and&nbsp;Python</span></li>
 </ul>
               </div>
        </header><!-- /#banner -->
@@ -57,13 +58,13 @@
   <div class="uk-container uk-width-2-3@l">
     <header>
       <h2 class="uk-text-center">
-        <a href="/drafts/job-pdw.html" rel="bookmark" title="Permalink to Joining Property Data Works">Joining Property Data&nbsp;Works</a>
+        <a href="/drafts/oddities-and-surprises.html" rel="bookmark" title="Permalink to Oddities and Surprises: Unusual Behaviors in R and Python">Oddities and Surprises: Unusual Behaviors in R and&nbsp;Python</a>
       </h2>
       
     </header>
     <footer class="uk-text-center uk-margin">
-      <time datetime="2020-11-16T00:00:00-08:00">
-        Mon 16 November 2020
+      <time datetime="2022-05-13T00:00:00-07:00">
+        Fri 13 May 2022
       </time>
       <!--     <div>
         Category: <a href="/">meta</a>
@@ -71,15 +72,35 @@
  -->
       <div>
         Tags:
-        <a href="/tag/news.html">news</a>
+        <a href="/tag/python.html">Python</a>, 
+        <a href="/tag/rlang.html">Rlang</a>
       </div>
     </footer><!-- /.post-info -->
   </div>
 </section>
 <section class="uk-section">
   <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
-    <p>Property Data Works was a 6 person team aggregating and analyzing real estate data from south Florida (e.g. Miami-Dade, Broward, Palm Beach) for real estate investors, mortgage loan officers, realtors, and more. The team built an impressive web app and extensive data collection and processing system, but we failed to gain enough traction to stay afloat and folded March&nbsp;2021.</p>
-<p>As a software engineer, my contributions included building an Optical Character Recognition pipeline and information extraction system which processed about 20 million PDFs (~10 <span class="caps">TB</span>). In essence, we started with many PDFs, and it was my responsibility to create machine readable texts for each document, then extract key fields from each document (viz. document titles, dates, monetary values) to eventually display to the end-user. I wrote an article</a href=”/blog/2021/ocr-pdfs/”> on <span class="caps">OCR</span> in Python based on this&nbsp;experience.</p>
+    <p>This document is a collection of unexpected behaviors in R and Python. It&#8217;s inspired by <a href="https://treyhunner.com/python-oddities/resources.html">Python Oddities</a> and <a href="https://github.com/pablogsal/python-horror-show">Python&#8217;s horror show</a>. I will add to it over&nbsp;time.</p>
+<h1>Python</h1>
+<h2>String&nbsp;Strip</h2>
+<h3>Behavior</h3>
+<p>Let&#8217;s say we have a&nbsp;string:</p>
+<div class="highlight"><pre><span></span><code><span class="n">sentence</span> <span class="o">=</span> <span class="s1">&#39;I love when monkeys write&#39;</span>
+</code></pre></div>
+
+<p>When we run <code>sentence.rstrip('new york times')</code>, as if we wanted to remove any case of &#8220;new york times&#8221; from the string, we would expect the string to go unchanged. After all, &#8220;new york times&#8221; is not mentioned anywhere in <code>sentence</code>. Instead though, we get&nbsp;this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">sentence</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;new york times&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">'I love wh'</pre>
+
+<h3>Explanation</h3>
+<p>Unlike how one might guess based on their names, Python&#8217;s <code>rstrip</code> and similar string methods don&#8217;t remove <em>suffixes</em>. Instead, they remove trailing characters in the list provided. And as it turns out, &#8220;New York Times&#8221; is <a href="https://en.wikipedia.org/wiki/Anagram">an anagram</a> of &#8220;monkeys write&#8221; (plus the &#8220;en&#8221; in &#8220;when&#8221;). Therefore all of the characters in the former get found in the&nbsp;latter.</p>
+<p>From the&nbsp;documentation,</p>
+<blockquote>
+<p>The chars argument is not a suffix; rather, all combinations of its values are&nbsp;stripped</p>
+</blockquote>
+<p>What&#8217;s the &#8220;right&#8221; way to remove a suffix? The docs recommend <a href="https://docs.python.org/3/library/stdtypes.html#str.removesuffix">str.removesuffix()</a>. This is only implemented in Python 3.9 and&nbsp;above.</p>
   </div><!-- /.entry-content -->
 </section>
        <footer class="uk-section">

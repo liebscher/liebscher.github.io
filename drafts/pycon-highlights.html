@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Highlights from PyCon 2022</title>
+       <meta charset="utf-8" />
+       <meta name="generator" content="Pelican" />
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="Python" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section">
+              <div class="uk-container uk-width-2-3">
+                     <h4 class="uk-heading-small smc">
+                            <a href="/">Alex Liebscher</a>
+                     </h4>
+<ul class="uk-breadcrumb">
+  <li><a href="/index.html">Home</a></li>
+  <li><span>Highlights from PyCon&nbsp;2022</span></li>
+</ul>
+              </div>
+       </header><!-- /#banner -->
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3@l">
+    <header>
+      <h2 class="uk-text-center">
+        <a href="/drafts/pycon-highlights.html" rel="bookmark" title="Permalink to Highlights from PyCon 2022">Highlights from PyCon&nbsp;2022</a>
+      </h2>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2022-05-02T00:00:00-07:00">
+        Mon 02 May 2022
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/python.html">Python</a>
+      </div>
+    </footer><!-- /.post-info -->
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+    <p>I was fortunate enough to attend PyCon 2022 this year. This is the annual Python conference, hosted by the Python Software Foundation. It was my first time going and I had few expectations going into it. I really enjoyed my time, and learned a number of new things and ways of&nbsp;thinking.</p>
+<h2>Day&nbsp;1</h2>
+<table class="uk-table">
+    <thead>
+        <tr>
+            <th>Speaker</th>
+            <th>Topic</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Łukasz Langa</td>
+            <td>Typing</td>
+            <td>This was a pretty technical deep-dive into Python&#8217;s Typing system. It was a good reminder to me that this is a (useful) feature in Python that is here to stay. Check out mypy. This was my first time hearing of Lukasz, who is a core developer of Python and known by many.</td>
+        </tr>
+        <tr>
+            <td><a href="https://treyhunner.com/" target="_new">Trey Hunner</a></td>
+            <td>Python Oddities Explained</td>
+            <td>A good reminder that Python is quirky, and to always be on the lookout for things that didn&#8217;t match your expectations. See also <a href="https://github.com/pablogsal/python-horror-show" target="_new">Python&#8217;s Horror Show</a> from Pablo S (talk below)</td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/brandtbucher/" target="_new">Brandt Bucher</a></td>
+            <td>Structural Pattern Matching</td>
+            <td><a href="https://peps.python.org/pep-0636/" target="_new">Pattern matching</a> (new <code>match</code> keyword) seems like a neat new feature in Python 3.11. Not sure yet how I&#8217;d leverage it but I&#8217;m happy to know it will exist. It may look like a switch statement, but it&#8217;s not! It&#8217;s for flow control and unpacking variables. It&#8217;s more powerful and flexible than a switch statement, but also serves a slightly different purpose.</td>
+        </tr>
+        <tr>
+            <td>Reuven Lerner</td>
+            <td>Understanding Python attributes</td>
+            <td>
+                <p>Ask yourself, what&#8217;s the difference between an object, a variable, an attribute, a&nbsp;descriptor? </p>
+                <blockquote>A descriptor is what we call any object that defines `__get__()`, `__set__()`, or `__delete__()` &#8230; The main motivation for descriptors is to provide a hook allowing objects stored in class variables to control what happens during attribute lookup.</blockquote>
+            </td>
+        </tr>
+        <tr>
+            <td>Paul Ganssle</td>
+            <td>What to Do When the Bug Is in Someone Else&#8217;s Code</td>
+            <td>Somewhat relevant to something I&#8217;ve been doing, a good new way to look at <span class="caps">OSS</span> and how to work with it.</td>
+        </tr>
+        <tr>
+            <td>Nir Barazida</td>
+            <td>Dock your Jupyter Notebook</td>
+            <td>This talk proposed hosting your Jupyter-based data science and research projects in Docker images. I&#8217;d thought of running scripts in containers, but this was specifically about running notebooks. The speaker introduced <a href="https://github.com/jupyter/docker-stacks" target="_new">docker-stacks</a>. I thought this was all very fascinating for creating reproducible research. However, I tried to quickly implement this with my own work and it wasn&#8217;t so easy. I still find Docker tricky as soon as you want to do even the slightest customizations to the image and runtime. Also, Conda overcomes many barriers to reproducibility and Docker seems to only contribute marginally.</td>
+        </tr>
+        <tr>
+            <td>Maria Jose Molina Contreras</td>
+            <td>Creating an indoor air quality monitoring and predictive system</td>
+            <td>This was an exposition of a data science project. The speaker basically linked up some <span class="caps">CO2</span> and climate sensors to a microcontroller and slapped a prediction algorithm on top. A couple learnings. First, open the windows, get some air inside your room/office! Second, machine learning projects don&#8217;t have to be crazy complex. You can get detailed, but it&#8217;s not necessary to make a point. The most interesting projects are the ones with real world consequences, not just the titanic dataset or housing prices. Third, so much effort goes into everything that sets up any prediction model. Always remember that.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h1>Day&nbsp;2</h1>
+<table class="uk-table">
+    <thead>
+        <tr>
+            <th>Speaker</th>
+            <th>Title</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="https://sissaoun.github.io/" target="_new">Sara Issaoun</a></td>
+            <td></td>
+            <td>Hands down one of the best talks of the weekend. Dr. Issaoun&#8217;s talk was an inspiration, and for an extremely complex subject (astrophysics, astronomy, blackholes, etc.) she made the audience (or at least me) feel like experts and curious children simultaneously. If I had to pick one talk to re-attend, this would be the one. It was the only one where I went up to talk to the speaker at the end.</td>
+        </tr>
+        <tr>
+            <td>Peter Wang</td>
+            <td></td>
+            <td>Peter gave an introduction to and live-demo of <a href="https://pyscript.net/" target="_new">PyScript</a>, &#8220;a framework that allows users to create rich Python applications in the browser using <span class="caps">HTML</span>’s interface.&#8221; This was another extremely inspiring talk. I don&#8217;t know exactly how I would use Python-in-the-browser but I can imagine it will open a world of possibilities, similar to Node. I&#8217;m very eager to see where this project goes, and perhaps sometime soon I&#8217;ll give it a try and write up my experience.</td>
+        </tr>
+        <tr>
+            <td>Atia Binte Amin</td>
+            <td>Genetic Variation</td>
+            <td>Never even thought about this before. How does this hardware even work?</td>
+        </tr>
+        <tr>
+            <td>Fred Phillips</td>
+            <td>Hooking into Imports</td>
+            <td>This speaker introduced the idea of &#8220;hooking&#8221; into the Python import process. For example, it might be necessary to create a blocklist of packages that can&#8217;t be imported; or load package code from a remote database. In both cases, it can be helpful to modify and overload the default package search and execution process. I currently have no use case for it, but it was good to learn about what&#8217;s happening under the hood. I had never considered the process with which Python resolves and loads the modules we import.</td>
+        </tr>
+        <tr>
+            <td>Antoine Toubhans</td>
+            <td>Flexible <span class="caps">ML</span> Experiment Tracking</td>
+            <td><span class="caps">DVC</span> is something I&#8217;ve been thinking about for years, and just haven&#8217;t tried it out yet. It seems like it could help solve a number of common data science and machine learning problems. I just need to learn it. I&#8217;ve decided to try it out in a current project I&#8217;m working on. There is a learning curve, but not near as bad as something like Docker; more comparable to git. So far I&#8217;m finding a little value in the experiment tracking functionality. I don&#8217;t really want to implement my own visualizations to <a href="https://dvc.org/doc/use-cases/experiment-tracking" traget="_new">track experiments</a>, as was proposed in this talk, and I&#8217;m hoping the maintainers of the <span class="caps">DVC</span> library add in more viz tools.</td>
+        </tr>
+        <tr>
+            <td>Ryan Kuhl</td>
+            <td>GraphQL</td>
+            <td>Clunky, but I kind of see how it could be useful in a large scale prod db</td>
+        </tr>
+        <tr>
+            <td><a href="https://github.com/pablogsal" target="_new">Pablo Galindo Salgado</a></td>
+            <td>Making Python better w/ Errors</td>
+            <td>Python 3.11 and 3.12 will contain some big makeovers in the traceback and error diagnostic capabilities in Python. I&#8217;m looking forward to having clearer and more specific errors and exceptions.</td>
+        </tr>
+        <tr>
+            <td>Kelly Schuster, Sean Tibor Paredes</td>
+            <td>Python like a 12-yo</td>
+            <td>The speakers were two Python educators, who have experience teaching Python to middle schoolers. Their top learnings from working with these kids: Be curious! Take risks!</td>
+        </tr>
+        <tr>
+            <td>Jeremiah Paige</td>
+            <td>Intro to Introspection</td>
+            <td>Python has many tools available for debugging, and although Python can be frustrating with its lack of verbosity sometimes, we must remember what we have at our disposal to dissect issues. For example, Python has the <code><a href="https://docs.python.org/3/library/inspect.html" target="_new">inspect</a></code> built-in module to help diagnose runtime issues.</td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>Day&nbsp;3</h2>
+<table class="uk-table">
+    <thead>
+        <tr>
+            <th>Speaker</th>
+            <th>Title</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td></td>
+            <td><span class="caps">OCR</span> poster?</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Joseph Lucas</td>
+            <td>Serialization</td>
+            <td>Pickle, dill, <span class="caps">JSON</span>. Pros <span class="amp">&amp;</span> cons</td>
+        </tr>
+        <tr>
+            <td>Tetsuya &#8220;Jesse&#8221; Hirata</td>
+            <td>Productionize Research-Oriented Code</td>
+            <td>I thought this was going to be, how to write research code for your prod engineers. Instead it was how to read research code from your researchers. Cool perspective, will have to apply some of it to my work.</td>
+        </tr>
+        <tr>
+            <td>Cillian Kieran</td>
+            <td>Open-Source Tools For Data Privacy</td>
+            <td>The <a href="https://ethyca.com/fides/" target="_new">Ethyca fida</a> folks have laid out a really appealing taxonomy of data privacy in the way of privacy-as-code. I love data privacy, and I lvoe categorizing things, especially data, so this is like candy to me. I don&#8217;t know if I would try this out in reality, as it seems like a pretty heavy lift, but maybe one day.</td>
+        </tr>
+        <tr>
+            <td>Naomi Cedar</td>
+            <td>The Python Community</td>
+            <td>What is community? How is the bond of our community built?</td>
+        </tr>
+    </tbody>
+</table>
+  </div><!-- /.entry-content -->
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-expand uk-width-2-3@l">
+                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              </div>
+       </footer><!-- /#contentinfo -->
+</body>
+
+</html>
