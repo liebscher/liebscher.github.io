@@ -5,7 +5,7 @@ Category: meta
 Slug: oddities-and-surprises
 Authors: Alex Liebscher
 Summary: Questioning the developers of our favorite languages
-Status: draft
+Status: published
 
 This document is a collection of unexpected behaviors in R and Python. It's inspired by [Python Oddities](https://treyhunner.com/python-oddities/resources.html) and [Python's horror show](https://github.com/pablogsal/python-horror-show). I will add to it over time.
 

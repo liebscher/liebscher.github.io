@@ -17,3 +17,6 @@ In an ideal world, I'd building a mathematical model to replicate the dynamics o
 I'm also curious about creating the *best* model though: can I use machine learning to build a model with very high accuracy.
 
 The difference between this data-driven approach, or algorithmic approach, and the physical modeling approach is that the latter might be my best interpretation of the dynamics but could be wrong entirely. The former scoots around that in exchange for explainability or surrealism (e.g. suggesting impossible lifts by accident).
+
+
+I need to get the data into an easily extensible format. A csv should work fine, I'd like to be able to just copy/paste from my main doc though. this way i can import it to either R or Python to build models.
