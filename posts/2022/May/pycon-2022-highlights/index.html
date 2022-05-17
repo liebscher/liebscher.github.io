@@ -57,13 +57,13 @@
   <div class="uk-container uk-width-2-3@l">
     <header>
       <h2 class="uk-text-center">
-        <a href="/drafts/pycon-highlights.html" rel="bookmark" title="Permalink to Highlights from PyCon 2022">Highlights from PyCon&nbsp;2022</a>
+        <a href="/posts/2022/May/pycon-2022-highlights/" rel="bookmark" title="Permalink to Highlights from PyCon 2022">Highlights from PyCon&nbsp;2022</a>
       </h2>
       
     </header>
     <footer class="uk-text-center uk-margin">
-      <time datetime="2022-05-02T00:00:00-07:00">
-        Mon 02 May 2022
+      <time datetime="2022-05-16T00:00:00-07:00">
+        Mon 16 May 2022
       </time>
       <!--     <div>
         Category: <a href="/">meta</a>
@@ -78,21 +78,21 @@
 </section>
 <section class="uk-section">
   <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
-    <p>I was fortunate enough to attend PyCon 2022 this year. This is the annual Python conference, hosted by the Python Software Foundation. It was my first time going and I had few expectations going into it. I really enjoyed my time, and learned a number of new things and ways of&nbsp;thinking.</p>
+    <p>I was fortunate enough to attend PyCon 2022 this year in Salt Lake City (thanks BetterUp!). This is the annual Python conference, put on by the Python Software Foundation. It was my first time going and I had few expectations going into it. I really enjoyed my time, and learned a number of new things and ways of thinking. Here are some highlights and learnings from a subset of the talks I&nbsp;attended.</p>
 <h2>Day&nbsp;1</h2>
 <table class="uk-table">
     <thead>
         <tr>
-            <th>Speaker</th>
-            <th>Topic</th>
+            <th class="uk-width-1-6">Speaker</th>
+            <th class="uk-width-1-5">Topic</th>
             <th>Notes</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>Łukasz Langa</td>
-            <td>Typing</td>
-            <td>This was a pretty technical deep-dive into Python&#8217;s Typing system. It was a good reminder to me that this is a (useful) feature in Python that is here to stay. Check out mypy. This was my first time hearing of Lukasz, who is a core developer of Python and known by many.</td>
+            <td>Type Annotations</td>
+            <td>This was a pretty technical deep-dive into Python&#8217;s typing system. It was a good reminder to me that this is a (useful) feature in Python that is here to stay. Check out <a href="http://mypy-lang.org/" target="_new">mypy</a> for implementation details. This was my first time hearing of Łukasz, who is a core developer of Python and known by many.</td>
         </tr>
         <tr>
             <td><a href="https://treyhunner.com/" target="_new">Trey Hunner</a></td>
@@ -108,14 +108,15 @@
             <td>Reuven Lerner</td>
             <td>Understanding Python attributes</td>
             <td>
-                <p>Ask yourself, what&#8217;s the difference between an object, a variable, an attribute, a&nbsp;descriptor? </p>
+                <p>Ask yourself, how does a class object, an instance, an instance variable, an attribute, and a descriptor all relate? This is surprisingly complex question, in my opinion. It&#8217;s one of those oddly confusing computer science-y things (similar to the reasons why I didn&#8217;t want to study <span class="caps">CS</span>). Class objects support two kinds of operations: attribute references and instantiation. With the former, you can access class attributes and variables. With the latter, once we have an instance object, we can only perform attribute reference. There are two instance attribute types: data attributes (sometimes called instance variables or class members) and methods. Instance variables are data unique for an instance, and class variables are data shared by all instances of the class. But what about a&nbsp;descriptor?</p>
                 <blockquote>A descriptor is what we call any object that defines `__get__()`, `__set__()`, or `__delete__()` &#8230; The main motivation for descriptors is to provide a hook allowing objects stored in class variables to control what happens during attribute lookup.</blockquote>
+                <p>If you&#8217;re thoroughly confused, I understand. I recommend the Python docs <a href="https://docs.python.org/3/tutorial/classes.html" target="_new">tutorial on classes</a> as a starting point for&nbsp;clarification.</p>
             </td>
         </tr>
         <tr>
             <td>Paul Ganssle</td>
-            <td>What to Do When the Bug Is in Someone Else&#8217;s Code</td>
-            <td>Somewhat relevant to something I&#8217;ve been doing, a good new way to look at <span class="caps">OSS</span> and how to work with it.</td>
+            <td><a href="https://ganssle.io/talks/" target="_new">What to Do When the Bug Is in Someone Else&#8217;s Code</a></td>
+            <td>Somewhat relevant to something I&#8217;ve been doing, a good new way to look at <span class="caps">OSS</span> and how to work with it. The speaker discussed five ways that you can overcome bugs in code that you don&#8217;t maintain. In order of best to worst: patching upstream (fix the bug, then make a <span class="caps">PR</span> on the project), wrapper functions (encapsulate buggy code in updated code), monkey patching (assign the global variable a fixed version), vendoring (clone a copy, then patch it locally), and maintaining a fork (fork and patch a copy of the project). I&#8217;m guilty of some of the worse behaviors, but now I&#8217;ve got some perspective on why they&#8217;re &#8220;bad&#8221; that I didn&#8217;t have before.</td>
         </tr>
         <tr>
             <td>Nir Barazida</td>
@@ -134,8 +135,8 @@
 <table class="uk-table">
     <thead>
         <tr>
-            <th>Speaker</th>
-            <th>Title</th>
+            <th class="uk-width-1-6">Speaker</th>
+            <th class="uk-width-1-5">Title</th>
             <th>Notes</th>
         </tr>
     </thead>
@@ -143,17 +144,12 @@
         <tr>
             <td><a href="https://sissaoun.github.io/" target="_new">Sara Issaoun</a></td>
             <td></td>
-            <td>Hands down one of the best talks of the weekend. Dr. Issaoun&#8217;s talk was an inspiration, and for an extremely complex subject (astrophysics, astronomy, blackholes, etc.) she made the audience (or at least me) feel like experts and curious children simultaneously. If I had to pick one talk to re-attend, this would be the one. It was the only one where I went up to talk to the speaker at the end.</td>
+            <td>Hands down one of the best talks of the weekend. Dr. Issaoun&#8217;s talk was an inspiration, and for an extremely complex subject (astrophysics, astronomy, blackholes, etc.) she made the audience (or at least me) feel like both experts and curious children. If I had to pick one talk to re-attend, this would be the one. It was the only one where I went up to talk to talk to the speaker at the end.</td>
         </tr>
         <tr>
             <td>Peter Wang</td>
             <td></td>
             <td>Peter gave an introduction to and live-demo of <a href="https://pyscript.net/" target="_new">PyScript</a>, &#8220;a framework that allows users to create rich Python applications in the browser using <span class="caps">HTML</span>’s interface.&#8221; This was another extremely inspiring talk. I don&#8217;t know exactly how I would use Python-in-the-browser but I can imagine it will open a world of possibilities, similar to Node. I&#8217;m very eager to see where this project goes, and perhaps sometime soon I&#8217;ll give it a try and write up my experience.</td>
-        </tr>
-        <tr>
-            <td>Atia Binte Amin</td>
-            <td>Genetic Variation</td>
-            <td>Never even thought about this before. How does this hardware even work?</td>
         </tr>
         <tr>
             <td>Fred Phillips</td>
@@ -163,12 +159,12 @@
         <tr>
             <td>Antoine Toubhans</td>
             <td>Flexible <span class="caps">ML</span> Experiment Tracking</td>
-            <td><span class="caps">DVC</span> is something I&#8217;ve been thinking about for years, and just haven&#8217;t tried it out yet. It seems like it could help solve a number of common data science and machine learning problems. I just need to learn it. I&#8217;ve decided to try it out in a current project I&#8217;m working on. There is a learning curve, but not near as bad as something like Docker; more comparable to git. So far I&#8217;m finding a little value in the experiment tracking functionality. I don&#8217;t really want to implement my own visualizations to <a href="https://dvc.org/doc/use-cases/experiment-tracking" traget="_new">track experiments</a>, as was proposed in this talk, and I&#8217;m hoping the maintainers of the <span class="caps">DVC</span> library add in more viz tools.</td>
+            <td>Data Version Control (<span class="caps">DVC</span>) is something I&#8217;ve been thinking about for years, and just haven&#8217;t tried it out yet. It seems like it could help solve a number of common data science and machine learning problems. I just need to learn it. I&#8217;ve decided to try it out in a current project I&#8217;m working on. There is a learning curve, but not near as confusing as something like Docker; more comparable to git. So far I&#8217;m finding some value in the experiment tracking functionality. I don&#8217;t really want to implement my own visualizations to <a href="https://dvc.org/doc/use-cases/experiment-tracking" traget="_new">track experiments</a>, as was proposed in this talk (with streamlit), and I&#8217;m hoping the maintainers of the <span class="caps">DVC</span> library add in more viz tools.</td>
         </tr>
         <tr>
             <td>Ryan Kuhl</td>
             <td>GraphQL</td>
-            <td>Clunky, but I kind of see how it could be useful in a large scale prod db</td>
+            <td>I had heard of GraphQL before but haven&#8217;t spent anytime learning about it. Therefore I thought this would be a good crash-course on the tool, but it wasn&#8217;t. GraphQL is a way to query any database (although it works well for graph DBs especially). My takeaways could be summed up as, this is a fascinating technology with a clear implementational benefit over other querying languages, but it seems highly engineered, clunky, and probably only worth it if you&#8217;re dealing with a lot of data in a production environment.</td>
         </tr>
         <tr>
             <td><a href="https://github.com/pablogsal" target="_new">Pablo Galindo Salgado</a></td>
@@ -176,9 +172,9 @@
             <td>Python 3.11 and 3.12 will contain some big makeovers in the traceback and error diagnostic capabilities in Python. I&#8217;m looking forward to having clearer and more specific errors and exceptions.</td>
         </tr>
         <tr>
-            <td>Kelly Schuster, Sean Tibor Paredes</td>
-            <td>Python like a 12-yo</td>
-            <td>The speakers were two Python educators, who have experience teaching Python to middle schoolers. Their top learnings from working with these kids: Be curious! Take risks!</td>
+            <td>Kelly Schuster, Sean Paredes</td>
+            <td>Python like a 12-year-old</td>
+            <td>The speakers were two Python educators, who have experience teaching Python to middle schoolers. Their top learnings from working with these kids: Be curious! Take risks! Kids think broadly, unlike us adults. Engage all senses, not just what you can see (e.g. build something with your hands). Always be on the lookout for unexpected behavior. When solving a problem, think: what&#8217;s the worst way to do this? (to force yourself to think in others&#8217; shoes.)</td>
         </tr>
         <tr>
             <td>Jeremiah Paige</td>
@@ -192,36 +188,26 @@
 <table class="uk-table">
     <thead>
         <tr>
-            <th>Speaker</th>
-            <th>Title</th>
+            <th class="uk-width-1-6">Speaker</th>
+            <th class="uk-width-1-5">Title</th>
             <th>Notes</th>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td></td>
-            <td><span class="caps">OCR</span> poster?</td>
-            <td></td>
-        </tr>
-        <tr>
             <td>Joseph Lucas</td>
             <td>Serialization</td>
-            <td>Pickle, dill, <span class="caps">JSON</span>. Pros <span class="amp">&amp;</span> cons</td>
+            <td>This talk introduced serialization and ways to do this in Python. Serialization refers to breaking down data and objects (in Python, or elsewhere) and storing it with the intent to deserialize it later for use. The speaker first talked about the built-in <a href="https://docs.python.org/3/library/pickle.html" target="_new">pickle</a> module. This is a Python-specific module for serializing objects and data structures in a compressed byte-stream. Unlike <span class="caps">JSON</span> (another serialization format), pickles are binary, not unicode; pickles are not human readable; pickles can represent a wide number of Python objects; and deserializing pickles can pose an execution safety risk, unlike <span class="caps">JSON</span>. If we&#8217;re trying to serialize an object that pickle cannot handle, there is the <a href="https://pypi.org/project/dill/" target="_new">dill</a> module.</td>
         </tr>
         <tr>
             <td>Tetsuya &#8220;Jesse&#8221; Hirata</td>
             <td>Productionize Research-Oriented Code</td>
-            <td>I thought this was going to be, how to write research code for your prod engineers. Instead it was how to read research code from your researchers. Cool perspective, will have to apply some of it to my work.</td>
+            <td>I went into this thinking it would cover how to write research code for your production engineers. Instead, it was how to read research code from your researchers as an engineer. This was a pleasant surprise, and was almost sort of a lesson in empathy. This reinforced my belief that my code and work is most valuable when it can be (quickly and easily) taken to a place of impact. Some reminders for myself: write clean code, and document it; modularize when possible; separate loading, cleaning, processing, and modeling; if you have time, look for ways to refactor.</td>
         </tr>
         <tr>
             <td>Cillian Kieran</td>
             <td>Open-Source Tools For Data Privacy</td>
             <td>The <a href="https://ethyca.com/fides/" target="_new">Ethyca fida</a> folks have laid out a really appealing taxonomy of data privacy in the way of privacy-as-code. I love data privacy, and I lvoe categorizing things, especially data, so this is like candy to me. I don&#8217;t know if I would try this out in reality, as it seems like a pretty heavy lift, but maybe one day.</td>
-        </tr>
-        <tr>
-            <td>Naomi Cedar</td>
-            <td>The Python Community</td>
-            <td>What is community? How is the bond of our community built?</td>
         </tr>
     </tbody>
 </table>
