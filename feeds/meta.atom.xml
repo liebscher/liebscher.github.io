@@ -1,5 +1,674 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Alex Liebscher - meta</title><link href="/" rel="alternate"></link><link href="/feeds/meta.atom.xml" rel="self"></link><id>/</id><updated>2022-07-31T00:00:00-07:00</updated><entry><title>Replication: A room with a green view</title><link href="/posts/2022/Jul/replication-a-room-with-a-green-view/" rel="alternate"></link><published>2022-07-31T00:00:00-07:00</published><updated>2022-07-31T00:00:00-07:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-07-31:/posts/2022/Jul/replication-a-room-with-a-green-view/</id><summary type="html">&lt;p&gt;Reproducing &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; expanding on the results of a recent article on the link between exposure to greenspace and mental&amp;nbsp;well-being&lt;/p&gt;</summary><content type="html">&lt;p&gt;Another article lamenting the &lt;a href="https://en.wikipedia.org/wiki/Replication_crisis"&gt;Replication Crisis&lt;/a&gt; within the social sciences would be redundant and unnecessary. For those who are unfamiliar though: the replication crisis is a recent phenomenon in the social sciences, especially psychology, where a large number of scientific research articles aren&amp;#8217;t able to have their results found again by independent research teams. This can be because of how the research was conducted (e.g. due to their methods), but also some researcher have been found to have fabricated their data in order to produce favorable&amp;nbsp;results.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Alex Liebscher - meta</title><link href="/" rel="alternate"></link><link href="/feeds/meta.atom.xml" rel="self"></link><id>/</id><updated>2022-11-05T00:00:00-07:00</updated><entry><title>Estimating Quantiles</title><link href="/posts/2022/Nov/estimating-quantiles/" rel="alternate"></link><published>2022-11-05T00:00:00-07:00</published><updated>2022-11-05T00:00:00-07:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-11-05:/posts/2022/Nov/estimating-quantiles/</id><summary type="html">&lt;p&gt;What are quantiles, and what&amp;#8217;s happening underneath the hood of&amp;nbsp;quantile()?&lt;/p&gt;</summary><content type="html">&lt;style&gt;
+#avkrsexhvb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 14px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #&lt;span class="caps"&gt;A8A8A8&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;A8A8A8&lt;/span&gt;;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_heading {
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  text-align: center;
+  border-bottom-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  border-bottom-width: 0;
+}
+
+#avkrsexhvb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  border-top-width: 0;
+}
+
+#avkrsexhvb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_col_heading {
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#avkrsexhvb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#avkrsexhvb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#avkrsexhvb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#avkrsexhvb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#avkrsexhvb .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  vertical-align: middle;
+}
+
+#avkrsexhvb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  vertical-align: middle;
+}
+
+#avkrsexhvb .gt_from_md &gt; :first-child {
+  margin-top: 0;
+}
+
+#avkrsexhvb .gt_from_md &gt; :last-child {
+  margin-bottom: 0;
+}
+
+#avkrsexhvb .gt_row {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#avkrsexhvb .gt_stub {
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  padding-left: 12px;
+}
+
+#avkrsexhvb .gt_summary_row {
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#avkrsexhvb .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#avkrsexhvb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#avkrsexhvb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_footnotes {
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#avkrsexhvb .gt_sourcenotes {
+  color: #333333;
+  background-color: #&lt;span class="caps"&gt;FFFFFF&lt;/span&gt;;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #&lt;span class="caps"&gt;D3D3D3&lt;/span&gt;;
+}
+
+#avkrsexhvb .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#avkrsexhvb .gt_left {
+  text-align: left;
+}
+
+#avkrsexhvb .gt_center {
+  text-align: center;
+}
+
+#avkrsexhvb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#avkrsexhvb .gt_font_normal {
+  font-weight: normal;
+}
+
+#avkrsexhvb .gt_font_bold {
+  font-weight: bold;
+}
+
+#avkrsexhvb .gt_font_italic {
+  font-style: italic;
+}
+
+#avkrsexhvb .gt_super {
+  font-size: 65%;
+}
+
+#avkrsexhvb .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+&lt;/style&gt;
+
+&lt;p&gt;We see medians, quartiles, percentiles, and quantiles everywhere we look. For example, we see them &lt;a href="https://nypost.com/2022/11/02/astros-vs-phillies-prediction-game-4-odds-and-pick-today/"&gt;sports&lt;/a&gt; (&amp;#8220;the native of the Dominican Republic ranked in the&amp;#8230; 95th percentile in expected slugging percentage and 82nd percentile in hard-hit rate&amp;#8221;), &lt;a href="https://www.marketwatch.com/story/heres-strong-new-evidence-that-a-u-s-stock-market-rally-is-coming-soon-11667526884"&gt;finance&lt;/a&gt; (&amp;#8220;the index currently stands at just the 20th percentile of the historical distribution&amp;#8221;), and &lt;a href="https://richmond.com/business/local/central-virginia-housing-market-cools-median-price-still-32-000-higher-than-last-year/article_68219452-3f66-58f0-9c4d-9addd67e6dcc.html"&gt;real estate&lt;/a&gt; (&amp;#8220;median price still $32,000 higher than last year&amp;#8221;). For those who&amp;#8217;ve taken a probability course, quantiles must sound familiar. But, what &lt;em&gt;is&lt;/em&gt; a quantile, or a percentile? And how do we compute and interpret&amp;nbsp;them?&lt;/p&gt;
+&lt;p&gt;This came up for me and my colleagues at BetterUp recently. We had run a typical analysis and ended up computing some important quantiles of the data. To ensure our story was clear and crisp, we asked, What exactly happens when we run &lt;code&gt;quantile()&lt;/code&gt; in R? What does the output really mean? We all sort of knew, but I wish I&amp;#8217;d firmly known the&amp;nbsp;answer.&lt;/p&gt;
+&lt;p&gt;Let&amp;#8217;s take a look at two examples that help show what sorts of questions can arise when computing&amp;nbsp;quantiles.&lt;/p&gt;
+&lt;p&gt;First, in example A, consider the 0th, 25th, 50th (median), 75th, and 100th quantiles of the numbers 0 through&amp;nbsp;10:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nf"&gt;quantile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;9&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;10&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre class="code-output"&gt;
+  0%  25%  50%  75% 100%
+ 0.0  2.5  5.0  7.5 10.0
+&lt;/pre&gt;
+
+&lt;p&gt;And now in example B, let&amp;#8217;s look at the same quantiles for just three numbers, 0, 1, and&amp;nbsp;2:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nf"&gt;quantile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nf"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre class="code-output"&gt;
+  0%  25%  50%  75% 100%
+ 0.0  0.5  1.0  1.5  2.0
+&lt;/pre&gt;
+
+&lt;p&gt;Some questions that come to my mind include, how can we have a quantile that&amp;#8217;s not in the original data (e.g. 7.5 in example A)? How can 50% of our data in example B be less than 1, when we know that one out of three numbers in the data are less than 1? If the 0th-quantile means 0% of the data is less than 0, how can we have it such that 100% of the data is less than the maximum (but not include the&amp;nbsp;maximum)?&lt;/p&gt;
+&lt;p&gt;In this article we will explore and learn about what quantiles are (since I seem to have forgotten), and will dissect the &lt;code&gt;quantile()&lt;/code&gt; function in&amp;nbsp;R. &lt;/p&gt;
+&lt;h1&gt;What&amp;#8217;s a&amp;nbsp;Quantile?&lt;/h1&gt;
+&lt;p&gt;We&amp;#8217;ll talk about quantiles here, but there&amp;#8217;s a summary below about medians, quartiles, and percentiles. To begin though, I&amp;#8217;ve found &lt;a href="https://www.google.com/books/edition/Statistical_Modelling_with_Quantile_Func/7c1LimP_e-AC?hl=en&amp;amp;gbpv=1&amp;amp;pg=PP1&amp;amp;printsec=frontcover"&gt;Gilchrist&amp;#8217;s (2000)&lt;/a&gt; definition of a quantile the easiest to&amp;nbsp;understand:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A quantile is simply the value that corresponds to a specified proportion of a sample or&amp;nbsp;population.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;A couple things stand out to me here. First, I like his use of &amp;#8220;proportion&amp;#8221; — this feels to me like the easiest-to-understand term to use. Second, notice the use of both sample and population. We know going forward then that we need to consider&amp;nbsp;both.&lt;/p&gt;
+&lt;p&gt;A quantile is best seen as a function, where we put in a proportion from 0 to 1 (inclusive) and the output denotes the value of the data that has that proportion of data less than&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;As &lt;a href="https://stat.ethz.ch/R-manual/R-devel/library/stats/html/quantile.html"&gt;the R documentation&lt;/a&gt; for the quantile function puts&amp;nbsp;it:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;The generic function &lt;code&gt;quantile&lt;/code&gt; produces sample quantiles corresponding to the given probabilities. The smallest observation corresponds to a probability of 0 and the largest to a probability of&amp;nbsp;1.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;They refer to the proportions as probabilities, and specifically indicate this function produces sample quantiles. What importance does the sample quantile hold for us? &lt;a href="https://www.maths.usyd.edu.au/u/UG/SM/STAT3022/r/current/Misc/Sample%20Quantiles%20in%20Statistical%20Packages.pdf"&gt;Hyndman and Fan (1996)&lt;/a&gt;&amp;nbsp;specifies:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Sample quantiles provide nonparametric estimators of their population&amp;nbsp;counterparts.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Here we have a very critical relationship: the sample quantile estimates the population quantile. Like the standard deviation, or even the mean, we have definitions for the sample estimators in the event we don&amp;#8217;t have the population parameters (which is almost always the case). &lt;a href="https://en.wikipedia.org/wiki/Estimator"&gt;Sample estimators&lt;/a&gt; aim to fulfill a number of qualities that make one better than&amp;nbsp;another.&lt;/p&gt;
+&lt;p&gt;This means it&amp;#8217;s an open question &lt;em&gt;how&lt;/em&gt; to estimate the population parameters. Over many decades, many researchers have identified multiple ways we can do that. Hyndman and Fan (1996) review nine different ways to estimate the sample quantiles. R implements these and sets a default for the&amp;nbsp;user.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;In review, a quantile is the value that corresponds to a specified proportion of the sample data or population.&lt;/strong&gt; Almost never do we know the population parameters, so we must rely on estimating them with sample estimators. The &lt;code&gt;quantile&lt;/code&gt; funciton in R provides nine different quantile sample estimator functions for the user to choose&amp;nbsp;from.&lt;/p&gt;
+&lt;details&gt;
+&lt;summary&gt;What are the median, quartiles, and percentiles?&lt;/summary&gt;
+
+&lt;p&gt;We can refer to Gilchrist (2000) for the definition of the&amp;nbsp;median:&lt;/p&gt;
+
+&lt;blockquote&gt;
+Thus the median of a sample of data is the quantile corresponding to a proportion of 0.5 of the ordered data. For a theoretical population it corresponds to the quantile with probability of 0.5.
+&lt;/blockquote&gt;
+
+&lt;p&gt;Quartiles correspond to proportions of the data at 0.25 and 0.75 as well. Percentiles correspond to proprtions of the data every 1-percentage points. So, the 50th-percentile corresponds to the 50th-quantile which corresponds to the 2nd-quartiles which corresponds to the&amp;nbsp;median.&lt;/p&gt;
+
+&lt;/details&gt;
+
+&lt;!-- ## Formulation
+
+So if Q(p) is the quantile function, the median is Q(0.5).
+
+The Quantile Function, denoted $Q(p)$:
+
+$x_p =$ the value of $x$ for which $P(X \le x_p) = p$
+
+$x_p$ is called the p-quantile of the population. $Q(p) = x_p$. --&gt;
+
+&lt;h2&gt;Population&amp;nbsp;Quantiles&lt;/h2&gt;
+&lt;p&gt;In this example, we&amp;#8217;ll look at population quantiles for the normal distribution. In this case we know how to parameterize the distribution and we have a continuous equation for the distribution. Both make the following case&amp;nbsp;possible.&lt;/p&gt;
+&lt;p&gt;Here is the normal (gaussian) distribution, which you might be familiar&amp;nbsp;with:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig1.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;Most of the density of this distribution is between about -3 and 3. If we were to draw a random number from this distribution, it&amp;#8217;d probably be close to 0. After many draws, about 95% would be between -1.96 and 1.96. I drew this plot in R with the &lt;code&gt;dnorm&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;If you&amp;#8217;ve taken an intro probability course, you might recognize that with the &lt;a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function"&gt;density function&lt;/a&gt; (like the one above), we can take the integral and compute the &lt;a href="https://en.wikipedia.org/wiki/Cumulative_distribution_function"&gt;cumulative density function&lt;/a&gt; (&lt;span class="caps"&gt;CDF&lt;/span&gt;). We do so&amp;nbsp;here:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig2.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;This makes the y-axis our cumulative density, and we know that the cumulative density describes at each value the proportion of data up to that value. So here I&amp;#8217;ve labeled the median, which describes 50% of the data up to that point. I drew this plot in R with the &lt;code&gt;pnorm&lt;/code&gt; function.&lt;/p&gt;
+&lt;p&gt;But as you can see, our median isn&amp;#8217;t yet an easily computed result of a function. We&amp;#8217;d have to take the y-axis value, 0.5, and compute the x-axis value of the blue line at that value. How do we make this easier to compute and&amp;nbsp;interpret?&lt;/p&gt;
+&lt;p&gt;The answer is the take the inverse of the cumulative distribution, which is known as the Quantile&amp;nbsp;Function.&lt;/p&gt;
+&lt;!-- , $Q(p) = F^{-1}(p)$. --&gt;
+
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig3.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s possible to visualize this plot because the equation for the normal distribution has an inverse. Now, it&amp;#8217;s easy to take a proportion, say 0.5, and use that equation to quickly and easily output the value of the data that corresponds with it. I drew this plot in R with the &lt;code&gt;qnorm&lt;/code&gt; function.&lt;/p&gt;
+&lt;h2&gt;Sample Estimation of Quantiles with Real&amp;nbsp;Data&lt;/h2&gt;
+&lt;p&gt;Let&amp;#8217;s play with some real data. Here we&amp;#8217;ll take the publication dates of the top 20 most cited scientific papers in history. The years these papers were published are, in chronological&amp;nbsp;order,&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="mf"&gt;1951&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1957&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1958&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1959&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1962&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1970&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1975&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1975&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1976&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1977&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1979&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1987&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1987&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1988&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1990&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1993&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1994&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1996&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;1997&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;2008&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This data was put together in 2014 by Thompson Reuters/Web of Science and &lt;a href="https://www.nature.com/news/the-top-100-papers-1.16224"&gt;written up by a few at Nature&lt;/a&gt;. There&amp;#8217;s an alternative list put together by &lt;a href="https://www.nature.com/news/the-top-100-papers-1.16224#/alternative"&gt;Google Scholar&lt;/a&gt;.&lt;/p&gt;
+&lt;details&gt;
+&lt;summary&gt;What are the most cited scientific papers?&lt;/summary&gt;
+
+According to the list I found, the top three most cited papers are:
+&lt;ol&gt;
+&lt;li&gt;305,148 citations: Lowry, &lt;span class="caps"&gt;O. H.&lt;/span&gt;(1951). Protein measurement with the Folin phenol reagent. J biol Chem, 193,&amp;nbsp;265-275.&lt;/li&gt;
+&lt;li&gt;213,005 citations: Laemmli, &lt;span class="caps"&gt;U. K.&lt;/span&gt;(1970). Cleavage of structural proteins during the assembly of the head of bacteriophage T4. Nature, 227(5259),&amp;nbsp;680-685.&lt;/li&gt;
+&lt;li&gt;155,530 citations: Bradford, &lt;span class="caps"&gt;M. M.&lt;/span&gt;(1976). A rapid and sensitive method for the quantitation of microgram quantities of protein utilizing the principle of protein-dye binding. Analytical biochemistry, 72(1-2),&amp;nbsp;248-254.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/details&gt;
+
+&lt;p&gt;This is 1-dimensional data, and here&amp;#8217;s a visualization of the&amp;nbsp;dates:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig4.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;For illustration purposes I&amp;#8217;ve added a little random horizontal jitter. You can see that our oldest paper was published in the 50s, and the most recent just before&amp;nbsp;2010.&lt;/p&gt;
+&lt;p&gt;Creating a denisty plot is fairly easy; we just create a histogram of the&amp;nbsp;data.&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig5.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;We&amp;#8217;ve bucketed in 10-year increments, and we can see that each decade from 1950 to 2010 has at least one paper which made it to the top 20 papers. The decade with the most top papers is the 1970s, with 6&amp;nbsp;papers.&lt;/p&gt;
+&lt;p&gt;Now knowing how we progressed from density function to cumulative density function in the population example above, we have to do a similar step here. To do this, we sort our data and assign each a number in ascending order, up to 20. We know that 100% of our data lies less than or equal to 20 and above 0, so we can normalize the y-axis to set 20 to 1.0. This also holds with our definition of the Quantile Function above (the probability that data is less than or equal to 20 is&amp;nbsp;1.0).&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig6.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;I found it confusing how the smallest data point, 1951, falls at &lt;span class="math"&gt;\(p=0.05\)&lt;/span&gt;. Why not 0? We&amp;#8217;re saying that the probability that the data are less than 1951 is one-twentieth or less. Or, equivalently, that 95% or more of the data are 1951 or more recent. As you can tell, it&amp;#8217;s very important to have the incusivity of range boundaries defined. We can see this slightly better in the next&amp;nbsp;section.&lt;/p&gt;
+&lt;p&gt;We can though interpret this graph a little for some interesting results. For example, in this sample, see can see that about 50% of the data lie before 1980. Almost all of the data lie before 2000. All of the data lie after&amp;nbsp;1950.&lt;/p&gt;
+&lt;p&gt;The next step is to formalize these conclusions into a formula that we can use to plug in numbers like 0.5, 0.95, or 0.0 to come to similar&amp;nbsp;conclusions.&lt;/p&gt;
+&lt;p&gt;How we do this is where things get&amp;nbsp;interesting!&lt;/p&gt;
+&lt;h3&gt;Sample Estimation of&amp;nbsp;Quantiles&lt;/h3&gt;
+&lt;p&gt;Unlike our theoretical population example, whose density function is based off a continuous equation, the sample density function is not defined by an invertible function. This is always true when working with a set of raw sample&amp;nbsp;data.&lt;/p&gt;
+&lt;p&gt;Because the sample density function, and thus &lt;span class="caps"&gt;CDF&lt;/span&gt;, are step functions, we can&amp;#8217;t take the inverse. This would lead to some input values resulting in multiple output values, which means this cannot be a&amp;nbsp;function.&lt;/p&gt;
+&lt;p&gt;Instead, we need to estimate the population quantile function using one of many estimation methods. Sample quantiles provide nonparametric estimators of their population counterparts. Researchers have created these estimators over the years, and popular packages like the &lt;code&gt;stats&lt;/code&gt; package in R allow the user to choose one from a subset of these. We&amp;#8217;ll take a look at three such&amp;nbsp;methods.&lt;/p&gt;
+&lt;h4&gt;Discontinuous Sample&amp;nbsp;Quantiles&lt;/h4&gt;
+&lt;p&gt;The easiest and least useful way to compute sample quantiles is to take our ordered step data and compute quantiles for only those data points along the step&amp;nbsp;function.&lt;/p&gt;
+&lt;p&gt;Here is a table of our ordered data, the index of that year, and the computed quantile of that year (the index divided by&amp;nbsp;N):&lt;/p&gt;
+&lt;div id="avkrsexhvb"&gt;
+&lt;table class="gt_table"&gt;
+
+  &lt;thead class="gt_col_headings"&gt;
+    &lt;tr&gt;
+      &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;Year&lt;/th&gt;
+      &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;Index&lt;/th&gt;
+      &lt;th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1"&gt;Quantile&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody class="gt_table_body"&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1951&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;1&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.05&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1957&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;2&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.10&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1958&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;3&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.15&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1959&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;4&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.20&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1962&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;5&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.25&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1970&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;6&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.30&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1975&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;7&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.35&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1975&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;8&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.40&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1976&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;9&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.45&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1977&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;10&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.50&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1979&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;11&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.55&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1987&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;12&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.60&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1987&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;13&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.65&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1988&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;14&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.70&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1990&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;15&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.75&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1993&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;16&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.80&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1994&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;17&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.85&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1996&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;18&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.90&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;1997&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;19&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;0.95&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td class="gt_row gt_right"&gt;2008&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;20&lt;/td&gt;
+&lt;td class="gt_row gt_right"&gt;1.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;With this we basically have a look-up table of quantiles. It turns out that we can compute a few common quantiles, like the median and two other quartiles. Based on this table, 50% of the data come before 1977. We can compute these quantiles in R with &lt;code&gt;quantile(data, p, type=1)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig7.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;But with this method, computing quantiles relies on the step function nature of the data. Quantiles are just rounded up, which isn&amp;#8217;t very accurate or &amp;#8220;sophisticated&amp;#8221;, and leads to jumps in quantiles.  Let&amp;#8217;s move onto a more useful&amp;nbsp;estimator.&lt;/p&gt;
+&lt;h4&gt;Linear&amp;nbsp;Interpolation&lt;/h4&gt;
+&lt;p&gt;One of the next simplest quantile estimators for a sample of data is linear interpolation. Under this method, we draw a line between each point and compute &lt;span class="math"&gt;\(x_p\)&lt;/span&gt; based on evaluating the line between two&amp;nbsp;p-quantiles.&lt;/p&gt;
+&lt;p&gt;Let&amp;#8217;s say we wanted to compute the 97.5th-quantile. We know the 95th-quantile is 1997 and the 100th-quantile is 2008. With the above method, the 97.5th-quantile would be 2008. But we can try to more accurately estimate the population by interpolating between the two years. Consider the following equation to&amp;nbsp;interpolate:&lt;/p&gt;
+&lt;div class="math"&gt;$$
+x_p = X^n \frac{p_{k+1} - p}{p_{k+1} - p_k} + X^{n+1} \frac{p - p_k}{p_{k+1} - p_k}
+$$&lt;/div&gt;
+&lt;p&gt;The equation between 1997 and 2008 is like: &lt;span class="math"&gt;\(x_p = 1997(1 - p)/(1 - 0.95) + 2008(p - 0.95)/(1 - 0.95)\)&lt;/span&gt;, where &lt;span class="math"&gt;\(p \in [0.95, 1.0]\)&lt;/span&gt;. Thus, for the 97.5th-quantile, &lt;span class="math"&gt;\(x_p = 2002.5\)&lt;/span&gt;. Similarly, with the right values from the table above, &lt;span class="math"&gt;\(Q(0.475) = x_p = 1976.5\)&lt;/span&gt; We can confirm this in&amp;nbsp;R:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nf"&gt;quantile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;0.475&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;0.975&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre class="code-output"&gt;
+ 47.5%  97.5% 
+1976.5 2002.5
+&lt;/pre&gt;
+
+&lt;p&gt;We can visualize both of these calculations like&amp;nbsp;so:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig8.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;We can now flip the axes to illustrate the functional nature (i.e. inverting the function) of this interpolation&amp;nbsp;method:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig9.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;I find it very fascinating to see the lower end of the data start to make itself clear. What before we saw as the quantiles &amp;#8220;starting&amp;#8221; at 0.05, we now see as just the result of the quantiles evaluating to the same value&amp;nbsp;(1951).&lt;/p&gt;
+&lt;h4&gt;Mode-based&amp;nbsp;Estimate&lt;/h4&gt;
+&lt;p&gt;Another way to write the above linear interpolation equation is like the&amp;nbsp;following:&lt;/p&gt;
+&lt;div class="math"&gt;$$
+x_p = x_{\lfloor h \rfloor} + (h - \lfloor h \rfloor)(x_{\lceil h \rceil} - x_{\lfloor h \rfloor})
+$$&lt;/div&gt;
+&lt;p&gt;
+where &lt;span class="math"&gt;\(h = Np\)&lt;/span&gt;. For example, for 20 data points and the quantile 0.55, we have &lt;span class="math"&gt;\(x_p=1979\)&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;This formula has the benefit of being slightly more general, and is the form that five commonly used estimators use. One of these is the mode-based estimator. This is the default in R when we use the &lt;code&gt;quantile&lt;/code&gt; function, so it&amp;#8217;s very important we understand&amp;nbsp;it.&lt;/p&gt;
+&lt;p&gt;The mode-based estimator has &lt;span class="math"&gt;\(h = (N - 1)p + 1\)&lt;/span&gt;. Thus, when &lt;span class="math"&gt;\(p=0.55\)&lt;/span&gt; we have &lt;span class="math"&gt;\(x_p = 1982.6\)&lt;/span&gt;. We can confirm this with&amp;nbsp;R:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nf"&gt;quantile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="o"&gt;$&lt;/span&gt;&lt;span class="n"&gt;year&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;0.55&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# type = 7&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre class="code-output"&gt;
+   55%
+1982.6
+&lt;/pre&gt;
+
+&lt;p&gt;It&amp;#8217;s amazing how different this value is, a full three and a half years different from the linear interpolation&amp;nbsp;method!&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig10.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;This estimation method takes care of the lower end of the data phenomenon that we ran into with linear interpolation. Mode-based estimation also appears somewhat&amp;nbsp;smoother.&lt;/p&gt;
+&lt;p&gt;Hyndman and Fan (1996) outlined six characteristics that a sample quantile estimator should possess. The mode-based estimator satisfied five of six. Although it is distribution-free and generally a fine method to use, it is not unbiased. The best contender in my opinion is the median-based estimate (type 8 in R) since it would be approximately median&amp;nbsp;unbiased.&lt;/p&gt;
+&lt;h3&gt;Estimation&amp;nbsp;Evaluation&lt;/h3&gt;
+&lt;p&gt;Just for fun, we&amp;#8217;ll compare how the quantile estimators evaluate when generalized to the remaining top 80&amp;nbsp;papers.&lt;/p&gt;
+&lt;p&gt;For example purposes, we&amp;#8217;ll consider only papers published after 1940. Here are the linear interpolation sample quantiles for the top 20 papers (blue) and all top 100 papers&amp;nbsp;(gray):&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig11.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;It looks like when we have more data, the quantile line is more linear, with fewer jumps. This is because we have more data to fill in some of those date gaps that showed up in the smaller sample. Remember that points here denote percentiles, not sample&amp;nbsp;data.&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s not incredibly useful in this situation, but we can also visualize a Q-Q plot to visualize the differences between the two sample&amp;nbsp;distributions:&lt;/p&gt;
+&lt;p&gt;&lt;img data-src="/images/quantiles-fig12.png" class="uk-align-center" width="80%" height="" alt="" uk-img&gt;&lt;/p&gt;
+&lt;p&gt;The dashed line is &lt;span class="math"&gt;\(y=x\)&lt;/span&gt;. Based on this image, we can tell that the two sample distributions are fairly similar, but not exactly the same. Each point represents a percentile (thus, 100 points shown). Areas of the graph where the points line up on the &lt;span class="math"&gt;\(y=x\)&lt;/span&gt; line indicate points in the distributions that have the same proportion of data below them. For example, you can see that 1975 or so is one of these points: about the same amount of data is before 1975 in both distributions. Areas where the line is steeper than &lt;span class="math"&gt;\(y=x\)&lt;/span&gt; indicate areas where the data in the vertical distribution is more dispersed than the horizontal. Likewise, those flat parts indicate the data is more dispersed in the horizontal&amp;nbsp;distribution.&lt;/p&gt;
+&lt;p&gt;If we considered the top 100 papers as the theoretical population, we might choose not to use the top 20 papers to estimate quantiles of the&amp;nbsp;population.&lt;/p&gt;
+&lt;p&gt;To round everything out, let&amp;#8217;s calculate the sample median of the top 20 papers using a few different methods and compare that to our &amp;#8220;population&amp;#8221; median (from all 100&amp;nbsp;papers):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nf"&gt;quantile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;all_paper_years&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre class="code-output"&gt;
+ 50%
+1983
+&lt;/pre&gt;
+
+&lt;p&gt;This is our &amp;#8220;population&amp;#8221; median (I use type 1 because this is avoids any interpolation at all of the quantiles). Now, our sample median&amp;nbsp;estimates:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;types&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;c&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;4&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;7&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="m"&gt;8&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;quantiles&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="nf"&gt;sapply&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;types&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nf"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="nf"&gt;quantile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;top_20_paper_years&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="m"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;names&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;F&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="nf"&gt;names&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;quantiles&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt; &lt;span class="n"&gt;types&lt;/span&gt;
+&lt;span class="n"&gt;quantiles&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;pre class="code-output"&gt;
+   1    4    7    8
+1977 1977 1978 1978
+&lt;/pre&gt;
+
+&lt;p&gt;As you can see, types 7 and 8 are closest to our &amp;#8220;population&amp;#8221; median by a full year. If we are concerned about an area with more dispersion in the sample data, for example at &lt;span class="math"&gt;\(p=0.55\)&lt;/span&gt;, then we actually see type 8 with an estimation error of only ten months. Type 7 has an error of 17 months, and types 4 and 1 have an error of five years! Clearly the latter are not particularly (and relatively) good (unbiased) estimators in this&amp;nbsp;case.&lt;/p&gt;
+&lt;h1&gt;Review&lt;/h1&gt;
+&lt;p&gt;A few key takeaways from this&amp;nbsp;article:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A quantile is the value that corresponds to a specified proportion of the sample data or&amp;nbsp;population.&lt;/li&gt;
+&lt;li&gt;We usually rely on estimating quantiles with a sample&amp;nbsp;estimator.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;quantile&lt;/code&gt; function in R provides nine different quantile sample estimator functions for the user to choose from. The default is mode-based estimation, which may not be the best estimator for your&amp;nbsp;problem.&lt;/li&gt;
+&lt;li&gt;Consider a type 1 (inverse &lt;span class="caps"&gt;CDF&lt;/span&gt;) estimator if you want no interpolation of quantiles; type 4 (linear interpolation) if you want to be able to easily explain the mechanics of the interpolation; type 7 (mode-based estimation) if you want your results to match anyone who uses the default in R; and type 8 (median-based estimation) if you&amp;#8217;d like to push for a more unbiased&amp;nbsp;estimator.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="meta"></category><category term="Statistics"></category><category term="Rlang"></category></entry><entry><title>Replication: A room with a green view</title><link href="/posts/2022/Jul/replication-a-room-with-a-green-view/" rel="alternate"></link><published>2022-07-31T00:00:00-07:00</published><updated>2022-07-31T00:00:00-07:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-07-31:/posts/2022/Jul/replication-a-room-with-a-green-view/</id><summary type="html">&lt;p&gt;Reproducing &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; expanding on the results of a recent article on the link between exposure to greenspace and mental&amp;nbsp;well-being&lt;/p&gt;</summary><content type="html">&lt;p&gt;Another article lamenting the &lt;a href="https://en.wikipedia.org/wiki/Replication_crisis"&gt;Replication Crisis&lt;/a&gt; within the social sciences would be redundant and unnecessary. For those who are unfamiliar though: the replication crisis is a recent phenomenon in the social sciences, especially psychology, where a large number of scientific research articles aren&amp;#8217;t able to have their results found again by independent research teams. This can be because of how the research was conducted (e.g. due to their methods), but also some researcher have been found to have fabricated their data in order to produce favorable&amp;nbsp;results.&lt;/p&gt;
 &lt;p&gt;Currently, I don&amp;#8217;t have the focus to plan out and rerun in full any particular research article. But there&amp;#8217;s a number of other ways we can validate or test published research. This is especially, or only, true if that article has made their data publicly accessible. For example, we can use the data they&amp;#8217;ve collected and published to try to reproduce the results they report. Or, we could apply different methods for analyzing that data to see if the results hold&amp;nbsp;up.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;In this article I&amp;#8217;m doing both of these with a paper I recently found that ran a survey to assess the relationship between being outdoors and mental well-being.&lt;/strong&gt; The authors published their data, and the article is open access. We&amp;#8217;re going to download their data, try to reproduce their results, and compare those results to alternative&amp;nbsp;methods.&lt;/p&gt;
 &lt;h2&gt;Article: &lt;em&gt;A room with a green&amp;nbsp;view&lt;/em&gt;&lt;/h2&gt;
@@ -340,7 +1009,11 @@
 &lt;blockquote&gt;
 &lt;p&gt;The chars argument is not a suffix; rather, all combinations of its values are&amp;nbsp;stripped&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;What&amp;#8217;s the &amp;#8220;right&amp;#8221; way to remove a suffix? The docs recommend &lt;a href="https://docs.python.org/3/library/stdtypes.html#str.removesuffix"&gt;str.removesuffix()&lt;/a&gt;. This is only implemented in Python 3.9 and&amp;nbsp;above.&lt;/p&gt;</content><category term="meta"></category><category term="Python"></category><category term="Rlang"></category></entry><entry><title>Solving the Grecian Computer</title><link href="/posts/2022/Mar/solving-grecian-computer/" rel="alternate"></link><published>2022-03-18T00:00:00-07:00</published><updated>2022-03-18T00:00:00-07:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-03-18:/posts/2022/Mar/solving-grecian-computer/</id><summary type="html">&lt;p&gt;Solving Grandma&amp;#8217;s puzzle with a little algorithmic&amp;nbsp;help&lt;/p&gt;</summary><content type="html">&lt;p&gt;My family celebrated my grandma&amp;#8217;s 88th birthday a couple weekends ago. She, however, was prepared to give out gifts to everyone else. Knowing what my family enjoys doing, she mail ordered (from a catalogue, yes) a puzzle for us all to solve. It&amp;#8217;s called the Grecian Computer puzzle. Unfortunately, I can&amp;#8217;t find any reliable background on it. Barnes and Noble &lt;a href="https://www.barnesandnoble.com/w/true-genius-greek-computer-2-wooden-brainteaser-puzzle-project-genius/1137585230"&gt;claims&lt;/a&gt; it was inspired by an astronomical tool found in an old Grecian shipwreck. I think it&amp;#8217;s just a puzzle someone came up with. However skeptical I am of its origins, the puzzle is hard, very hard. My sister, dad, and I took turns trying to solve it and none of us made any progress. Not that we&amp;#8217;re numerical geniuses, but collectively we were&amp;nbsp;stumped.&lt;/p&gt;
+&lt;p&gt;What&amp;#8217;s the &amp;#8220;right&amp;#8221; way to remove a suffix? The docs recommend &lt;a href="https://docs.python.org/3/library/stdtypes.html#str.removesuffix"&gt;str.removesuffix()&lt;/a&gt;. This is only implemented in Python 3.9 and&amp;nbsp;above.&lt;/p&gt;
+&lt;h2&gt;Nested For&amp;nbsp;Loops&lt;/h2&gt;
+&lt;h3&gt;Behavior&lt;/h3&gt;
+&lt;h3&gt;Explanation&lt;/h3&gt;
+&lt;p&gt;https://peps.python.org/pep-0202/&amp;nbsp;https://spapas.github.io/2016/04/27/python-nested-list-comprehensions/&lt;/p&gt;</content><category term="meta"></category><category term="Python"></category><category term="Rlang"></category></entry><entry><title>Solving the Grecian Computer</title><link href="/posts/2022/Mar/solving-grecian-computer/" rel="alternate"></link><published>2022-03-18T00:00:00-07:00</published><updated>2022-03-18T00:00:00-07:00</updated><author><name>Alex Liebscher</name></author><id>tag:None,2022-03-18:/posts/2022/Mar/solving-grecian-computer/</id><summary type="html">&lt;p&gt;Solving Grandma&amp;#8217;s puzzle with a little algorithmic&amp;nbsp;help&lt;/p&gt;</summary><content type="html">&lt;p&gt;My family celebrated my grandma&amp;#8217;s 88th birthday a couple weekends ago. She, however, was prepared to give out gifts to everyone else. Knowing what my family enjoys doing, she mail ordered (from a catalogue, yes) a puzzle for us all to solve. It&amp;#8217;s called the Grecian Computer puzzle. Unfortunately, I can&amp;#8217;t find any reliable background on it. Barnes and Noble &lt;a href="https://www.barnesandnoble.com/w/true-genius-greek-computer-2-wooden-brainteaser-puzzle-project-genius/1137585230"&gt;claims&lt;/a&gt; it was inspired by an astronomical tool found in an old Grecian shipwreck. I think it&amp;#8217;s just a puzzle someone came up with. However skeptical I am of its origins, the puzzle is hard, very hard. My sister, dad, and I took turns trying to solve it and none of us made any progress. Not that we&amp;#8217;re numerical geniuses, but collectively we were&amp;nbsp;stumped.&lt;/p&gt;
 &lt;p&gt;To help you picture what we were up against, here is what the puzzle looks&amp;nbsp;like:&lt;/p&gt;
 &lt;p&gt;&lt;img data-src="/images/grecian-computer-start.jpg" class="uk-align-center" width="90%" height="" alt="Starting position of the Grecian Computer puzzle" uk-img&gt;&lt;/p&gt;
 &lt;p&gt;Each of the concentric circles rotates, and the goal is to turn these dials until each of the 12 columns add up to&amp;nbsp;42.&lt;/p&gt;
