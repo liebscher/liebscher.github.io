@@ -4,7 +4,10 @@
 <head>
        <title>Alex Liebscher</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
 
        <!-- UIkit CSS -->
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
@@ -33,26 +36,30 @@
 </head>
 
 <body>
-       <header class="uk-section">
+       <header class="uk-section uk-padding-remove-bottom">
               <div class="uk-container">
-                     <h1 class="uk-heading-medium uk-text-center">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
                             <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
               </div>
        </header>
 <section class="uk-section">
-    <div class="uk-container">
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
         <div uk-grid>
-            <div class="uk-width-3-4 uk-margin-auto">
+            <div class="uk-width-3-4 uk-width-1-2@s uk-width-1-3@m uk-margin-auto">
                 <img src="/images/portrait.jpg" alt="2020 Portrait of Alex Liebscher">
             </div>
-            <div class="uk-width-1-1">
-                <p class="uk-text-justify">
+            <div class="uk-width-1-1 uk-width-2-3@m uk-text-justify">
+                <p>
                     I am a Research Scientist at <a href="https://www.betterup.com/">BetterUp</a>. Right
                     now I'm working on a core innovation team, where we do a mix of basic behavioral science
                     and cutting-edge technological innovation. I spend most of my time doing the latter.
                 </p>
-                <p class="uk-text-justify">
+                <p>
                     I graduated from the University of California: San Diego, where I studied Cognitive Science 
                     and Mathematics and researched metaphor’s impact on behavior under 
                     <a href="http://www.cogsci.ucsd.edu/~bkbergen/">Ben Bergen</a>
@@ -60,7 +67,7 @@
                     intersection of statistics and human behavior, where I can contribute to the development of
                     human-centered, data-driven technologies that positively impact people.
                 </p>
-                <p class="uk-text-justify">
+                <p>
                     These days I'm living
                     in San Francisco's Mission district. I spend a lot of time going to see live music, art, and
                     local events. I really like to read (I'm currently reading a book from every country around the 
@@ -78,37 +85,34 @@
 </section>
 <section class="uk-section">
     <div class="uk-container">
-        <div uk-grid>
-            <div class="uk-width-1-1 uk-text-center">
-                <h1 class="uk-article-title smc">Tales From Diverse Spaces</h1>
-                <!-- <h3 class="uk-h3 smc">The Language I Read That Makes Ideas Fit Together</h3> -->
-                <p>The Language I Read That Makes Ideas Fit Together</p>
-                <button class="uk-button uk-button-secondary uk-button-large uk-margin-large" uk-toggle="target: #subscribe-modal">Subscribe</button>
-                <div id="subscribe-modal" class="uk-flex-top" uk-modal>
-                    <div class="uk-modal-dialog">
-                        <button class="uk-modal-close-default" type="button" uk-close></button>
-                        <div class="uk-modal-header">
-                            <h2 class="uk-modal-title">Subscribe</h2>
-                        </div>
-                        <div class="uk-modal-body uk-margin-auto-vertical">
-                            <form action="https://tinyletter.com/liebscher" method="post" class="uk-form-stacked"
-                                target="popupwindow"
-                                onsubmit="window.open('https://tinyletter.com/liebscher', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-                                <label for="tlemail" class="uk-form-label">Subscribe to my infrequently published
-                                    newsletter:</label>
-                                <div class="uk-form-controls">
-                                    <input type="text" class="uk-input" name="email" id="tlemail" placeholder="name@email.com" />
-                                </div>
-                                <div class="uk-margin">
-                                    <input class="uk-button uk-button-default" type="submit" value="Submit" />
-                                </div>
-                                <input type="hidden" value="1" name="embed" />
-                                <p>
-                                    <a href="https://tinyletter.com" target="_blank" style="font-size:70%;">Powered by
-                                        TinyLetter</a>
-                                </p>
-                            </form>
-                        </div>
+        <div class="uk-text-center">
+            <h1 class="uk-article-title smc">Tales From Diverse Spaces</h1>
+            <p>The Language I Read That Makes Ideas Fit Together</p>
+            <button class="uk-button uk-button-secondary uk-button-large uk-margin-large" uk-toggle="target: #subscribe-modal">Subscribe</button>
+            <div id="subscribe-modal" class="uk-flex-top" uk-modal>
+                <div class="uk-modal-dialog">
+                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                    <div class="uk-modal-header">
+                        <h2 class="uk-modal-title">Subscribe</h2>
+                    </div>
+                    <div class="uk-modal-body uk-margin-auto-vertical">
+                        <form action="https://tinyletter.com/liebscher" method="post" class="uk-form-stacked"
+                            target="popupwindow"
+                            onsubmit="window.open('https://tinyletter.com/liebscher', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+                            <label for="tlemail" class="uk-form-label">Subscribe to my infrequently published
+                                newsletter:</label>
+                            <div class="uk-form-controls">
+                                <input type="text" class="uk-input" name="email" id="tlemail" placeholder="name@email.com" />
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-button uk-button-default" type="submit" value="Submit" />
+                            </div>
+                            <input type="hidden" value="1" name="embed" />
+                            <p>
+                                <a href="https://tinyletter.com" target="_blank" style="font-size:70%;">Powered by
+                                    TinyLetter</a>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -116,15 +120,15 @@
     </div>
 </section>
 <section class="uk-section">
-    <div class="uk-container">
-        <div class="uk-width-1-1 uk-text-left" uk-grid>
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
+        <div class="uk-text-left" uk-grid>
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2022/Nov/estimating-quantiles/" rel="bookmark"
                             title="Permalink to Estimating Quantiles">Estimating&nbsp;Quantiles</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2022-11-05T00:00:00-07:00">Sat 05 November 2022</time>
                     </footer>
                 </div>
@@ -134,11 +138,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2022/Jul/replication-a-room-with-a-green-view/" rel="bookmark"
                             title="Permalink to Replication: A room with a green view">Replication: A room with a green&nbsp;view</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2022-07-31T00:00:00-07:00">Sun 31 July 2022</time>
                     </footer>
                 </div>
@@ -148,11 +152,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2022/May/pycon-2022-highlights/" rel="bookmark"
                             title="Permalink to Highlights from PyCon 2022">Highlights from PyCon&nbsp;2022</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2022-05-16T00:00:00-07:00">Mon 16 May 2022</time>
                     </footer>
                 </div>
@@ -162,11 +166,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2022/May/oddities-and-surprises/" rel="bookmark"
                             title="Permalink to Oddities and Surprises: Unusual Behaviors in R and Python">Oddities and Surprises: Unusual Behaviors in R and&nbsp;Python</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2022-05-13T00:00:00-07:00">Fri 13 May 2022</time>
                     </footer>
                 </div>
@@ -176,11 +180,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2022/Mar/solving-grecian-computer/" rel="bookmark"
                             title="Permalink to Solving the Grecian Computer">Solving the Grecian&nbsp;Computer</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2022-03-18T00:00:00-07:00">Fri 18 March 2022</time>
                     </footer>
                 </div>
@@ -190,11 +194,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2022/Feb/linear-regression-parameters/" rel="bookmark"
                             title="Permalink to Linear Regression: Parameter Estimation">Linear Regression: Parameter&nbsp;Estimation</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2022-02-21T00:00:00-08:00">Mon 21 February 2022</time>
                     </footer>
                 </div>
@@ -204,11 +208,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2022/Feb/site-redesign/" rel="bookmark"
                             title="Permalink to 2022 Site Redesign">2022 Site&nbsp;Redesign</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2022-02-20T00:00:00-08:00">Sun 20 February 2022</time>
                     </footer>
                 </div>
@@ -218,11 +222,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2021/Nov/deploying-heroku-app/" rel="bookmark"
                             title="Permalink to Deploying a containerized Heroku app with Apple’s M1 processor">Deploying a containerized Heroku app with Apple&#8217;s M1&nbsp;processor</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2021-11-19T00:00:00-08:00">Fri 19 November 2021</time>
                     </footer>
                 </div>
@@ -232,11 +236,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2021/Sep/promo-betterup/" rel="bookmark"
                             title="Permalink to Full-time at BetterUp">Full-time at&nbsp;BetterUp</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2021-09-13T00:00:00-07:00">Mon 13 September 2021</time>
                     </footer>
                 </div>
@@ -246,11 +250,11 @@
             <hr class="uk-divider-icon uk-width-1-1">
             <article class="uk-article uk-width-1-1">
                 <div uk-grid>
-                    <header class="uk-width-1-1">
+                    <header class="uk-width-1-1 uk-width-3-4@m">
                         <h2 class="smc uk-article-title"><a href="http://127.0.0.1:8000/posts/2021/Jul/data-science-conversation/" rel="bookmark"
                             title="Permalink to Data Science">Data&nbsp;Science</a></h2>
                     </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
                         <time datetime="2021-07-21T00:00:00-07:00">Wed 21 July 2021</time>
                     </footer>
                 </div>
@@ -273,7 +277,7 @@
     </div>
 </section>
 <section class="uk-section uk-section-muted">
-    <div class="uk-container">
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
         <h4 class="uk-h4">Article Tags</h4>
         <div class="uk-text-muted">
             <a href="http://127.0.0.1:8000/tag/algorithms.html" class="uk-link-muted uk-text-capitalize">algorithms</a>, 
@@ -301,7 +305,7 @@
     </div>
 </section>
        <footer class="uk-section">
-              <div class="uk-container">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <address>
                             <a href="http://127.0.0.1:8000/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
                                    href="https://getpelican.com/">Pelican</a>.
