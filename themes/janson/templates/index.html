@@ -1,90 +1,116 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="uk-section">
-    <div class="uk-container uk-width-2-3@l">
-        <div class="uk-flex-middle uk-margin uk-margin-large" uk-grid>
-            <div class="uk-width-1-4@l uk-width-2-3 uk-align-center">
-                <img src="{{static}}/images/portrait.jpg" alt="Portrait of Alex Liebscher">
+    <div class="uk-container">
+        <div uk-grid>
+            <div class="uk-width-3-4 uk-margin-auto">
+                <img src="{{static}}/images/portrait.jpg" alt="2020 Portrait of Alex Liebscher">
             </div>
-            <div class="uk-width-3-4@l">
+            <div class="uk-width-1-1">
                 <p class="uk-text-justify">
-                    I am a Jr. Technical Research Scientist at <a href="https://www.betterup.com/">BetterUp</a>. Here
-                    I’m studying mechanisms of positive communication, and physical and mental wellbeing. I graduated
-                    from the University of California: San Diego, where I studied Cognitive Science and Mathematics and
-                    researched metaphor’s impact on behavior under <a href="http://www.cogsci.ucsd.edu/~bkbergen/">Ben
-                        Bergen</a>
+                    I am a Research Scientist at <a href="https://www.betterup.com/">BetterUp</a>. Right
+                    now I'm working on a core innovation team, where we do a mix of basic behavioral science
+                    and cutting-edge technological innovation. I spend most of my time doing the latter.
+                </p>
+                <p class="uk-text-justify">
+                    I graduated from the University of California: San Diego, where I studied Cognitive Science 
+                    and Mathematics and researched metaphor’s impact on behavior under 
+                    <a href="http://www.cogsci.ucsd.edu/~bkbergen/">Ben Bergen</a>
                     and <a href="https://seantrott.github.io/">Sean Trott</a>. My passions lie at the
                     intersection of statistics and human behavior, where I can contribute to the development of
-                    human-centered, data-driven technologies that positively impact people. I also enjoy staying
-                    fit, reading, backpacking, and gardening. For an explanation of my blog’s
+                    human-centered, data-driven technologies that positively impact people.
+                </p>
+                <p class="uk-text-justify">
+                    These days I'm living
+                    in San Francisco's Mission district. I spend a lot of time going to see live music, art, and
+                    local events. I really like to read (I'm currently reading a book from every country around the 
+                    world). When someone else with a car offers to drive, I like to head up into the forests 
+                    (backpacking, camping, hiking). For an explanation of my blog’s
                     title, <a href="https://liebscher.github.io/blog/2020/blog-origins/">see here</a>.
                 </p>
-                <a class="uk-button uk-button-text" href="{{ SITEURL }}/pages/resources.html">Resources</a>
+                
+            </div>
+            <div class="uk-width-expand uk-text-center">
+                <a href="{{ SITEURL }}/pages/resources.html">Blog Roll (so y2k)</a>
             </div>
         </div>
     </div>
 </section>
 <section class="uk-section">
-    <div class="uk-container uk-width-2-3@l">
-        {% block content_title %}
-        <h4 class="uk-heading-small smc uk-text-center">Tales From Diverse Spaces</h4>
-        <h5 class="uk-heading-xsmall uk-text-light uk-text-center">The Language I Read That Makes Ideas Fit Together</h5>
-        <button class="uk-button uk-button-default uk-align-center" uk-toggle="target: #subscribe-modal">Subscribe</button>
-        <div id="subscribe-modal" class="uk-flex-top" uk-modal>
-            <div class="uk-modal-dialog">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">Subscribe</h2>
-                </div>
-                <div class="uk-modal-body uk-margin-auto-vertical">
-                    <form action="https://tinyletter.com/liebscher" method="post"
-                        class="uk-form-stacked"
-                        target="popupwindow"
-                        onsubmit="window.open('https://tinyletter.com/liebscher', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-                        <label for="tlemail" class="uk-form-label">Subscribe to my infrequently published newsletter:</label>
-                        <div class="uk-form-controls">
-                            <input type="text" class="uk-input" name="email" id="tlemail" placeholder="name@email.com" />
+    <div class="uk-container">
+        <div uk-grid>
+            {% block content_title %}
+            <div class="uk-width-1-1 uk-text-center">
+                <h1 class="uk-article-title smc">Tales From Diverse Spaces</h1>
+                <!-- <h3 class="uk-h3 smc">The Language I Read That Makes Ideas Fit Together</h3> -->
+                <p>The Language I Read That Makes Ideas Fit Together</p>
+                <button class="uk-button uk-button-secondary uk-button-large uk-margin-large" uk-toggle="target: #subscribe-modal">Subscribe</button>
+                <div id="subscribe-modal" class="uk-flex-top" uk-modal>
+                    <div class="uk-modal-dialog">
+                        <button class="uk-modal-close-default" type="button" uk-close></button>
+                        <div class="uk-modal-header">
+                            <h2 class="uk-modal-title">Subscribe</h2>
                         </div>
-                        <div class="uk-margin">
-                            <input class="uk-button uk-button-default" type="submit" value="Submit" />
+                        <div class="uk-modal-body uk-margin-auto-vertical">
+                            <form action="https://tinyletter.com/liebscher" method="post" class="uk-form-stacked"
+                                target="popupwindow"
+                                onsubmit="window.open('https://tinyletter.com/liebscher', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+                                <label for="tlemail" class="uk-form-label">Subscribe to my infrequently published
+                                    newsletter:</label>
+                                <div class="uk-form-controls">
+                                    <input type="text" class="uk-input" name="email" id="tlemail" placeholder="name@email.com" />
+                                </div>
+                                <div class="uk-margin">
+                                    <input class="uk-button uk-button-default" type="submit" value="Submit" />
+                                </div>
+                                <input type="hidden" value="1" name="embed" />
+                                <p>
+                                    <a href="https://tinyletter.com" target="_blank" style="font-size:70%;">Powered by
+                                        TinyLetter</a>
+                                </p>
+                            </form>
                         </div>
-                        <input type="hidden" value="1" name="embed" />
-                        <p>
-                            <a href="https://tinyletter.com" target="_blank" style="font-size:70%;">Powered by TinyLetter</a>
-                        </p>
-                    </form>
+                    </div>
                 </div>
             </div>
+            {% endblock %}
         </div>
-        {% endblock %}
-
-        <ul class="uk-list uk-list-divider">
-        {% for article in articles_page.object_list %}
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> {{ article.summary }} </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not loop.last else "" }}{% endfor %}</div><!-- /.entry-content -->
-                </article></li>
-        {% endfor %}
-        </ul><!-- /#posts-list -->
+    </div>
+</section>
+<section class="uk-section">
+    <div class="uk-container">
+        <div class="uk-width-1-1 uk-text-left" uk-grid>
+            {% for article in articles_page.object_list %}
+            <article class="uk-article uk-width-1-1">
+                <div uk-grid>
+                    <header class="uk-width-1-1">
+                        <h2 class="smc uk-article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+                            title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
+                    </header>
+                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
+                        <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                    </footer>
+                </div>
+                <div class="uk-margin-medium">{{ article.summary }}</div>
+                <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not
+                    loop.last else "" }}{% endfor %}</div>
+            </article>
+            <hr class="uk-divider-icon uk-width-1-1">
+            {% endfor %}
+        </div>
         {% if articles_page.has_other_pages() %}
             {% include 'pagination.html' %}
         {% endif %}
     </div>
-</section><!-- /#content -->
+</section>
 <section class="uk-section uk-section-muted">
-    <div class="uk-container uk-width-2-3@l">
-        <h4 class="uk-heading-4">Article Tags</h4>
-        {% for tag, articles in tags|sort %}
-        <a href="{{ SITEURL }}/{{ tag.url }}" class="uk-link-muted uk-text-capitalize">{{ tag }}</a>{{ ", " if not loop.last else "" }}
-        {% endfor %}
+    <div class="uk-container">
+        <h4 class="uk-h4">Article Tags</h4>
+        <div class="uk-text-muted">
+            {% for tag, articles in tags|sort %}
+            <a href="{{ SITEURL }}/{{ tag.url }}" class="uk-link-muted uk-text-capitalize">{{ tag }}</a>{{ ", " if not loop.last else "" }}
+            {% endfor %}
+        </div>
     </div>
 </section>
 {% endblock content %}

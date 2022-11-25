@@ -36,3 +36,12 @@ From the documentation,
 > The chars argument is not a suffix; rather, all combinations of its values are stripped
 
 What's the "right" way to remove a suffix? The docs recommend [str.removesuffix()](https://docs.python.org/3/library/stdtypes.html#str.removesuffix). This is only implemented in Python 3.9 and above.
+
+## Nested For Loops
+
+### Behavior
+
+### Explanation
+
+https://peps.python.org/pep-0202/
+https://spapas.github.io/2016/04/27/python-nested-list-comprehensions/

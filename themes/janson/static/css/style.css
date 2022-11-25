@@ -1,7 +1,7 @@
 html {
   font-family: 'IBM Plex Serif', 'Times New Roman', Times, serif;
   font-weight: 400;
-  font-size: 28px;
+  font-size: 32px;
   background-color: white;
   color: #111;
 }
@@ -9,24 +9,39 @@ html {
 /* this was in default.css but I had to move here 
 in order to have media tag too */
 .highlight pre, pre, .highlight .hll {
-    font-size: 22px;
+    /* font-size: 22px; */
     background-color: #f8f8f8;
     padding: 10px 10px;
     border-radius: 2px;
 }
 
 
-@media screen and (min-width: 1200px) {
+/* @media screen and (min-width: 1200px) {
     html {
       font-size: 14px;
     }
     .highlight pre, pre, .highlight .hll {
         font-size: 12px;
     }
-}
+} */
   
 
-h1, h2, h3, h4, h5, h6, .uk-heading-large, .uk-heading-medium, .uk-heading-small {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.uk-h1,
+.uk-h2,
+.uk-h3,
+.uk-h4,
+.uk-h5,
+.uk-h6,
+.uk-heading-xlarge,
+.uk-heading-large,
+.uk-heading-medium,
+.uk-heading-small {
     font-family: 'Playfair Display', 'Times New Roman', Times, serif;
 }
 

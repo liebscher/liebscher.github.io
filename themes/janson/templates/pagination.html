@@ -1,0 +1,25 @@
+{% if DEFAULT_PAGINATION %}
+{% set first_page = articles_paginator.page(1) %}
+{% set last_page = articles_paginator.page(articles_paginator.num_pages) %}
+<div class="paginator uk-width-1-1" uk-grid>
+    {% if articles_page.has_previous() %}
+        <div class="uk-width-1-6">
+            <a href="{{ SITEURL }}/{{ first_page.url }}">First</a>
+        </div>
+        <div class="uk-width-1-6">
+            <a href="{{ SITEURL }}/{{ articles_previous_page.url }}">&laquo;</a>
+        </div>
+    {% endif %}
+    <div class="uk-width-expand uk-text-center">
+        Page {{ articles_page.number }} / {{ articles_paginator.num_pages }}
+    </div>
+    {% if articles_page.has_next() %}
+        <div class="uk-width-1-6 uk-text-right">
+            <a href="{{ SITEURL }}/{{ articles_next_page.url }}">&raquo;</a>
+        </div>
+        <div class="uk-width-1-6 uk-text-right">
+            <a href="{{ SITEURL }}/{{ last_page.url }}">Last</a>
+        </div>
+    {% endif %}
+</div>
+{% endif %}

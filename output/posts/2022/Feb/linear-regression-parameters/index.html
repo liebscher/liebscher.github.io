@@ -5,10 +5,6 @@
          <title>Alex Liebscher - Linear Regression: Parameter Estimation</title>
        <meta charset="utf-8" />
        <meta name="generator" content="Pelican" />
-       <link href="/feeds/all.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
-       <link href="/feeds/meta.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
 
 
 
@@ -26,39 +22,40 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
-       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
-       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/style.css" />
 
        <!-- favicon licensing -->
        <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
        <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
-       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-       <link rel="icon" type="image/png" href="/favicon.ico">
+       <link rel="apple-touch-icon" sizes="180x180" href="http://127.0.0.1:8000/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:8000/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:8000/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="http://127.0.0.1:8000/favicon.ico">
 
        <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 
 <body>
        <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
-                            <a href="/">Alex Liebscher</a>
-                     </h4>
-<ul class="uk-breadcrumb">
-  <li><a href="/index.html">Home</a></li>
+              <div class="uk-container">
+                     <h1 class="uk-heading-medium uk-text-center">
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
+                     </h1>
+<ul class="uk-breadcrumb uk-margin-medium">
+  <li><a href="http://127.0.0.1:8000/index.html">Home</a></li>
   <li><span>Linear Regression: Parameter&nbsp;Estimation</span></li>
 </ul>
               </div>
-       </header><!-- /#banner -->
+       </header>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
   <div class="uk-container uk-width-2-3@l">
     <header>
       <h2 class="uk-text-center">
-        <a href="/posts/2022/Feb/linear-regression-parameters/" rel="bookmark" title="Permalink to Linear Regression: Parameter Estimation">Linear Regression: Parameter&nbsp;Estimation</a>
+        <a href="http://127.0.0.1:8000/posts/2022/Feb/linear-regression-parameters/" rel="bookmark" title="Permalink to Linear Regression: Parameter Estimation">Linear Regression: Parameter&nbsp;Estimation</a>
       </h2>
       
     </header>
@@ -67,20 +64,20 @@
         Mon 21 February 2022
       </time>
       <!--     <div>
-        Category: <a href="/">meta</a>
+        Category: <a href="http://127.0.0.1:8000/">meta</a>
     </div>
  -->
       <div>
         Tags:
-        <a href="/tag/statistics.html">statistics</a>, 
-        <a href="/tag/python.html">python</a>
+        <a href="http://127.0.0.1:8000/tag/statistics.html">statistics</a>, 
+        <a href="http://127.0.0.1:8000/tag/python.html">python</a>
       </div>
     </footer><!-- /.post-info -->
   </div>
 </section>
 <section class="uk-section">
   <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
-    <p><img class="uk-align-center" width="90%" height="" src="/images/regr-header.png" uk-img></p>
+    <p><img class="uk-align-center" width="90%" height="" src="http://127.0.0.1:8000/images/regr-header.png" uk-img></p>
 <div class="caption">
 Image by Alex Liebscher
 </div>
@@ -116,7 +113,7 @@ Image by Alex Liebscher
 </code></pre></div>
 
 <pre class="code-output">
-    <img src="/images/regression-fig1.svg" uk-svg >
+    <img src="http://127.0.0.1:8000/images/regression-fig1.svg" uk-svg >
 </pre>
 
 <p>and also related with the outcome&nbsp;values,</p>
@@ -126,7 +123,7 @@ Image by Alex Liebscher
 </code></pre></div>
 
 <pre class="code-output">
-    <img src="/images/regression-fig2.svg" uk-svg >
+    <img src="http://127.0.0.1:8000/images/regression-fig2.svg" uk-svg >
 </pre>
 
 <p>The human eye easily picks up a pattern here. There&#8217;re data that, when the horizontal variable increases, corresponds to an increase in the vertical variable. The pattern looks linear. There also appears to be some noise in the data; one data point doesn&#8217;t relate to the next in an exactly predictable&nbsp;way.</p>
@@ -167,7 +164,7 @@ $$</div>
 </code></pre></div>
 
 <pre class="code-output">
-    <img src="/images/regression-fig3.svg" uk-svg >
+    <img src="http://127.0.0.1:8000/images/regression-fig3.svg" uk-svg >
 </pre>
 
 <p>And that&#8217;s it, we&#8217;ve calculated a fitted line to the data at hand. As you can see, we came quite close to the true data generation line. Unfortunately, this method really only works if you only have a single predictor, which in many cases is too much of a&nbsp;constraint.</p>
@@ -300,7 +297,7 @@ $$</div>
 <pre class="code-output">
 MSE:     0.163
 
-<img src="/images/regression-fig5.svg" uk-svg >
+<img src="http://127.0.0.1:8000/images/regression-fig5.svg" uk-svg >
 </pre>
 
 <p>As you can see, gradient descent looks like it found the bottom of the mountain! The final parameter values it determined were <span class="math">\(\alpha = 4.898\)</span> and <span class="math">\(\beta = 2.244\)</span>, which is close to the true values of 5 and&nbsp;2.</p>
@@ -318,7 +315,7 @@ MSE:     0.163
 </code></pre></div>
 
 <pre class="code-output">
-    <img src="/images/regression-fig6.svg" uk-svg >
+    <img src="http://127.0.0.1:8000/images/regression-fig6.svg" uk-svg >
 </pre>
 
 <p>Not too bad, given the low number of&nbsp;observations.</p>
@@ -393,7 +390,7 @@ $$</div>
 </code></pre></div>
 
 <pre class="code-output">
-    <img src="/images/regression-fig7.svg" uk-svg >
+    <img src="http://127.0.0.1:8000/images/regression-fig7.svg" uk-svg >
 </pre>
 
 <p>This may be confusing because compared to our previous two methods of parameter estimation where we had a single estimate for each parameter, now we see a histogram for each. Like I said, this is because a Bayesian model determines the values of parameters through random sampling. There was no random sampling in Least Squares and Gradient Descent. Because of the random sampling, we never know the exact values. This is unhelpful conceptually, but practically it provides us with concrete and sane estimates of <em>uncertainty</em>. Now we can compute the single parameter values using the mean, median, or mode; and we can also easily compute how accurate those measures&nbsp;are.</p>
@@ -424,7 +421,7 @@ $$</div>
 </code></pre></div>
 
 <pre class="code-output">
-    <img src="/images/regression-fig8.svg" uk-svg >
+    <img src="http://127.0.0.1:8000/images/regression-fig8.svg" uk-svg >
 </pre>
 
 <p>This is arguably the most interesting plot of the entire article! Here we see on the x-axis the true data generator value. On the y-axis is the posterior predictive outcome. Each point is what the model believes the outcome should be for that observation&#8217;s predictors (which we don&#8217;t see anything of in this plot). And then for each point there&#8217;s also a representation of the uncertainty of that estimate. The estimate can be interpreted as saying, this observation&#8217;s outcome is most likely to be this red point, but there&#8217;s a 95% probability it falls somewhere in the line range.&#8221; This is of course dependent on the model (so really, there&#8217;s a 95% probability <em>given this model</em>).</p>
@@ -497,10 +494,13 @@ $$</div>
   </div><!-- /.entry-content -->
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container">
+                     <address>
+                            <a href="http://127.0.0.1:8000/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>

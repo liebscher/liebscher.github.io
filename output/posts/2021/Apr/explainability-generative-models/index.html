@@ -5,10 +5,6 @@
          <title>Alex Liebscher - Explainability in Generative Language Models</title>
        <meta charset="utf-8" />
        <meta name="generator" content="Pelican" />
-       <link href="/feeds/all.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
-       <link href="/feeds/meta.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
 
 
 
@@ -28,39 +24,40 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
-       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
-       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/style.css" />
 
        <!-- favicon licensing -->
        <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
        <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
-       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-       <link rel="icon" type="image/png" href="/favicon.ico">
+       <link rel="apple-touch-icon" sizes="180x180" href="http://127.0.0.1:8000/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:8000/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:8000/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="http://127.0.0.1:8000/favicon.ico">
 
        <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 
 <body>
        <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
-                            <a href="/">Alex Liebscher</a>
-                     </h4>
-<ul class="uk-breadcrumb">
-  <li><a href="/index.html">Home</a></li>
+              <div class="uk-container">
+                     <h1 class="uk-heading-medium uk-text-center">
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
+                     </h1>
+<ul class="uk-breadcrumb uk-margin-medium">
+  <li><a href="http://127.0.0.1:8000/index.html">Home</a></li>
   <li><span>Explainability in Generative Language&nbsp;Models</span></li>
 </ul>
               </div>
-       </header><!-- /#banner -->
+       </header>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
   <div class="uk-container uk-width-2-3@l">
     <header>
       <h2 class="uk-text-center">
-        <a href="/posts/2021/Apr/explainability-generative-models/" rel="bookmark" title="Permalink to Explainability in Generative Language Models">Explainability in Generative Language&nbsp;Models</a>
+        <a href="http://127.0.0.1:8000/posts/2021/Apr/explainability-generative-models/" rel="bookmark" title="Permalink to Explainability in Generative Language Models">Explainability in Generative Language&nbsp;Models</a>
       </h2>
       
     </header>
@@ -69,15 +66,15 @@
         Mon 19 April 2021
       </time>
       <!--     <div>
-        Category: <a href="/">meta</a>
+        Category: <a href="http://127.0.0.1:8000/">meta</a>
     </div>
  -->
       <div>
         Tags:
-        <a href="/tag/language.html">language</a>, 
-        <a href="/tag/nlp.html">nlp</a>, 
-        <a href="/tag/society.html">society</a>, 
-        <a href="/tag/machine-learning.html">machine learning</a>
+        <a href="http://127.0.0.1:8000/tag/language.html">language</a>, 
+        <a href="http://127.0.0.1:8000/tag/nlp.html">nlp</a>, 
+        <a href="http://127.0.0.1:8000/tag/society.html">society</a>, 
+        <a href="http://127.0.0.1:8000/tag/machine-learning.html">machine learning</a>
       </div>
     </footer><!-- /.post-info -->
   </div>
@@ -87,7 +84,7 @@
     <!-- readtime: 17.0
 bibliography: 2021-04-19-explainability-generative-lms.bib -->
 
-<p><img class="uk-align-center" data-src="/images/spongebob-bubbles.jpg" height="" width="80%" alt="" uk-img>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/spongebob-bubbles.jpg" height="" width="80%" alt="" uk-img>
 <br></p>
 <p>Natural Language Processing (<span class="caps">NLP</span>) models have been gaining popularity like crazy; they&#8217;re getting thrown into a new industry every week. In the last few years of <span class="caps">NLP</span>, we&#8217;ve seen the development of <a href="https://en.wikipedia.org/wiki/Language_model">large language models</a>, which model the statistical properties of language, and come in two main types: discriminative and generative. The former are useful across text analytics, from classic sentiment analysis to <a href="https://www.technologyreview.com/2021/03/11/1020600/facebook-responsible-ai-misinformation/">detecting misinformation</a> on social media platforms. The latter, generative models, have mostly come to light as a result of OpenAI&#8217;s <span class="caps">GPT</span>&nbsp;models.</p>
 <p>In a 1999 episode of Spongebob (S1 E4), Spongebob and Patrick are blowing bubbles. Spongebob has a very particular and outlandish technique for his bubbles. At first, his bubbles are simple. Eventually though, Spongebob blows a bubble <em>so</em> big, it swallows up Squidward&#8217;s Easter Island head house, lifting it high into the sky/sea, and soon popping, thus leaving the home falling back to the floor where it hits the ground at an awkward&nbsp;position.</p>
@@ -116,7 +113,7 @@ From <a href="https://liebscher.github.io/blog/2020/evaluating-neural-toxic-dege
 <li>Motivations for&nbsp;development</li>
 </ul>
 <p>Given such complex and multi-faceted influences, it&#8217;s no easy ask of the field. As I&#8217;ll soon explain though, it is all but necessary that when these models behave poorly, we have some method for explaining&nbsp;why.</p>
-<p><img class="uk-align-center" data-src="/images/figma-explainability.png" height="" width="80%" alt="" uk-img></p>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/figma-explainability.png" height="" width="80%" alt="" uk-img></p>
 <div class="caption">
   Figure 1. Modern generative language models are trained to predict the next word in a text sequence. After training on billions of words, the model tends to be able to produce comprehensible text. If it produces something wrong though, we have no good way of explaining these mistakes. This is very unlike asking a human to explain what they&#8217;ve said, which usually has satisfactory results.
 </div>
@@ -139,7 +136,7 @@ From <a href="https://liebscher.github.io/blog/2020/evaluating-neural-toxic-dege
 </blockquote>
 <p>Generative models are being picked up across a numbing variety of industries as tools and marketing ploys. In healthcare, businesses are experimenting with them to summarize doctor&#8217;s notes of patient interactions. <a href="https://www.brookings.edu/research/auditing-employment-algorithms-for-discrimination/">Human resources companies</a> are seeing how conversations with candidate employees can be made more personal and customizable by leveraging generative models. Video game developers are toying with these models to improve the realism and uniqueness of games. Lastly, generative models are being considered for <a href="https://arxiv.org/pdf/2104.00336.pdf">mitigating political bias in the media</a>. None of this is inherently bad; most of it is well-intentioned. Regardless, our lives are intimately interlaced with this&nbsp;technology.</p>
 <p>The issues crop up when the model produces some harmful, ignorant, or wrong output, and someone needs to explain why the model did that. Stakeholders and end-users will not feel safe or comfortable upon hearing that those outputs are out of the engineers&#8217; control. I could come up with dozens of hypothetical examples of harmful generative models in the wild, but we already have crystal clear illustrations such as <a href="https://www.theverge.com/2016/3/24/11297050/tay-microsoft-chatbot-racist">Microsoft&#8217;s Tay</a>.</p>
-<p><img class="uk-align-center" data-src="/images/huggingface-transformers-swear.png" height="" width="80%" alt="" uk-img></p>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/huggingface-transformers-swear.png" height="" width="80%" alt="" uk-img></p>
 <div class="caption">
   Figure 2. The popular Huggingface <span class="caps">API</span> provides a public interface where anyone can write with <span class="caps">GPT</span>-2. In this case (performed 04/17/2021), the model, which again is completely accessible to the public, produces toxic outputs. This illustrates how easily it is to use the model, how easily it degenerates, and how important it is to be able explain generative models so we can redress their faults.
 </div>
@@ -198,7 +195,7 @@ It&#8217;s dizzying to consider the amount of power Google has, and how easily t
 <p>Explaining generative models is clearly not a new issue, but nonetheless it appears underfunded or at least underrepresented in the big picture of <span class="caps">NLP</span><d-footnote>One thing I learned while writing this article is the importance of doing a thorough literature review <i>before</i> embarking on my own ideas. I&#8217;m frankly a bit embarrassed by the paucity of background here. Part of me doesn&#8217;t want to write big long lit reviews to preface my ideas so as to not bore my audience more than I already do, but I know that it would only serve me well. Plus, I toyed around in this article with collapsable sections, which is something I could do with a detailed lit review in the future (only the academic masochist would choose to expand those sections). Lesson learned!</d-footnote>. The conversation needs to grow, more individuals need to be included in the conversation, and new perspectives need to contribute to the&nbsp;discussion.</p>
 <h2>Future&nbsp;directions</h2>
 <p>Humans frequently fail to communicate. Unlike with statistical <span class="caps">NLP</span> models though, it is easy to ask a human to explain what they said, or why they said&nbsp;it.</p>
-<p><img class="uk-align-center" data-src="/images/explainability-future-directions.jpeg" height="" width="80%" alt="" uk-img></p>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/explainability-future-directions.jpeg" height="" width="80%" alt="" uk-img></p>
 <div class="caption">
   Photo credit: <a href="https://unsplash.com/@henniestander?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Hennie Stander</a> via Unsplash
 </div>
@@ -217,10 +214,13 @@ It&#8217;s dizzying to consider the amount of power Google has, and how easily t
   </div><!-- /.entry-content -->
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container">
+                     <address>
+                            <a href="http://127.0.0.1:8000/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>
