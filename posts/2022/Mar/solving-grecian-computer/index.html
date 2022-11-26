@@ -4,7 +4,10 @@
 <head>
          <title>Alex Liebscher - Solving the Grecian Computer</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
        <link href="/feeds/all.atom.xml"
               type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
        <link href="/feeds/meta.atom.xml"
@@ -26,7 +29,8 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
        <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
        <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -43,23 +47,33 @@
 </head>
 
 <body>
-       <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="/">Alex Liebscher</a>
-                     </h4>
-<ul class="uk-breadcrumb">
-  <li><a href="/index.html">Home</a></li>
-  <li><span>Solving the Grecian&nbsp;Computer</span></li>
-</ul>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
               </div>
-       </header><!-- /#banner -->
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>Solving the Grecian&nbsp;Computer</span></li>
+    </ul>
+  </div>
+</section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3@l">
+  <div class="uk-container uk-width-2-3@m">
     <header>
-      <h2 class="uk-text-center">
+      <h1 class="uk-h1 uk-text-center">
         <a href="/posts/2022/Mar/solving-grecian-computer/" rel="bookmark" title="Permalink to Solving the Grecian Computer">Solving the Grecian&nbsp;Computer</a>
-      </h2>
+      </h1>
       
     </header>
     <footer class="uk-text-center uk-margin">
@@ -75,11 +89,11 @@
         <a href="/tag/python.html">python</a>, 
         <a href="/tag/algorithms.html">algorithms</a>
       </div>
-    </footer><!-- /.post-info -->
+    </footer>
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
     <p>My family celebrated my grandma&#8217;s 88th birthday a couple weekends ago. She, however, was prepared to give out gifts to everyone else. Knowing what my family enjoys doing, she mail ordered (from a catalogue, yes) a puzzle for us all to solve. It&#8217;s called the Grecian Computer puzzle. Unfortunately, I can&#8217;t find any reliable background on it. Barnes and Noble <a href="https://www.barnesandnoble.com/w/true-genius-greek-computer-2-wooden-brainteaser-puzzle-project-genius/1137585230">claims</a> it was inspired by an astronomical tool found in an old Grecian shipwreck. I think it&#8217;s just a puzzle someone came up with. However skeptical I am of its origins, the puzzle is hard, very hard. My sister, dad, and I took turns trying to solve it and none of us made any progress. Not that we&#8217;re numerical geniuses, but collectively we were&nbsp;stumped.</p>
 <p>To help you picture what we were up against, here is what the puzzle looks&nbsp;like:</p>
 <p><img data-src="/images/grecian-computer-start.jpg" class="uk-align-center" width="90%" height="" alt="Starting position of the Grecian Computer puzzle" uk-img></p>
@@ -307,13 +321,16 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-  </div><!-- /.entry-content -->
+  </div>
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>

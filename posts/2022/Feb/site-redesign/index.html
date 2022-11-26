@@ -4,7 +4,10 @@
 <head>
          <title>Alex Liebscher - 2022 Site Redesign</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
        <link href="/feeds/all.atom.xml"
               type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
        <link href="/feeds/meta.atom.xml"
@@ -27,7 +30,8 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
        <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
        <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -44,23 +48,33 @@
 </head>
 
 <body>
-       <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="/">Alex Liebscher</a>
-                     </h4>
-<ul class="uk-breadcrumb">
-  <li><a href="/index.html">Home</a></li>
-  <li><span>2022 Site&nbsp;Redesign</span></li>
-</ul>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
               </div>
-       </header><!-- /#banner -->
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>2022 Site&nbsp;Redesign</span></li>
+    </ul>
+  </div>
+</section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3@l">
+  <div class="uk-container uk-width-2-3@m">
     <header>
-      <h2 class="uk-text-center">
+      <h1 class="uk-h1 uk-text-center">
         <a href="/posts/2022/Feb/site-redesign/" rel="bookmark" title="Permalink to 2022 Site Redesign">2022 Site&nbsp;Redesign</a>
-      </h2>
+      </h1>
       
     </header>
     <footer class="uk-text-center uk-margin">
@@ -77,11 +91,11 @@
         <a href="/tag/design.html">design</a>, 
         <a href="/tag/programming.html">programming</a>
       </div>
-    </footer><!-- /.post-info -->
+    </footer>
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
     <p>I&#8217;ve set out on redesigning my personal site. Why? I find Jekyll fairly picky, unstable, and hard to work with. Moreover, in using the Jekyll theme that I was (<a href="https://github.com/alshedivat/al-folio">al-folio</a>), I found that to also be unstable, hard to keep up to date, and kind of clunky. I appreciate all the people that went in to building both of these tools, but neither has really served me as well as I had once hoped they&nbsp;would.</p>
 <p>It&#8217;s time to not only rework the site generation process, but to update the look of my site to better reflect how I feel and what I need to make the best content I&nbsp;can.</p>
 <p>I was actually inspired to do this by the typographer <a href="Miklós Tótfalusi Kis">Miklós Tótfalusi Kis</a>. His design of the Janson typeface is beautiful and inspiring, and it forced me to reflect deeply on it. I discovered it in a book I recently started reading, <a href="https://en.wikipedia.org/wiki/A_Garden_of_Earthly_Delights">A Garden of Earthly Delights</a> by Joyce Carol Oates, in which it is the typefont the book is set&nbsp;in.</p>
@@ -184,13 +198,16 @@ $$</div>
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-  </div><!-- /.entry-content -->
+  </div>
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>

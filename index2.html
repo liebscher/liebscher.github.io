@@ -4,7 +4,10 @@
 <head>
        <title>Alex Liebscher</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
        <link href="/feeds/all.atom.xml"
               type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
 
@@ -17,7 +20,8 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
        <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
        <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -34,231 +38,286 @@
 </head>
 
 <body>
-       <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="/">Alex Liebscher</a>
-                     </h4>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!--  -->
               </div>
-       </header><!-- /#banner -->
-<section class="uk-section">
-    <div class="uk-container uk-width-2-3@l">
-        <div class="uk-flex-middle uk-margin uk-margin-large" uk-grid>
-            <div class="uk-width-1-4@l uk-width-2-3 uk-align-center">
-                <img src="/images/portrait.jpg" alt="Portrait of Alex Liebscher">
+       </header>
+<section class="uk-section uk-section-small">
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
+        <div uk-grid>
+            <div class="uk-width-3-4 uk-width-1-2@s uk-width-1-3@m uk-margin-auto">
+                <img src="/images/portrait.jpg" alt="2020 Portrait of Alex Liebscher">
             </div>
-            <div class="uk-width-3-4@l">
-                <p class="uk-text-justify">
-                    I am a Jr. Technical Research Scientist at <a href="https://www.betterup.com/">BetterUp</a>. Here
-                    I’m studying mechanisms of positive communication, and physical and mental wellbeing. I graduated
-                    from the University of California: San Diego, where I studied Cognitive Science and Mathematics and
-                    researched metaphor’s impact on behavior under <a href="http://www.cogsci.ucsd.edu/~bkbergen/">Ben
-                        Bergen</a>
+            <div class="uk-width-1-1 uk-width-2-3@m uk-text-justify">
+                <p>
+                    I am a Research Scientist at <a href="https://www.betterup.com/">BetterUp</a>. Right
+                    now I'm working on a core innovation team, where we do a mix of basic behavioral science
+                    and cutting-edge technological innovation. I spend most of my time doing the latter.
+                </p>
+                <p>
+                    I graduated from the University of California: San Diego, where I studied Cognitive Science 
+                    and Mathematics and researched metaphor’s impact on behavior under 
+                    <a href="http://www.cogsci.ucsd.edu/~bkbergen/">Ben Bergen</a>
                     and <a href="https://seantrott.github.io/">Sean Trott</a>. My passions lie at the
                     intersection of statistics and human behavior, where I can contribute to the development of
-                    human-centered, data-driven technologies that positively impact people. I also enjoy staying
-                    fit, reading, backpacking, and gardening. For an explanation of my blog’s
+                    human-centered, data-driven technologies that positively impact people.
+                </p>
+                <p>
+                    These days I'm living
+                    in San Francisco's Mission district. I spend a lot of time going to see live music, art, and
+                    local events. I really like to read (I'm currently reading a book from every country around the 
+                    world). When someone else with a car offers to drive, I like to head up into the forests 
+                    (backpacking, camping, hiking). For an explanation of my blog’s
                     title, <a href="https://liebscher.github.io/blog/2020/blog-origins/">see here</a>.
                 </p>
-                <a class="uk-button uk-button-text" href="/pages/resources.html">Resources</a>
+                
             </div>
         </div>
     </div>
 </section>
-<section class="uk-section">
-    <div class="uk-container uk-width-2-3@l">
-        <h4 class="uk-heading-small smc uk-text-center">Tales From Diverse Spaces</h4>
-        <h5 class="uk-heading-xsmall uk-text-light uk-text-center">The Language I Read That Makes Ideas Fit Together</h5>
-        <button class="uk-button uk-button-default uk-align-center" uk-toggle="target: #subscribe-modal">Subscribe</button>
-        <div id="subscribe-modal" class="uk-flex-top" uk-modal>
-            <div class="uk-modal-dialog">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">Subscribe</h2>
-                </div>
-                <div class="uk-modal-body uk-margin-auto-vertical">
-                    <form action="https://tinyletter.com/liebscher" method="post"
-                        class="uk-form-stacked"
-                        target="popupwindow"
-                        onsubmit="window.open('https://tinyletter.com/liebscher', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-                        <label for="tlemail" class="uk-form-label">Subscribe to my infrequently published newsletter:</label>
-                        <div class="uk-form-controls">
-                            <input type="text" class="uk-input" name="email" id="tlemail" placeholder="name@email.com" />
-                        </div>
-                        <div class="uk-margin">
-                            <input class="uk-button uk-button-default" type="submit" value="Submit" />
-                        </div>
-                        <input type="hidden" value="1" name="embed" />
-                        <p>
-                            <a href="https://tinyletter.com" target="_blank" style="font-size:70%;">Powered by TinyLetter</a>
-                        </p>
-                    </form>
+<section class="uk-section uk-section-secondary">
+    <div class="uk-container">
+        <div class="uk-text-center">
+            <h1 class="uk-article-title smc">Tales From Diverse Spaces</h1>
+            <p>The Language I Read That Makes Ideas Fit Together</p>
+            <button class="uk-button uk-button-secondary uk-button-large uk-margin-medium" uk-toggle="target: #subscribe-modal">Subscribe</button>
+            <div id="subscribe-modal" class="uk-flex-top" uk-modal>
+                <div class="uk-modal-dialog">
+                    <button class="uk-modal-close-default" type="button" uk-close></button>
+                    <div class="uk-modal-header">
+                        <h2 class="uk-modal-title">Subscribe</h2>
+                    </div>
+                    <div class="uk-modal-body uk-margin-auto-vertical">
+                        <form action="https://tinyletter.com/liebscher" method="post" class="uk-form-stacked"
+                            target="popupwindow"
+                            onsubmit="window.open('https://tinyletter.com/liebscher', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+                            <label for="tlemail" class="uk-form-label">Subscribe to my infrequently published
+                                newsletter:</label>
+                            <div class="uk-form-controls">
+                                <input type="text" class="uk-input" name="email" id="tlemail" placeholder="name@email.com" />
+                            </div>
+                            <div class="uk-margin">
+                                <input class="uk-button uk-button-default" type="submit" value="Submit" />
+                            </div>
+                            <input type="hidden" value="1" name="embed" />
+                            <p>
+                                <a href="https://tinyletter.com" target="_blank" style="font-size:70%;">Powered by
+                                    TinyLetter</a>
+                            </p>
+                        </form>
+                    </div>
                 </div>
             </div>
+            <p>
+                Not interested in my writing? Check out my <a href="/pages/blog-roll.html">Blog Roll (so turn of the century)</a>
+            </p>
         </div>
-
-        <ul class="uk-list uk-list-divider">
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2021/Jul/del-v-amazon/" rel="bookmark" title="Permalink to Del v. Amazon">Del v.&nbsp;Amazon</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2021-07-16T00:00:00-07:00">Fri 16 July 2021</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>The story of my friend Del, and small businesses against&nbsp;Amazon</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> society, critique</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2021/Jun/disctionaries/" rel="bookmark" title="Permalink to 10 things to consider when buying a dictionary">10 things to consider when buying a&nbsp;dictionary</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2021-06-05T00:00:00-07:00">Sat 05 June 2021</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>Entries, examples, etymology — oh&nbsp;my!</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> language</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2021/Apr/explainability-generative-models/" rel="bookmark" title="Permalink to Explainability in Generative Language Models">Explainability in Generative Language&nbsp;Models</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2021-04-19T00:00:00-07:00">Mon 19 April 2021</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>How and why to move toward a future of explainable generative language&nbsp;models</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> language, nlp, society, machine learning</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2021/Feb/edward-hopper/" rel="bookmark" title="Permalink to Edward Hopper - A Teacher">Edward Hopper - A&nbsp;Teacher</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2021-02-28T12:00:00-08:00">Sun 28 February 2021</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>A short dive into the human condition with Edward&nbsp;Hopper</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> art, critique</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2021/Feb/ocr-pdfs/" rel="bookmark" title="Permalink to Open Source OCR’ing PDF Documents in Python">Open Source <span class="caps">OCR</span>&#8217;ing <span class="caps">PDF</span> Documents in&nbsp;Python</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2021-02-23T08:00:00-08:00">Tue 23 February 2021</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>An introduction to <span class="caps">OCR</span> using high quality open source&nbsp;software</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> python, nlp, programming</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2020/Nov/job-pdw/" rel="bookmark" title="Permalink to Joining Property Data Works">Joining Property Data&nbsp;Works</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2020-11-16T00:00:00-08:00">Mon 16 November 2020</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>Joining the Property Data Works team as a Software&nbsp;Engineer.</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> news</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2020/Oct/when-finish-book/" rel="bookmark" title="Permalink to When Will I Finish That Book?">When Will I Finish That&nbsp;Book?</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2020-10-21T17:20:00-07:00">Wed 21 October 2020</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>Here I build a probabilistic model to estimate when I&#8217;ll finish a&nbsp;book</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> statistics, rlang</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2020/Oct/locke-trump/" rel="bookmark" title="Permalink to On Locke and the Trump Administration">On Locke and the Trump&nbsp;Administration</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2020-10-17T18:00:00-07:00">Sat 17 October 2020</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>An analogy between Locke&#8217;s standard of tyranny and the Trump&nbsp;Administration</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> society, philosophy, critique</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2020/Oct/toxic-degeneration/" rel="bookmark" title="Permalink to Review: Evaluating Neural Toxic Degeneration in Language Models">Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2020-10-17T00:00:00-07:00">Sat 17 October 2020</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>Language Models suffer from degenerate and biased behavior, can we fix&nbsp;that?</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> machine learning, nlp, society</div><!-- /.entry-content -->
-                </article></li>
-                <li><article class="uk-article">
-                        <div class="uk-flex uk-flex-top uk-margin-bottom" uk-grid>
-                            <header class="uk-width-3-4@m">
-                                <h4 class="uk-article-title smc"><a href="/posts/2020/Oct/blog-origins/" rel="bookmark" title="Permalink to Blog Origins">Blog&nbsp;Origins</a></h4>
-                            </header>
-                            <footer class="uk-width-1-4@m uk-text-right uk-article-meta uk-text-light">
-                                <time datetime="2020-10-14T00:00:00-07:00">Wed 14 October 2020</time>
-                            </footer><!-- /.post-info -->
-                        </div>
-                        <div> <p>How this blog came to&nbsp;be</p> </div><!-- /.entry-content -->
-                        <div class="uk-text-muted uk-text-light smc"> blogging</div><!-- /.entry-content -->
-                </article></li>
-        </ul><!-- /#posts-list -->
-<p class="paginator">
-        <a href="/index.html">&#8647;</a>
-        <a href="/index.html">&laquo;</a>
-    Page 2 / 3
-        <a href="/index3.html">&raquo;</a>
-        <a href="/index3.html">&#8649;</a>
-</p>
     </div>
-</section><!-- /#content -->
+</section>
+<section class="uk-section">
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2021/Jul/del-v-amazon/" rel="bookmark"
+                        title="Permalink to Del v. Amazon">Del v.&nbsp;Amazon</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2021-07-16T00:00:00-07:00">Fri 16 July 2021</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>The story of my friend Del, and small businesses against&nbsp;Amazon</p></div>
+            <div class="uk-text-muted uk-text-light smc"> society, critique</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2021/Jun/disctionaries/" rel="bookmark"
+                        title="Permalink to 10 things to consider when buying a dictionary">10 things to consider when buying a&nbsp;dictionary</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2021-06-05T00:00:00-07:00">Sat 05 June 2021</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>Entries, examples, etymology — oh&nbsp;my!</p></div>
+            <div class="uk-text-muted uk-text-light smc"> language</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2021/Apr/explainability-generative-models/" rel="bookmark"
+                        title="Permalink to Explainability in Generative Language Models">Explainability in Generative Language&nbsp;Models</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2021-04-19T00:00:00-07:00">Mon 19 April 2021</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>How and why to move toward a future of explainable generative language&nbsp;models</p></div>
+            <div class="uk-text-muted uk-text-light smc"> language, nlp, society, machine learning</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2021/Feb/edward-hopper/" rel="bookmark"
+                        title="Permalink to Edward Hopper - A Teacher">Edward Hopper - A&nbsp;Teacher</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2021-02-28T12:00:00-08:00">Sun 28 February 2021</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>A short dive into the human condition with Edward&nbsp;Hopper</p></div>
+            <div class="uk-text-muted uk-text-light smc"> art, critique</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2021/Feb/ocr-pdfs/" rel="bookmark"
+                        title="Permalink to Open Source OCR’ing PDF Documents in Python">Open Source <span class="caps">OCR</span>&#8217;ing <span class="caps">PDF</span> Documents in&nbsp;Python</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2021-02-23T08:00:00-08:00">Tue 23 February 2021</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>An introduction to <span class="caps">OCR</span> using high quality open source&nbsp;software</p></div>
+            <div class="uk-text-muted uk-text-light smc"> python, nlp, programming</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2020/Nov/job-pdw/" rel="bookmark"
+                        title="Permalink to Joining Property Data Works">Joining Property Data&nbsp;Works</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2020-11-16T00:00:00-08:00">Mon 16 November 2020</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>Joining the Property Data Works team as a Software&nbsp;Engineer.</p></div>
+            <div class="uk-text-muted uk-text-light smc"> news</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2020/Oct/when-finish-book/" rel="bookmark"
+                        title="Permalink to When Will I Finish That Book?">When Will I Finish That&nbsp;Book?</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2020-10-21T17:20:00-07:00">Wed 21 October 2020</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>Here I build a probabilistic model to estimate when I&#8217;ll finish a&nbsp;book</p></div>
+            <div class="uk-text-muted uk-text-light smc"> statistics, rlang</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2020/Oct/locke-trump/" rel="bookmark"
+                        title="Permalink to On Locke and the Trump Administration">On Locke and the Trump&nbsp;Administration</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2020-10-17T18:00:00-07:00">Sat 17 October 2020</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>An analogy between Locke&#8217;s standard of tyranny and the Trump&nbsp;Administration</p></div>
+            <div class="uk-text-muted uk-text-light smc"> society, philosophy, critique</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2020/Oct/toxic-degeneration/" rel="bookmark"
+                        title="Permalink to Review: Evaluating Neural Toxic Degeneration in Language Models">Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2020-10-17T00:00:00-07:00">Sat 17 October 2020</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>Language Models suffer from degenerate and biased behavior, can we fix&nbsp;that?</p></div>
+            <div class="uk-text-muted uk-text-light smc"> machine learning, nlp, society</div>
+        </article>
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="/posts/2020/Oct/blog-origins/" rel="bookmark"
+                        title="Permalink to Blog Origins">Blog&nbsp;Origins</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="2020-10-14T00:00:00-07:00">Wed 14 October 2020</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium"><p>How this blog came to&nbsp;be</p></div>
+            <div class="uk-text-muted uk-text-light smc"> blogging</div>
+        </article>
+<div class="paginator uk-width-1-1 uk-margin-small" uk-grid>
+        <div class="uk-width-1-6">
+            <a href="/index.html">First</a>
+        </div>
+        <div class="uk-width-1-6">
+            <a href="/index.html">&laquo;</a>
+        </div>
+    <div class="uk-width-expand uk-text-center">
+        Page 2 / 3
+    </div>
+        <div class="uk-width-1-6 uk-text-right">
+            <a href="/index3.html">&raquo;</a>
+        </div>
+        <div class="uk-width-1-6 uk-text-right">
+            <a href="/index3.html">Last</a>
+        </div>
+</div>
+    </div>
+</section>
 <section class="uk-section uk-section-muted">
-    <div class="uk-container uk-width-2-3@l">
-        <h4 class="uk-heading-4">Article Tags</h4>
-        <a href="/tag/algorithms.html" class="uk-link-muted uk-text-capitalize">algorithms</a>, 
-        <a href="/tag/art.html" class="uk-link-muted uk-text-capitalize">art</a>, 
-        <a href="/tag/blogging.html" class="uk-link-muted uk-text-capitalize">blogging</a>, 
-        <a href="/tag/cloud-computing.html" class="uk-link-muted uk-text-capitalize">cloud computing</a>, 
-        <a href="/tag/critique.html" class="uk-link-muted uk-text-capitalize">critique</a>, 
-        <a href="/tag/data-science.html" class="uk-link-muted uk-text-capitalize">data science</a>, 
-        <a href="/tag/design.html" class="uk-link-muted uk-text-capitalize">design</a>, 
-        <a href="/tag/docker.html" class="uk-link-muted uk-text-capitalize">docker</a>, 
-        <a href="/tag/ecology.html" class="uk-link-muted uk-text-capitalize">ecology</a>, 
-        <a href="/tag/language.html" class="uk-link-muted uk-text-capitalize">language</a>, 
-        <a href="/tag/machine-learning.html" class="uk-link-muted uk-text-capitalize">machine learning</a>, 
-        <a href="/tag/music.html" class="uk-link-muted uk-text-capitalize">music</a>, 
-        <a href="/tag/news.html" class="uk-link-muted uk-text-capitalize">news</a>, 
-        <a href="/tag/nlp.html" class="uk-link-muted uk-text-capitalize">nlp</a>, 
-        <a href="/tag/philosophy.html" class="uk-link-muted uk-text-capitalize">philosophy</a>, 
-        <a href="/tag/programming.html" class="uk-link-muted uk-text-capitalize">programming</a>, 
-        <a href="/tag/psychology.html" class="uk-link-muted uk-text-capitalize">psychology</a>, 
-        <a href="/tag/python.html" class="uk-link-muted uk-text-capitalize">Python</a>, 
-        <a href="/tag/rlang.html" class="uk-link-muted uk-text-capitalize">Rlang</a>, 
-        <a href="/tag/society.html" class="uk-link-muted uk-text-capitalize">society</a>, 
-        <a href="/tag/statistics.html" class="uk-link-muted uk-text-capitalize">Statistics</a>
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
+        <h4 class="uk-h4">Article Tags</h4>
+        <div class="uk-text-muted">
+            <a href="/tag/algorithms.html" class="uk-link-muted uk-text-capitalize">algorithms</a>, 
+            <a href="/tag/art.html" class="uk-link-muted uk-text-capitalize">art</a>, 
+            <a href="/tag/blogging.html" class="uk-link-muted uk-text-capitalize">blogging</a>, 
+            <a href="/tag/cloud-computing.html" class="uk-link-muted uk-text-capitalize">cloud computing</a>, 
+            <a href="/tag/critique.html" class="uk-link-muted uk-text-capitalize">critique</a>, 
+            <a href="/tag/data-science.html" class="uk-link-muted uk-text-capitalize">data science</a>, 
+            <a href="/tag/design.html" class="uk-link-muted uk-text-capitalize">design</a>, 
+            <a href="/tag/docker.html" class="uk-link-muted uk-text-capitalize">docker</a>, 
+            <a href="/tag/ecology.html" class="uk-link-muted uk-text-capitalize">ecology</a>, 
+            <a href="/tag/language.html" class="uk-link-muted uk-text-capitalize">language</a>, 
+            <a href="/tag/machine-learning.html" class="uk-link-muted uk-text-capitalize">machine learning</a>, 
+            <a href="/tag/music.html" class="uk-link-muted uk-text-capitalize">music</a>, 
+            <a href="/tag/news.html" class="uk-link-muted uk-text-capitalize">news</a>, 
+            <a href="/tag/nlp.html" class="uk-link-muted uk-text-capitalize">nlp</a>, 
+            <a href="/tag/philosophy.html" class="uk-link-muted uk-text-capitalize">philosophy</a>, 
+            <a href="/tag/programming.html" class="uk-link-muted uk-text-capitalize">programming</a>, 
+            <a href="/tag/psychology.html" class="uk-link-muted uk-text-capitalize">psychology</a>, 
+            <a href="/tag/python.html" class="uk-link-muted uk-text-capitalize">Python</a>, 
+            <a href="/tag/rlang.html" class="uk-link-muted uk-text-capitalize">Rlang</a>, 
+            <a href="/tag/society.html" class="uk-link-muted uk-text-capitalize">society</a>, 
+            <a href="/tag/statistics.html" class="uk-link-muted uk-text-capitalize">Statistics</a>
+        </div>
     </div>
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>

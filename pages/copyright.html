@@ -2,13 +2,14 @@
 <html lang="en">
 
 <head>
-         <title>Alex Liebscher - Copyright</title>
+       <title>Alex Liebscher - Copyright</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
        <link href="/feeds/all.atom.xml"
               type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
-
-
 
        <!-- UIkit CSS -->
        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
@@ -19,7 +20,8 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
        <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
        <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -36,17 +38,23 @@
 </head>
 
 <body>
-       <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="/">Alex Liebscher</a>
-                     </h4>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!--  -->
               </div>
-       </header><!-- /#banner -->
-    <h1>Copyright</h1>
-    
+       </header>
+<section class="uk-section uk-width-2-3@m uk-margin-auto">
+    <div class="uk-container">
+        <h1>Copyright</h1>
 
-    <!-- {% block breadcrumbs %}
+        <!-- {% block breadcrumbs %}
 <ul class="uk-breadcrumb">
   <li><a href="{{ SITEURL }}/index.html">Home</a></li>
   <li><span>Site&nbsp;Copyright</span></li>
@@ -58,12 +66,16 @@
         <h3>Site&nbsp;Copyright</h3>
     </div>
 </section>
-
+    </div>
+</section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>

@@ -4,7 +4,10 @@
 <head>
          <title>Alex Liebscher - Setting up AWS IAM</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
        <link href="/feeds/all.atom.xml"
               type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
        <link href="/feeds/meta.atom.xml"
@@ -25,7 +28,8 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
        <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
        <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -42,23 +46,33 @@
 </head>
 
 <body>
-       <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="/">Alex Liebscher</a>
-                     </h4>
-<ul class="uk-breadcrumb">
-  <li><a href="/index.html">Home</a></li>
-  <li><span>Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></span></li>
-</ul>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
               </div>
-       </header><!-- /#banner -->
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></span></li>
+    </ul>
+  </div>
+</section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3@l">
+  <div class="uk-container uk-width-2-3@m">
     <header>
-      <h2 class="uk-text-center">
+      <h1 class="uk-h1 uk-text-center">
         <a href="/posts/2020/Jun/setting-up-aws-iam/" rel="bookmark" title="Permalink to Setting up AWS IAM">Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></a>
-      </h2>
+      </h1>
       
     </header>
     <footer class="uk-text-center uk-margin">
@@ -73,11 +87,11 @@
         Tags:
         <a href="/tag/cloud-computing.html">cloud computing</a>
       </div>
-    </footer><!-- /.post-info -->
+    </footer>
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
     <p>Cloud computing and storage services are becoming an essential for many businesses. As a more versatile and easier to scale option than on-premise solutions, their demand has noticeably increased. As businesses look toward these solutions, developers must grow and adapt. Students or professionals without much <span class="caps">AWS</span> experience can broaden their skillset by playing around with these platforms. Luckily for this demographic (myself included), the three main cloud providers&#8212;-Amazon Web Services (<span class="caps">AWS</span>), Google Cloud Platform (<span class="caps">GCP</span>), and Microsoft Azure&#8212;-all offer free tiers to get started learning and&nbsp;experimenting.</p>
 <p>These services are much different than what’s learned in the sometimes archaic education system, so they can be confusing and easy to get wrong when learning. The goal for this article is to demonstrate how to set up a personal-use Amazon Web Services account according to some best practices for Identity and Access Management (<span class="caps">IAM</span>). This will be targeted at students and professionals without much <span class="caps">AWS</span> experience, and should be about a 10 minute read (although you’re encouraged to try things out yourself). Learning how to properly setup and authenticate your work in the cloud is important for three reasons: 1) to mitigate any opportunities to compromise yourself, your work, your billing information, or other sensitive data, 2) to mitigate any opportunities to mess up and get frustrated, and 3) it’s always good to follow best&nbsp;practices!</p>
 <p>If you&#8217;re just getting started working with cloud services or are looking to begin, I think this article presents a good first or second step. I recommend following the tips at the bottom as soon as you feel&nbsp;ready!</p>
@@ -120,13 +134,16 @@ Preview of setting up Multi-Factor Authentication in <span class="caps">AWS</spa
 <p>To set up <span class="caps">MFA</span>, navigate to your <span class="caps">AWS</span> <span class="caps">IAM</span> home, where there will be an accordion of security credential options. Select to activate <span class="caps">MFA</span>, and choose <code>Virtual MFA Device</code>. Open Duo, scan the <span class="caps">QR</span> code, and enter in the authentication keys.&nbsp;Done!</p>
 <h2>Overview</h2>
 <p>That&#8217;s it for this post, but I encourage you go on and explore the <span class="caps">IAM</span> aspect of <span class="caps">AWS</span> further, especially in regards to the policies and roles that may be set. Once we begin setting up services like Lambda and DynamoDB, it will be important to only allow the bare minimum of what they need to&nbsp;access.</p>
-  </div><!-- /.entry-content -->
+  </div>
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>

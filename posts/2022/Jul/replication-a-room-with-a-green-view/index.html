@@ -4,7 +4,10 @@
 <head>
          <title>Alex Liebscher - Replication: A room with a green view</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
        <link href="/feeds/all.atom.xml"
               type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
        <link href="/feeds/meta.atom.xml"
@@ -29,7 +32,8 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
        <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
        <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -46,23 +50,33 @@
 </head>
 
 <body>
-       <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="/">Alex Liebscher</a>
-                     </h4>
-<ul class="uk-breadcrumb">
-  <li><a href="/index.html">Home</a></li>
-  <li><span>Replication: A room with a green&nbsp;view</span></li>
-</ul>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
               </div>
-       </header><!-- /#banner -->
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>Replication: A room with a green&nbsp;view</span></li>
+    </ul>
+  </div>
+</section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3@l">
+  <div class="uk-container uk-width-2-3@m">
     <header>
-      <h2 class="uk-text-center">
+      <h1 class="uk-h1 uk-text-center">
         <a href="/posts/2022/Jul/replication-a-room-with-a-green-view/" rel="bookmark" title="Permalink to Replication: A room with a green view">Replication: A room with a green&nbsp;view</a>
-      </h2>
+      </h1>
       
     </header>
     <footer class="uk-text-center uk-margin">
@@ -81,11 +95,11 @@
         <a href="/tag/psychology.html">psychology</a>, 
         <a href="/tag/ecology.html">ecology</a>
       </div>
-    </footer><!-- /.post-info -->
+    </footer>
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
     <p>Another article lamenting the <a href="https://en.wikipedia.org/wiki/Replication_crisis">Replication Crisis</a> within the social sciences would be redundant and unnecessary. For those who are unfamiliar though: the replication crisis is a recent phenomenon in the social sciences, especially psychology, where a large number of scientific research articles aren&#8217;t able to have their results found again by independent research teams. This can be because of how the research was conducted (e.g. due to their methods), but also some researcher have been found to have fabricated their data in order to produce favorable&nbsp;results.</p>
 <p>Currently, I don&#8217;t have the focus to plan out and rerun in full any particular research article. But there&#8217;s a number of other ways we can validate or test published research. This is especially, or only, true if that article has made their data publicly accessible. For example, we can use the data they&#8217;ve collected and published to try to reproduce the results they report. Or, we could apply different methods for analyzing that data to see if the results hold&nbsp;up.</p>
 <p><strong>In this article I&#8217;m doing both of these with a paper I recently found that ran a survey to assess the relationship between being outdoors and mental well-being.</strong> The authors published their data, and the article is open access. We&#8217;re going to download their data, try to reproduce their results, and compare those results to alternative&nbsp;methods.</p>
@@ -276,13 +290,16 @@
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 </script>
-  </div><!-- /.entry-content -->
+  </div>
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>

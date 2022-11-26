@@ -4,7 +4,10 @@
 <head>
          <title>Alex Liebscher - Turn Models</title>
        <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
+
        <link href="/feeds/all.atom.xml"
               type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
        <link href="/feeds/meta.atom.xml"
@@ -28,7 +31,8 @@
 
        <link rel="preconnect" href="https://fonts.googleapis.com">
        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
 
        <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
        <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
@@ -45,23 +49,33 @@
 </head>
 
 <body>
-       <header class="uk-section">
-              <div class="uk-container uk-width-2-3">
-                     <h4 class="uk-heading-small smc">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="/">Alex Liebscher</a>
-                     </h4>
-<ul class="uk-breadcrumb">
-  <li><a href="/index.html">Home</a></li>
-  <li><span>Turn&nbsp;Models</span></li>
-</ul>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
               </div>
-       </header><!-- /#banner -->
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>Turn&nbsp;Models</span></li>
+    </ul>
+  </div>
+</section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3@l">
+  <div class="uk-container uk-width-2-3@m">
     <header>
-      <h2 class="uk-text-center">
+      <h1 class="uk-h1 uk-text-center">
         <a href="/posts/2022/Mar/turn-models/" rel="bookmark" title="Permalink to Turn Models">Turn&nbsp;Models</a>
-      </h2>
+      </h1>
       
     </header>
     <footer class="uk-text-center uk-margin">
@@ -79,21 +93,24 @@
         <a href="/tag/language.html">language</a>, 
         <a href="/tag/nlp.html">nlp</a>
       </div>
-    </footer><!-- /.post-info -->
+    </footer>
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
     <p>what might make a good turn&nbsp;model?</p>
 <p>taking in just tokens, timestamps, and speakers (i.e. an <span class="caps">AWS</span> transcript), how can we quickly put together a good transcript? what are some things to think about (e.g. back-channels)? what&#8217;s a way to measure the accuracy of a model if we don&#8217;t have labeled&nbsp;data?</p>
 <p>what sorts of biases are likely to show up bc of a turn&nbsp;model?</p>
-  </div><!-- /.entry-content -->
+  </div>
 </section>
        <footer class="uk-section">
-              <div class="uk-container uk-width-expand uk-width-2-3@l">
-                     <address><a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a href="https://getpelican.com/">Pelican</a>.</address>
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
               </div>
-       </footer><!-- /#contentinfo -->
+       </footer>
 </body>
 
 </html>
