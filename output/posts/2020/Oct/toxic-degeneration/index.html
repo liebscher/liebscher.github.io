@@ -44,8 +44,8 @@
 </head>
 
 <body>
-       <header class="uk-section uk-padding-remove-bottom">
-              <div class="uk-container">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <!-- show a bigger name on mobile -->
                      <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
@@ -53,18 +53,24 @@
                      <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
                             <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
-<ul class="uk-breadcrumb uk-margin-medium">
-  <li><a href="http://127.0.0.1:8000/index.html">Home</a></li>
-  <li><span>Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></span></li>
-</ul>
+                     <!-- 
+ -->
               </div>
        </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="http://127.0.0.1:8000/index.html">Home</a></li>
+      <li><span>Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></span></li>
+    </ul>
+  </div>
+</section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3@l">
+  <div class="uk-container uk-width-2-3@m">
     <header>
-      <h2 class="uk-text-center">
+      <h1 class="uk-h1 uk-text-center">
         <a href="http://127.0.0.1:8000/posts/2020/Oct/toxic-degeneration/" rel="bookmark" title="Permalink to Review: Evaluating Neural Toxic Degeneration in Language Models">Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></a>
-      </h2>
+      </h1>
       
     </header>
     <footer class="uk-text-center uk-margin">
@@ -81,11 +87,11 @@
         <a href="http://127.0.0.1:8000/tag/nlp.html">nlp</a>, 
         <a href="http://127.0.0.1:8000/tag/society.html">society</a>
       </div>
-    </footer><!-- /.post-info -->
+    </footer>
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
     <p>This review is on &#8220;<a href="https://api.semanticscholar.org/CorpusID:221878771">RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models</a>&#8221; from a group of researchers at the University of Washington and the Allen Institute for <span class="caps">AI</span>, to be found in the <em>Findings of <span class="caps">EMNLP</span> 2020</em> <d-footnote><a href="https://2020.emnlp.org/blog/2020-04-19-findings-of-emnlp" target="_blank">A new (as of April 2020) &#8220;companion&#8221; to <span class="caps">EMNLP</span></a> which offers sort of a middle group between rejection and acceptance into the main conference. It seems like a happy middle ground for still notable research.</d-footnote>. The authors set the stage by&nbsp;saying,</p>
 <blockquote>
 <p>language models (LMs) pretrained on large web text corpora suffer from degenerate and biased&nbsp;behavior</p>
@@ -158,7 +164,7 @@
 <p>It&#8217;s a compelling and mostly uncontroversial article, which clearly highlights shortcomings currently in <span class="caps">NLP</span>. I think too little is said about the impact on industry (companies are currently trying to solve this problem), and society as a whole. In fact, regarding the latter, I think more could have been said about the practical implications of <span class="caps">LM</span> degeneration on the spreading of misinformation. In sum though, the authors created a valuable dataset for future research, and exposed a lower bound on toxicity degeneracy in&nbsp;LMs.</p>
 <p>I&#8217;m also a little unsatisfied by the authors&#8217; operationalization of toxicity. While I understand their desire to create a large dataset for other researchers to train on, I&#8217;m not sure the Perspective <span class="caps">API</span> should be considered the end of the conversation. Undoubtedly, it will produce false positives and false negatives (which the authors briefly mentioned), which should lead us to question if their assessments are answering the right questions. If their ground truth is not what a human would believe, then this could easily disrupt their main&nbsp;claims.</p>
 <p>Lastly, on the topic of what humans would believe: some people find some things offensive, others don&#8217;t. Are the authors (or by proxy, Perspective) justified in claiming what is toxic and what is not? More philosophically, can someone speak for someone else on what is right or&nbsp;wrong?</p>
-  </div><!-- /.entry-content -->
+  </div>
 </section>
        <footer class="uk-section">
               <div class="uk-container uk-width-2-3@m uk-margin-auto">

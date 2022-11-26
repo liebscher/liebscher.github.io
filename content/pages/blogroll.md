@@ -1,5 +1,5 @@
-Title: Resources
-Slug: resources
+Title: Blog Roll
+Slug: blog-roll
 Authors: Alex Liebscher
 Status: published
 Modified: 11-24-2022

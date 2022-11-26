@@ -21,21 +21,26 @@
 
 {% endblock %}
 
-{% block breadcrumbs %}
-<ul class="uk-breadcrumb uk-margin-medium">
-  <li><a href="{{ SITEURL }}/index.html">Home</a></li>
-  <li><span>{{ article.title }}</span></li>
-</ul>
-{% endblock %}
+<!-- {% block breadcrumbs %}
+
+{% endblock %} -->
 
 {% block content %}
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="{{ SITEURL }}/index.html">Home</a></li>
+      <li><span>{{ article.title }}</span></li>
+    </ul>
+  </div>
+</section>
 <section class="uk-section uk-background-cover" style="background-image: url({{static}}/images/unsplash-header-bg.jpg)">
-  <div class="uk-container uk-width-2-3@l">
+  <div class="uk-container uk-width-2-3@m">
     <header>
-      <h2 class="uk-text-center">
+      <h1 class="uk-h1 uk-text-center">
         <a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark" title="Permalink to {{ article.title|striptags }}">{{
           article.title }}</a>
-      </h2>
+      </h1>
       {% import 'translations.html' as translations with context %}
       {{ translations.translations_for(article) }}
     </header>
@@ -61,12 +66,12 @@
         {% endfor %}
       </div>
       {% endif %}
-    </footer><!-- /.post-info -->
+    </footer>
   </div>
 </section>
 <section class="uk-section">
-  <div class="uk-container uk-width-expand uk-width-2-3@l uk-text-justify">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
     {{ article.content }}
-  </div><!-- /.entry-content -->
+  </div>
 </section>
 {% endblock %}

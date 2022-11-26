@@ -70,8 +70,8 @@
 </head>
 
 <body>
-       <header class="uk-section uk-padding-remove-bottom">
-              <div class="uk-container">
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <!-- show a bigger name on mobile -->
                      <h1 class="uk-heading uk-text-center uk-visible@s">
                             <a href="{{ SITEURL }}/">{{ SITENAME }}</a>
@@ -79,7 +79,7 @@
                      <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
                             <a href="{{ SITEURL }}/">{{ SITENAME }}</a>
                      </h1>
-                     {% block breadcrumbs %}{% endblock %}
+                     <!-- {% block breadcrumbs %}{% endblock %} -->
               </div>
        </header>
        {% block content %}

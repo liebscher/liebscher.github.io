@@ -3,7 +3,7 @@
 {% block title %}{{ SITENAME }} - {{ page.title|striptags }}{%endblock%}
 
 {% block content %}
-<section class="uk-section">
+<section class="uk-section uk-width-2-3@m uk-margin-auto">
     <div class="uk-container">
         <h1>{{ page.title }}</h1>
 
@@ -11,8 +11,8 @@
     </div>
 </section>
 {% if page.modified %}
-<section class="uk-section">
-    <div class="uk-container">
+<section class="uk-section uk-section-muted uk-section-small">
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
         Last updated: {{ page.locale_modified }}
     </div>
 </section>

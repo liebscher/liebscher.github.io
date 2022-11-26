@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<section class="uk-section">
+<section class="uk-section uk-section-small">
     <div class="uk-container uk-width-2-3@m uk-margin-auto">
         <div uk-grid>
             <div class="uk-width-3-4 uk-width-1-2@s uk-width-1-3@m uk-margin-auto">
@@ -30,19 +30,16 @@
                 </p>
                 
             </div>
-            <div class="uk-width-expand uk-text-center">
-                <a href="{{ SITEURL }}/pages/resources.html">Blog Roll (so y2k)</a>
-            </div>
         </div>
     </div>
 </section>
-<section class="uk-section">
+<section class="uk-section uk-section-secondary">
     <div class="uk-container">
         {% block content_title %}
         <div class="uk-text-center">
             <h1 class="uk-article-title smc">Tales From Diverse Spaces</h1>
             <p>The Language I Read That Makes Ideas Fit Together</p>
-            <button class="uk-button uk-button-secondary uk-button-large uk-margin-large" uk-toggle="target: #subscribe-modal">Subscribe</button>
+            <button class="uk-button uk-button-secondary uk-button-large uk-margin-medium" uk-toggle="target: #subscribe-modal">Subscribe</button>
             <div id="subscribe-modal" class="uk-flex-top" uk-modal>
                 <div class="uk-modal-dialog">
                     <button class="uk-modal-close-default" type="button" uk-close></button>
@@ -70,31 +67,34 @@
                     </div>
                 </div>
             </div>
+            <p>
+                Not interested in my writing? Check out my <a href="{{ SITEURL }}/pages/blog-roll.html">Blog Roll (so turn of the century)</a>
+            </p>
         </div>
         {% endblock %}
     </div>
 </section>
 <section class="uk-section">
     <div class="uk-container uk-width-2-3@m uk-margin-auto">
-        <div class="uk-text-left" uk-grid>
-            {% for article in articles_page.object_list %}
-            <article class="uk-article uk-width-1-1">
-                <div uk-grid>
-                    <header class="uk-width-1-1 uk-width-3-4@m">
-                        <h2 class="smc uk-article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
-                            title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
-                    </header>
-                    <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
-                        <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
-                    </footer>
-                </div>
-                <div class="uk-margin-medium">{{ article.summary }}</div>
-                <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not
-                    loop.last else "" }}{% endfor %}</div>
-            </article>
-            <hr class="uk-divider-icon uk-width-1-1">
-            {% endfor %}
-        </div>
+        {% for article in articles_page.object_list %}
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+                        title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium">{{ article.summary }}</div>
+            <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not
+                loop.last else "" }}{% endfor %}</div>
+        </article>
+        {% if not loop.last %}
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        {% endif %}
+        {% endfor %}
         {% if articles_page.has_other_pages() %}
             {% include 'pagination.html' %}
         {% endif %}

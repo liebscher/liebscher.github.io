@@ -14,35 +14,35 @@
 {% endblock %}
 
 {% block content %}
-<section class="uk-section">
+<section class="uk-section uk-width-2-3@m uk-margin-auto">
     <div class="uk-container">
-        <h3>Articles tagged with <span class="uk-text-italic">{{ tag }}</span></h3>
-        <div class="uk-width-1-1 uk-text-left" uk-grid>
-            {% for article in articles_page.object_list %}
-            <article class="uk-article uk-width-1-1">
-                <div uk-grid>
-                    <header class="uk-width-1-1">
-                        <h2 class="smc uk-article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
-                            title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
-                    </header>
-                    <footer class="uk-width-1-1 uk-text-left uk-article-meta uk-text-light">
-                        <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
-                    </footer>
-                </div>
-                <div class="uk-margin-medium">{{ article.summary }}</div>
-                <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not
-                    loop.last else "" }}{% endfor %}</div>
-            </article>
-            <hr class="uk-divider-icon uk-width-1-1">
-            {% endfor %}
-        </div>
+        <h3>Articles tagged with <span class="uk-text-italic uk-text-primary">{{ tag }}</span></h3>
+        {% for article in articles_page.object_list %}
+        <article class="uk-article uk-width-1-1 uk-text-left">
+            <div uk-grid>
+                <header class="uk-width-1-1 uk-width-3-4@m">
+                    <h2 class="smc uk-article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+                        title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
+                </header>
+                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                    <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                </footer>
+            </div>
+            <div class="uk-margin-medium">{{ article.summary }}</div>
+            <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not
+                loop.last else "" }}{% endfor %}</div>
+        </article>
+        {% if not loop.last %}
+        <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">
+        {% endif %}
+        {% endfor %}
         {% if articles_page.has_other_pages() %}
             {% include 'pagination.html' %}
         {% endif %}
     </div>
 </section>
 <section class="uk-section uk-section-muted">
-    <div class="uk-container">
+    <div class="uk-container uk-width-2-3@m uk-margin-auto">
         <h4 class="uk-h4">Article Tags</h4>
         <div class="uk-text-muted">
             {% for tag, articles in tags|sort %}
