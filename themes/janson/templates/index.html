@@ -79,17 +79,25 @@
         {% for article in articles_page.object_list %}
         <article class="uk-article uk-width-1-1 uk-text-left">
             <div uk-grid>
-                <header class="uk-width-1-1 uk-width-3-4@m">
-                    <h2 class="smc uk-article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
-                        title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
-                </header>
-                <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
-                    <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
-                </footer>
+                {% if article.cover %}
+                <div class="uk-background-cover uk-width-1-1 uk-width-1-4@m uk-height-small" style="background-image: url({{ SITEURL }}/{{ article.cover }});">
+                </div>
+                {% endif %}
+                <div class="uk-width-1-1 {{ 'uk-width-3-4@m' if article.cover else '' }}">
+                    <div uk-grid>
+                        <header class="uk-width-1-1 uk-width-3-4@m">
+                            <h2 class="smc uk-article-title"><a href="{{ SITEURL }}/{{ article.url }}" rel="bookmark"
+                                title="Permalink to {{ article.title|striptags }}">{{ article.title }}</a></h2>
+                        </header>
+                        <footer class="uk-width-1-1 uk-width-1-4@m uk-text-left uk-text-right@m uk-article-meta uk-text-light">
+                            <time datetime="{{ article.date.isoformat() }}">{{ article.locale_date }}</time>
+                        </footer>
+                    </div>
+                    <div class="uk-margin-medium">{{ article.summary }}</div>
+                    <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not
+                        loop.last else "" }}{% endfor %}</div>
+                </div>
             </div>
-            <div class="uk-margin-medium">{{ article.summary }}</div>
-            <div class="uk-text-muted uk-text-light smc"> {% for tag in article.tags %}{{ tag }}{{ ", " if not
-                loop.last else "" }}{% endfor %}</div>
         </article>
         {% if not loop.last %}
         <hr class="uk-divider-icon uk-width-1-1 uk-margin-auto">

@@ -6,6 +6,7 @@ Slug: replication-a-room-with-a-green-view
 Authors: Alex Liebscher
 Summary: Reproducing & expanding on the results of a recent article on the link between exposure to greenspace and mental well-being
 Status: published
+Cover: images/window-overlooking-green-pasture.png
 
 
 Another article lamenting the [Replication Crisis](https://en.wikipedia.org/wiki/Replication_crisis) within the social sciences would be redundant and unnecessary. For those who are unfamiliar though: the replication crisis is a recent phenomenon in the social sciences, especially psychology, where a large number of scientific research articles aren't able to have their results found again by independent research teams. This can be because of how the research was conducted (e.g. due to their methods), but also some researcher have been found to have fabricated their data in order to produce favorable results.

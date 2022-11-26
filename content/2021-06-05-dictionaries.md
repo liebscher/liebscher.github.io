@@ -6,6 +6,7 @@ Slug: disctionaries
 Authors: Alex Liebscher
 Summary: Entries, examples, etymology — oh my!
 Status: published
+Cover: images/1970-ford.jpeg
 
 <!-- readtime: 5.6 -->
 

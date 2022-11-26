@@ -6,6 +6,7 @@ Slug: pycon-2022-highlights
 Authors: Alex Liebscher
 Summary: Lessons from 18 talks at this year's three days of Pycon
 Status: published
+Cover: images/pycon2022logo.png
 
 I was fortunate enough to attend PyCon 2022 this year in Salt Lake City (thanks BetterUp!). This is the annual Python conference, put on by the Python Software Foundation. It was my first time going and I had few expectations going into it. I really enjoyed my time, and learned a number of new things and ways of thinking. Here are some highlights and learnings from a subset of the talks I attended.
 

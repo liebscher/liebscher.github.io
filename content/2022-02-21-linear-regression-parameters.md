@@ -6,6 +6,7 @@ Slug: linear-regression-parameters
 Authors: Alex Liebscher
 Summary: Three methods of fitting a line to data
 Status: published
+Cover: images/regr-header.png
 
 
 <img class="uk-align-center" width="90%" height="" src="{static}/images/regr-header.png" uk-img>

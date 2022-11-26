@@ -6,6 +6,7 @@ Slug: edward-hopper
 Authors: Alex Liebscher
 Summary: A short dive into the human condition with Edward Hopper
 Status: published
+Cover: images/hopper-chop-suey.jpg
 
 I want to do something outside of tech for a second. I want to draw some attention to [Edward Hopper](https://en.wikipedia.org/wiki/Edward_Hopper) and unsolicitedly offer my opinion on his work.
 

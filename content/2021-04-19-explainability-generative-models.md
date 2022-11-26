@@ -6,6 +6,7 @@ Slug: explainability-generative-models
 Authors: Alex Liebscher
 Summary: How and why to move toward a future of explainable generative language models
 Status: published
+Cover: images/spongebob-bubbles.jpg
 
 <!-- readtime: 17.0
 bibliography: 2021-04-19-explainability-generative-lms.bib -->

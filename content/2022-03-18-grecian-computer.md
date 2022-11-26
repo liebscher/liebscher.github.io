@@ -6,6 +6,7 @@ Slug: solving-grecian-computer
 Authors: Alex Liebscher
 Summary: Solving Grandma's puzzle with a little algorithmic help
 Status: published
+Cover: images/grecian-computer-start.jpg
 
 
 My family celebrated my grandma's 88th birthday a couple weekends ago. She, however, was prepared to give out gifts to everyone else. Knowing what my family enjoys doing, she mail ordered (from a catalogue, yes) a puzzle for us all to solve. It's called the Grecian Computer puzzle. Unfortunately, I can't find any reliable background on it. Barnes and Noble [claims](https://www.barnesandnoble.com/w/true-genius-greek-computer-2-wooden-brainteaser-puzzle-project-genius/1137585230) it was inspired by an astronomical tool found in an old Grecian shipwreck. I think it's just a puzzle someone came up with. However skeptical I am of its origins, the puzzle is hard, very hard. My sister, dad, and I took turns trying to solve it and none of us made any progress. Not that we're numerical geniuses, but collectively we were stumped.

@@ -6,6 +6,7 @@ Slug: toxic-degeneration
 Authors: Alex Liebscher
 Summary: Language Models suffer from degenerate and biased behavior, can we fix that?
 Status: published
+Cover: images/toxicity-generations.png
 
 This review is on "[RealToxicityPrompts: Evaluating Neural Toxic Degeneration in Language Models](https://api.semanticscholar.org/CorpusID:221878771)" from a group of researchers at the University of Washington and the Allen Institute for AI, to be found in the *Findings of EMNLP 2020* <d-footnote><a href="https://2020.emnlp.org/blog/2020-04-19-findings-of-emnlp" target="_blank">A new (as of April 2020) "companion" to EMNLP</a> which offers sort of a middle group between rejection and acceptance into the main conference. It seems like a happy middle ground for still notable research.</d-footnote>. The authors set the stage by saying,
 

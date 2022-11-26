@@ -6,6 +6,7 @@ Slug: locke-trump
 Authors: Alex Liebscher
 Summary: An analogy between Locke's standard of tyranny and the Trump Administration
 Status: published
+Cover: images/portland-protestor.jpg
 
 # Introduction
 

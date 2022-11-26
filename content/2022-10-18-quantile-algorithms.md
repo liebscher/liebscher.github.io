@@ -6,6 +6,7 @@ Slug: estimating-quantiles
 Authors: Alex Liebscher
 Summary: What are quantiles, and what's happening underneath the hood of quantile()?
 Status: published
+Cover: images/quantiles-fig11.png
 
 <style>
 #avkrsexhvb .gt_table {

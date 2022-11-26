@@ -6,6 +6,7 @@ Slug: music-collection
 Authors: Alex Liebscher
 Summary: How I developed an open-source music collection application
 Status: published
+Cover: images/album.png
 
 <!-- readtime: 15.1 -->
 
