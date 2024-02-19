@@ -8,10 +8,6 @@
        <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
 
-       <link href="/feeds/all.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
-       <link href="/feeds/meta.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
 
 
 
@@ -31,16 +27,16 @@
        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
               rel="stylesheet">
 
-       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
-       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/style.css" />
 
        <!-- favicon licensing -->
        <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
        <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
-       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-       <link rel="icon" type="image/png" href="/favicon.ico">
+       <link rel="apple-touch-icon" sizes="180x180" href="http://127.0.0.1:8000/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:8000/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:8000/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="http://127.0.0.1:8000/favicon.ico">
 
        <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -50,10 +46,10 @@
               <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <!-- show a bigger name on mobile -->
                      <h1 class="uk-heading uk-text-center uk-visible@s">
-                            <a href="/">Alex Liebscher</a>
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
                      <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
-                            <a href="/">Alex Liebscher</a>
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
                      <!-- 
  -->
@@ -62,7 +58,7 @@
 <section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
   <div class="uk-container uk-text-justify">
     <ul class="uk-breadcrumb">
-      <li><a href="/index.html">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/index.html">Home</a></li>
       <li><span>Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></span></li>
     </ul>
   </div>
@@ -71,7 +67,7 @@
   <div class="uk-container uk-width-2-3@m">
     <header>
       <h1 class="uk-h1 uk-text-center">
-        <a href="/posts/2020/Jun/setting-up-aws-iam/" rel="bookmark" title="Permalink to Setting up AWS IAM">Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></a>
+        <a href="http://127.0.0.1:8000/posts/2020/Jun/setting-up-aws-iam/" rel="bookmark" title="Permalink to Setting up AWS IAM">Setting up <span class="caps">AWS</span> <span class="caps">IAM</span></a>
       </h1>
       
     </header>
@@ -80,12 +76,12 @@
         Sat 20 June 2020
       </time>
       <!--     <div>
-        Category: <a href="/">meta</a>
+        Category: <a href="http://127.0.0.1:8000/">meta</a>
     </div>
  -->
       <div>
         Tags:
-        <a href="/tag/cloud-computing.html">cloud computing</a>
+        <a href="http://127.0.0.1:8000/tag/cloud-computing.html">cloud computing</a>
       </div>
     </footer>
   </div>
@@ -95,7 +91,7 @@
     <p>Cloud computing and storage services are becoming an essential for many businesses. As a more versatile and easier to scale option than on-premise solutions, their demand has noticeably increased. As businesses look toward these solutions, developers must grow and adapt. Students or professionals without much <span class="caps">AWS</span> experience can broaden their skillset by playing around with these platforms. Luckily for this demographic (myself included), the three main cloud providers&#8212;-Amazon Web Services (<span class="caps">AWS</span>), Google Cloud Platform (<span class="caps">GCP</span>), and Microsoft Azure&#8212;-all offer free tiers to get started learning and&nbsp;experimenting.</p>
 <p>These services are much different than what’s learned in the sometimes archaic education system, so they can be confusing and easy to get wrong when learning. The goal for this article is to demonstrate how to set up a personal-use Amazon Web Services account according to some best practices for Identity and Access Management (<span class="caps">IAM</span>). This will be targeted at students and professionals without much <span class="caps">AWS</span> experience, and should be about a 10 minute read (although you’re encouraged to try things out yourself). Learning how to properly setup and authenticate your work in the cloud is important for three reasons: 1) to mitigate any opportunities to compromise yourself, your work, your billing information, or other sensitive data, 2) to mitigate any opportunities to mess up and get frustrated, and 3) it’s always good to follow best&nbsp;practices!</p>
 <p>If you&#8217;re just getting started working with cloud services or are looking to begin, I think this article presents a good first or second step. I recommend following the tips at the bottom as soon as you feel&nbsp;ready!</p>
-<p><img class="uk-align-center" data-src="/images/iam_workflow.png" width="80%" alt="" uk-img></p>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/iam_workflow.png" width="80%" alt="" uk-img></p>
 <div class="caption">
 An example workflow of attributing permissions to an Administrator user on <span class="caps">AWS</span>. Source: <a href="https://wellarchitectedlabs.com/security/100_labs/100_basic_identity_and_access_management_user_group_role/1_iam/" target="_blank"><span class="caps">AWS</span> Well-Architected Labs</a>
 </div>
@@ -126,7 +122,7 @@ An example workflow of attributing permissions to an Administrator user on <span
 <p>To add an administrator user to your personal <span class="caps">AWS</span> account, navigate to your <span class="caps">AWS</span> home, where you&#8217;ll see an option to add a user. Name your new user <code>Administrator</code> or something like it. I assume you&#8217;re working through the console, but may later want to set up the <span class="caps">AWS</span> command line tools, so check off programmatic and <span class="caps">AWS</span> Management Console access. Choose to set a password later (if you set one now you&#8217;ll still have to reset it later). We&#8217;ll create a new group of users called <code>Administrators</code> and select the <code>AdministratorAccess</code> policy. Skip the Tags section and review what you&#8217;ve done. There will be a link in the success box which, upon clicking, will log out the root user and prompt you to log in under a new user. Your username is <code>Administrator</code> (or whatever you chose) and the password was that which was&nbsp;generated.</p>
 <h3>Tip&nbsp;#2</h3>
 <p>My second tip is to <a href="https://aws.amazon.com/iam/features/mfa" target="_blank">set up Multi-Factor Authentication (<span class="caps">MFA</span>)</a>. This is an added layer of protection from anyone unwanted accessing your account, which becomes more important your projects and work scale up. For students at <span class="caps">UC</span> San Diego, we&#8217;ve become accustomed to using <a href="https://duo.com" target="_blank">Duo Security</a> as a two-factor authentication system. With Duo, when you log in with your username and password, you&#8217;ll also be prompted for an authentication response within the&nbsp;app.</p>
-<p><img class="uk-align-center" data-src="/images/aws_iam_mfa.png" height="" width="80%" alt="" uk-img></p>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/aws_iam_mfa.png" height="" width="80%" alt="" uk-img></p>
 <div class="caption">
 Preview of setting up Multi-Factor Authentication in <span class="caps">AWS</span>. Using Duo is an easy solution and requires scanning a <span class="caps">QR</span> code and entering the corresponding authentication codes.
 </div>
@@ -139,7 +135,7 @@ Preview of setting up Multi-Factor Authentication in <span class="caps">AWS</spa
        <footer class="uk-section">
               <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <address>
-                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                            <a href="http://127.0.0.1:8000/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
                                    href="https://getpelican.com/">Pelican</a>.
                      </address>
               </div>

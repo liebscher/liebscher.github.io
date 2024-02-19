@@ -8,10 +8,6 @@
        <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
 
-       <link href="/feeds/all.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
-       <link href="/feeds/meta.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
 
 
 
@@ -33,16 +29,16 @@
        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
               rel="stylesheet">
 
-       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
-       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/style.css" />
 
        <!-- favicon licensing -->
        <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
        <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
-       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-       <link rel="icon" type="image/png" href="/favicon.ico">
+       <link rel="apple-touch-icon" sizes="180x180" href="http://127.0.0.1:8000/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:8000/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:8000/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="http://127.0.0.1:8000/favicon.ico">
 
        <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -52,10 +48,10 @@
               <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <!-- show a bigger name on mobile -->
                      <h1 class="uk-heading uk-text-center uk-visible@s">
-                            <a href="/">Alex Liebscher</a>
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
                      <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
-                            <a href="/">Alex Liebscher</a>
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
                      <!-- 
  -->
@@ -64,7 +60,7 @@
 <section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
   <div class="uk-container uk-text-justify">
     <ul class="uk-breadcrumb">
-      <li><a href="/index.html">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/index.html">Home</a></li>
       <li><span>Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></span></li>
     </ul>
   </div>
@@ -73,7 +69,7 @@
   <div class="uk-container uk-width-2-3@m">
     <header>
       <h1 class="uk-h1 uk-text-center">
-        <a href="/posts/2020/Oct/toxic-degeneration/" rel="bookmark" title="Permalink to Review: Evaluating Neural Toxic Degeneration in Language Models">Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></a>
+        <a href="http://127.0.0.1:8000/posts/2020/Oct/toxic-degeneration/" rel="bookmark" title="Permalink to Review: Evaluating Neural Toxic Degeneration in Language Models">Review: <i>Evaluating Neural Toxic Degeneration in Language&nbsp;Models</i></a>
       </h1>
       
     </header>
@@ -82,14 +78,14 @@
         Sat 17 October 2020
       </time>
       <!--     <div>
-        Category: <a href="/">meta</a>
+        Category: <a href="http://127.0.0.1:8000/">meta</a>
     </div>
  -->
       <div>
         Tags:
-        <a href="/tag/machine-learning.html">machine learning</a>, 
-        <a href="/tag/nlp.html">nlp</a>, 
-        <a href="/tag/society.html">society</a>
+        <a href="http://127.0.0.1:8000/tag/machine-learning.html">machine learning</a>, 
+        <a href="http://127.0.0.1:8000/tag/nlp.html">nlp</a>, 
+        <a href="http://127.0.0.1:8000/tag/society.html">society</a>
       </div>
     </footer>
   </div>
@@ -114,7 +110,7 @@
 <h2><em>RealToxicityPrompts</em>&nbsp;Dataset</h2>
 <p>One of the main contributions of the paper is the dataset the authors compiled. It consists of 100,000 sentences, spanning the whole range of toxicities, that were split in half into a <em>prompt</em> and a <em>continuation</em>. Both halves were scored for toxicity. Their hope is that by creating this big dataset of English web text scored for toxicity, others will be able to &#8220;systematically evaluate and compare the generations from language models&#8221; with this &#8220;testbed for&nbsp;toxicity.&#8221;</p>
 <h2>Detoxifying Model&nbsp;Generations</h2>
-<p><img class="uk-align-center" data-src="/images/toxicity-generations.png" height="" width="50%" alt="" uk-img></p>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/toxicity-generations.png" height="" width="50%" alt="" uk-img></p>
 <div class="caption">
     <strong>Figure 1.</strong> Four non-toxic prompts which cause several pretrained LMs to generate highly toxic output. Credit: Gehman et al. (2020)
 </div>
@@ -140,7 +136,7 @@
 <p>As one might expect, none of these detoxification methods completely eradicated toxic generations; and toxic prompts yielded higher toxicity in generation than non-toxic prompts. What&#8217;s somewhat surprising is that non-toxic prompts occasionally also led to toxic generations. It should be clear then that even benign models can be harmful. The authors point out that it&#8217;s also surprising that the <span class="caps">CTRL</span>-<span class="caps">WIKI</span> model produced toxic content, despite being pretrained to generate Wikipedia-style output<d-footnote>The authors also state it&#8217;s interesting since &#8220;[the model] was trained on just Wikipedia.&#8221; I&#8217;m not sure this statement is true after skimming the original <span class="caps">CTRL</span> paper from Kaskar et al. (2019).</d-footnote>. Furthermore, <span class="caps">DAPT</span> is one of the most effective methods (which I found surprising, given its simplicity), along with vocabulary shifting, and <span class="caps">PPLM</span>. The authors lastly state that steering generations after pretraining must thus be crucial for preventing toxic&nbsp;output.</p>
 <p>There were some phrases, which when used to prompt the models consistently returned toxic generations. These prompts were often toxic themselves or had the opening phrase of known toxic sentences (&#8220;his rant was full of&#8230;&#8221;). Lastly, about 10% of the prompts came from unreliable or toxic data sources, which we get into&nbsp;next.</p>
 <h2>Analysis of Web Text&nbsp;Toxicity</h2>
-<p><img class="uk-align-center" data-src="/images/toxicity-corpora.png" height="" width="40%" alt="" uk-img></p>
+<p><img class="uk-align-center" data-src="http://127.0.0.1:8000/images/toxicity-corpora.png" height="" width="40%" alt="" uk-img></p>
 <div class="caption">
 <strong>Figure 2.</strong> About 2.1% and 4.3% of <span class="caps">OWTC</span> and OpenAI-<span class="caps">WT</span> (the corpora which the x and x models were trained on) are toxic content (note: log-transformed y-axis). Credit: Gehman et al. (2020)
 </div>
@@ -173,7 +169,7 @@
        <footer class="uk-section">
               <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <address>
-                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                            <a href="http://127.0.0.1:8000/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
                                    href="https://getpelican.com/">Pelican</a>.
                      </address>
               </div>

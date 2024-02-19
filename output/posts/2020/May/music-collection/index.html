@@ -8,10 +8,6 @@
        <meta name="viewport" content="width=device-width, initial-scale=1" />
        <meta name="generator" content="Pelican" />
 
-       <link href="/feeds/all.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
-       <link href="/feeds/meta.atom.xml"
-              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
 
 
 
@@ -33,16 +29,16 @@
        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
               rel="stylesheet">
 
-       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
-       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="http://127.0.0.1:8000/theme/css/style.css" />
 
        <!-- favicon licensing -->
        <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
        <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
-       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
-       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
-       <link rel="icon" type="image/png" href="/favicon.ico">
+       <link rel="apple-touch-icon" sizes="180x180" href="http://127.0.0.1:8000/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="http://127.0.0.1:8000/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="http://127.0.0.1:8000/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="http://127.0.0.1:8000/favicon.ico">
 
        <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
@@ -52,10 +48,10 @@
               <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <!-- show a bigger name on mobile -->
                      <h1 class="uk-heading uk-text-center uk-visible@s">
-                            <a href="/">Alex Liebscher</a>
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
                      <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
-                            <a href="/">Alex Liebscher</a>
+                            <a href="http://127.0.0.1:8000/">Alex Liebscher</a>
                      </h1>
                      <!-- 
  -->
@@ -64,7 +60,7 @@
 <section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
   <div class="uk-container uk-text-justify">
     <ul class="uk-breadcrumb">
-      <li><a href="/index.html">Home</a></li>
+      <li><a href="http://127.0.0.1:8000/index.html">Home</a></li>
       <li><span>Music&nbsp;Collection</span></li>
     </ul>
   </div>
@@ -73,7 +69,7 @@
   <div class="uk-container uk-width-2-3@m">
     <header>
       <h1 class="uk-h1 uk-text-center">
-        <a href="/posts/2020/May/music-collection/" rel="bookmark" title="Permalink to Music Collection">Music&nbsp;Collection</a>
+        <a href="http://127.0.0.1:8000/posts/2020/May/music-collection/" rel="bookmark" title="Permalink to Music Collection">Music&nbsp;Collection</a>
       </h1>
       
     </header>
@@ -82,14 +78,14 @@
         Wed 13 May 2020
       </time>
       <!--     <div>
-        Category: <a href="/">meta</a>
+        Category: <a href="http://127.0.0.1:8000/">meta</a>
     </div>
  -->
       <div>
         Tags:
-        <a href="/tag/music.html">music</a>, 
-        <a href="/tag/programming.html">programming</a>, 
-        <a href="/tag/design.html">design</a>
+        <a href="http://127.0.0.1:8000/tag/music.html">music</a>, 
+        <a href="http://127.0.0.1:8000/tag/programming.html">programming</a>, 
+        <a href="http://127.0.0.1:8000/tag/design.html">design</a>
       </div>
     </footer>
   </div>
@@ -100,7 +96,7 @@
 
 <p>There is a serious problem with how people attempt to explain why they enjoy certain music. Listeners don’t have the tools, or capacity, to accurately respond to questions like “What kind of music do you listen to?” or “Who are your favorite&nbsp;bands?”.</p>
 <p>Most people are isolated within small social and geographic circles and the scale at which we miss out on good music is astronomical. There’s endless opportunity to discover new music that we might love, and endless opportunity to share what we find and bring joy to others. Almost every music streaming or purchasing platform these days has a recommendation engine, but none has ways to keep track of our thoughts about the music so we can figure out what we like and what we don&#8217;t like. In fact, it seems most people don’t have any systematic way to form relationships between musical entities. Over the last couple months, I&#8217;ve endeavored to create a solution, and this article presents a web-based application I built to enable deeper reasoning about the music I&nbsp;enjoy.</p>
-<p><img src="/images/comparison.png" alt="A screenshot of the music collection app while comparing two albums"></p>
+<p><img src="http://127.0.0.1:8000/images/comparison.png" alt="A screenshot of the music collection app while comparing two albums"></p>
 <div class="caption">
     Upon loading the application, you&#8217;re are given the option to search for albums within your collection, add new albums to your collection, or continue to score albums.
 </div>
@@ -116,7 +112,7 @@
 <p>I love talking about music. But when you begin to span dozens of genres, decades, styles, and more, you start to lose track of what’s what and who’s who. To help support my memory, and make it easy to jot notes (which is proven to help you remember things), my application has multiple fields for writing. Each album can receive a review, as can each track. Ideally, after listening to each track and giving them reviews, you’d have a good idea for the global structure and feel of the&nbsp;album.</p>
 <p>To ensure I could draw upon a vast database of world music, I integrate with Spotify, my primary platform for listening to music. This works well, because any record I find or listen to on Spotify can be loaded into the application. The search bar at the top provides a portal to access Spotify’s&nbsp;collections:</p>
 <video height="600" uk-video="autoplay: inview" loop muted>
-    <source src="/images/preview.mp4" type="video/mp4"/>
+    <source src="http://127.0.0.1:8000/images/preview.mp4" type="video/mp4"/>
     Your browser does not support the video tag.
 </video>
 <div class="caption">
@@ -129,10 +125,10 @@
 <p>It was all a learning experience, but from the start I had a rough idea of the size and scope of my application. I intended to apply some React-Redux best practices, which occasionally required some major refactoring, but it was probably worth it. The application is modularized, and I’ve tried to ensure the hierarchy of components keeps logic and data at the appropriate scope. One downside of my current configuration is that the application store holds a lot of data, especially the album collection data. This has started to become a little cumbersome on reloads, especially as I begin to notice small performance hits. I’ve searched for articles outlining best practices for scaling applications with React but haven’t come across anything suitable&nbsp;yet.</p>
 <p>For storage, I created a MongoDB instance served locally. To interface with this, my backend <span class="caps">API</span> is built with Flask, which also routes the main page. This Flask <span class="caps">API</span> is responsible for all album data manipulation, including ranking albums and serving category scores, caching and serving album art, and storing changes to reviews and listening history. I also utilize the Spotify Developer’s <span class="caps">API</span> to fetch information about albums, including tracklists and album art. Upon adding a new album to my collection, the album art is cached locally on my computer to prevent me from making an unnecessarily large number of requests to Spotify’s image <span class="caps">CDN</span>.</p>
 <p>In summary, the application architecture is as&nbsp;follows:</p>
-<p><img src="/images/architecture.png" alt="The application's architecture relies on Python, Flask, React/Redux, mongo DB, and the Spotify API"></p>
+<p><img src="http://127.0.0.1:8000/images/architecture.png" alt="The application's architecture relies on Python, Flask, React/Redux, mongo DB, and the Spotify API"></p>
 <p>Some details are left out here, but the gist is conveyed. I toyed with the idea of using a relational database instead of NoSQL MongoDB, but figured the rest of my code would be most interpretable with a NoSQL framework. Since I’m not pushing the edges of storage capabilities, I didn’t anticipate this to create any noticeable performance issues&nbsp;either.</p>
 <p>At the top of the application, there are methods for filtering and sorting. As my collection grows larger, it’s become increasingly important for me to be able to quickly find albums. I’ve noticed this as I talk about music and want to pull up an album quickly, and when I’m rating albums, and need a refresher. I have five ways to sort: 1) by the date I added the record to my collection, 2) by the date I last listened to the record, 3) by the record’s runtime, 4) by the record’s rank, and 5) by the record’s recommendation score. I can also search according to artist or album name, or by&nbsp;genre:</p>
-<p><img src="/images/filter.png" alt="A screenshot of the application when filtering albums"></p>
+<p><img src="http://127.0.0.1:8000/images/filter.png" alt="A screenshot of the application when filtering albums"></p>
 <div class="caption">
     Example of the filtering methods: a search for &#8220;bepop&#8221; aptly returned John Coltrane&#8217;s A Love Supreme
 </div>
@@ -140,7 +136,7 @@
 <p>Below I discuss more about the album ranks and recommendation scores. The genres are a somewhat quasi-genres: they’re actually genres of the artist. Spotify doesn’t yet allow developers to access album genres, so I make due with broader genres. Usually, artists have genres; however, some music I’ve discovered is highly esoteric and therefore without classification. This was an edge case I didn’t anticipate but luckily doesn’t affect the <span class="caps">UX</span> too&nbsp;much.</p>
 <h2>Design</h2>
 <p>At heart, I’m a sucker for elegant and compelling design. This includes color schemes, negative space, typography, the whole thing. As a result, a constant voice inside me begged for better and better user interface design. I&nbsp;acquiesced.</p>
-<p><img src="/images/album.png" alt="A screenshot of the album view, with Nevermind by Nirvana in focus"></p>
+<p><img src="http://127.0.0.1:8000/images/album.png" alt="A screenshot of the album view, with Nevermind by Nirvana in focus"></p>
 <div class="caption">
     Design was at the forefront of this project, going through many iterations. Clean, elegant, colorful, open was the goal.
 </div>
@@ -183,7 +179,7 @@
        <footer class="uk-section">
               <div class="uk-container uk-width-2-3@m uk-margin-auto">
                      <address>
-                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                            <a href="http://127.0.0.1:8000/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
                                    href="https://getpelican.com/">Pelican</a>.
                      </address>
               </div>
