@@ -120,7 +120,7 @@
 <table>
 <thead>
 <tr>
-<th align="right">Date</th>
+<th style="text-align: right;">Date</th>
 <th>Oct 4</th>
 <th>Oct 5</th>
 <th>Oct 6</th>
@@ -135,7 +135,7 @@
 </thead>
 <tbody>
 <tr>
-<td align="right">Duration</td>
+<td style="text-align: right;">Duration</td>
 <td>26:53</td>
 <td>28:25</td>
 <td>1:15:16</td>
@@ -148,7 +148,7 @@
 <td>24:23</td>
 </tr>
 <tr>
-<td align="right">Pages</td>
+<td style="text-align: right;">Pages</td>
 <td>9</td>
 <td>9</td>
 <td>29</td>
@@ -201,27 +201,27 @@ $$</div>
 <p>So now we have <span class="math">\(10 - 0.4 = 9.6\)</span> hours remaining. Again, flip a biased coin (with probability of heads at <span class="math">\(\hat{\theta}\)</span>). It&#8217;s heads, so we read again on day 3. This time, <span class="math">\(\tilde{\mu}_3 = 0.6\)</span> hours. Now there&#8217;s <span class="math">\(9.6-0.6 = 9.0\)</span> hours&nbsp;remaining.</p>
 <p>Follow this procedure while <span class="math">\(10 - \sum^k_{i=1} B_k(\hat{\theta}) * \tilde{\text{t}}_{k+1} (\mu_k, \sigma_k) &gt; 0\)</span> (roughly). In the end, what is <span class="math">\(k\)</span>? Well, it is the number of days necessary to exhaust the pages in our book, given estimates of how often and how much we already&nbsp;read.</p>
 <p>In <code>R</code>, the algorithm looks like&nbsp;such:</p>
-<div class="highlight"><pre><span></span><code><span class="n">draw</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">remaining_hours</span><span class="p">,</span> <span class="n">posterior_theta</span><span class="p">,</span> <span class="n">posterior_mu</span><span class="p">,</span> <span class="n">posterior_sigma</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="n">draw</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">remaining_hours</span><span class="p">,</span><span class="w"> </span><span class="n">posterior_theta</span><span class="p">,</span><span class="w"> </span><span class="n">posterior_mu</span><span class="p">,</span><span class="w"> </span><span class="n">posterior_sigma</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-  <span class="n">total_read</span> <span class="o">&lt;-</span> <span class="m">0</span>
-  <span class="n">days</span> <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="w">  </span><span class="n">total_read</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
+<span class="w">  </span><span class="n">days</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="m">0</span>
 
-  <span class="nf">while </span><span class="p">(</span><span class="n">total_read</span> <span class="o">&lt;</span> <span class="n">remaining_hours</span><span class="p">)</span> <span class="p">{</span>
+<span class="w">  </span><span class="nf">while </span><span class="p">(</span><span class="n">total_read</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">remaining_hours</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-    <span class="n">to_read</span> <span class="o">&lt;-</span> <span class="nf">rbernoulli</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="nf">sample</span><span class="p">(</span><span class="n">posterior_theta</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">))</span>
-    <span class="nf">if </span><span class="p">(</span><span class="n">to_read</span><span class="p">)</span> <span class="p">{</span>
+<span class="w">    </span><span class="n">to_read</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rbernoulli</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="n">posterior_theta</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">))</span>
+<span class="w">    </span><span class="nf">if </span><span class="p">(</span><span class="n">to_read</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 
-      <span class="n">mu</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="n">posterior_mu</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
-      <span class="n">sigma</span> <span class="o">&lt;-</span> <span class="nf">sample</span><span class="p">(</span><span class="n">posterior_sigma</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
-      <span class="n">est</span> <span class="o">&lt;-</span> <span class="n">sigma</span> <span class="o">*</span> <span class="nf">rt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">days</span><span class="m">+1</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu</span>
+<span class="w">      </span><span class="n">mu</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="n">posterior_mu</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">      </span><span class="n">sigma</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample</span><span class="p">(</span><span class="n">posterior_sigma</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<span class="w">      </span><span class="n">est</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">rt</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">days</span><span class="m">+1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">mu</span>
 
-      <span class="nf">if </span><span class="p">(</span><span class="n">est</span> <span class="o">&lt;</span> <span class="m">0</span> <span class="o">||</span> <span class="n">est</span> <span class="o">&gt;</span> <span class="m">8</span><span class="p">)</span> <span class="n">next</span><span class="p">;</span>
+<span class="w">      </span><span class="nf">if </span><span class="p">(</span><span class="n">est</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">est</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">8</span><span class="p">)</span><span class="w"> </span><span class="n">next</span><span class="p">;</span>
 
-      <span class="n">total_read</span> <span class="o">=</span> <span class="n">total_read</span> <span class="o">+</span> <span class="n">est</span>
-    <span class="p">}</span>
-    <span class="n">days</span> <span class="o">=</span> <span class="n">days</span> <span class="o">+</span> <span class="m">1</span>
-  <span class="p">}</span>
-  <span class="nf">return</span><span class="p">(</span><span class="n">days</span><span class="p">)</span>
+<span class="w">      </span><span class="n">total_read</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">total_read</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">est</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">days</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">days</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="nf">return</span><span class="p">(</span><span class="n">days</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
 

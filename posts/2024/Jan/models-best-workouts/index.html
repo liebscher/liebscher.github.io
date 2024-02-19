@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Bayes for my Best Workouts</title>
+       <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+       <meta name="generator" content="Pelican" />
+
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="Rlang" />
+    <meta name="tags" content="Data Science" />
+    <meta name="tags" content="Fitness" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
+              </div>
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>Bayes for my Best&nbsp;Workouts</span></li>
+    </ul>
+  </div>
+</section>
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3@m">
+    <header>
+      <h1 class="uk-h1 uk-text-center">
+        <a href="/posts/2024/Jan/models-best-workouts/" rel="bookmark" title="Permalink to Bayes for my Best Workouts">Bayes for my Best&nbsp;Workouts</a>
+      </h1>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2024-01-28T00:00:00-08:00">
+        Sun 28 January 2024
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/rlang.html">Rlang</a>, 
+        <a href="/tag/data-science.html">Data Science</a>, 
+        <a href="/tag/fitness.html">Fitness</a>
+      </div>
+    </footer>
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <h2>Introduction</h2>
+<p>Determining the right amount of weight or reps to lift during home workouts can be quite an obstacle. After months of trial and error, I decided to take a systematic, logical, and calculated approach to this dilemma. I&#8217;ve since built a personalized model that guides me through my workouts, blending rigor and intuition for optimal&nbsp;performance.</p>
+<h2>The Initial&nbsp;Model</h2>
+<p>In the early stages of my project, I was looking for a solution that would streamline the decision-making process without sacrificing all the idiosyncracies of each exercise and workout. In December, I developed a basic model that employed linear regressions for each exercise, considering sets, reps, and my perceived exertion level. I could then determine which exercises I wanted to do, along with the reps and sets, and the model would tell me how much weight. While this approach provided some guidance, it felt too rigid and had the opportunity to yield impractical suggestions, such as negative&nbsp;weights.</p>
+<h2>The Improved&nbsp;Model</h2>
+<p>Dissatisfied with the limitations of the initial model, I turned toward more flexible Bayesian modeling that would also help me understand those idiosyncracies I mentioned. This new approach not only accounts for physical constraints (weight must be greater than zero) but also is based on informed priors and physical constraints. By doing so, even exercises with limited data can be predicted accurately. I have two models: one for predicting the target weight of an exercise, the other for predicting the target number of reps (in case I cannot adjust the weight). The Bayesian models represents a step closer to a more nuanced, precise, and flexible workout planning&nbsp;tool.</p>
+<p><img data-src="/images/pred-weights.png"  uk-img/></p>
+<h3>A Few&nbsp;Details</h3>
+<p>I&#8217;m leaving out many of the details, but to start, the target weight prediction model is formulated as&nbsp;follows:</p>
+<div class="highlight"><pre><span></span><code><span class="n">weight</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">reps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sets</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rpe_of_10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">reps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rpe_of_10</span><span class="o">|</span><span class="n">exercise</span><span class="p">)</span>
+</code></pre></div>
+
+<p>In other words, we predict the target weight according the number of reps, sets, and rating of perceived exertion, accounting for baseline variation by exercise and variation in the slope of reps and <span class="caps">RPE</span> by exercise. We replace the fixed intercept with random intercepts so that the random intercepts are the baseline weight for each, not the offset from the mean of all. Moreover, after sampling, we reject all posterior samples where the coefficient on sets is greater than zero, the sum of the fixed and random slopes for reps is greater than zero, or the sum of the fixed and random slopes for <span class="caps">RPE</span> is less than zero. Ideally we&#8217;d constrain the model early on without this ad hoc post-sampling modification, but I&#8217;ve found that too time consuming to figure out. Finally, the likelihood function models a Log-Normal&nbsp;distribution.</p>
+<p>We also have a model for predicting the number of total reps for an exercise in the case that the weight in non-adjustable. The model looks&nbsp;like:</p>
+<div class="highlight"><pre><span></span><code><span class="n">total</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">trials</span><span class="p">(</span><span class="m">60</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rpe_of_10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">rpe_of_10</span><span class="o">|</span><span class="n">exercise</span><span class="p">)</span>
+</code></pre></div>
+
+<p>A slightly simpler model, we assume that the number of total reps is some proportion of the possible 60 (chosen arbitrarily). This binomial model is actually far superior to a poisson model, or a negative binomial model, since there&#8217;s such strong under-dispersion. I constrain post-sampling here as&nbsp;well. </p>
+<h2>Bridging the&nbsp;Gap</h2>
+<p>One challenge I encountered in this work was the vast disparity between anecdotal gym advice and the highly specialized sports science literature. While internet advice often felt impersonal and arbitrary, academic research was specific to elite athletes and controlled conditions. My attempts aimed to bridge this gap, offering practical solutions grounded in data and applicable to the average home gym&nbsp;enthusiast.</p>
+<h2>Ongoing&nbsp;Exploration</h2>
+<p>As I transition into relying on this new model for my workout planning, the work is far from over. I plan to continuously refine and expand the model by exploring new predictors that could improve its accuracy. Every day I think of predictors and ways of changing the model that could either improve its accuracy or have it reflect real-world constraints even better. The goal is not only to optimize my own workouts but also to share insights that may benefit others seeking a more personalized and data-driven approach to their fitness&nbsp;routines.</p>
+<p>One benefit of this work is that I&#8217;ve been even more motivated to workout in order to collect data and sample the space of possible workouts to understand my limits. Possibly a very nerdy thing to admit (workout data collection motivates me to exercise!), but both activities are personal growth so I don&#8217;t see any&nbsp;pitfalls.</p>
+<h2>Conclusion</h2>
+<p>The intersection of data science and fitness has opened up exciting possibilities for home gym enthusiasts. By leveraging a more sophisticated model, I&#8217;ve aimed to create a tool that strikes a balance between precision and practicality, making the process of determining workout weights both informed and enjoyable. As I continue to experiment and refine my approach, I look forward to sharing the evolution of this project and its impact on my fitness. Stay tuned for more insights and discoveries around data-driven home&nbsp;workouts.</p>
+  </div>
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2022 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
+              </div>
+       </footer>
+</body>
+
+</html>
