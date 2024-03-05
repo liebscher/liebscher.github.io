@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Exploring The Iliad</title>
+       <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+       <meta name="generator" content="Pelican" />
+
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="Rlang" />
+    <meta name="tags" content="Nlp" />
+    <meta name="tags" content="Data Science" />
+    <meta name="tags" content="Art" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
+              </div>
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>Exploring The&nbsp;Iliad</span></li>
+    </ul>
+  </div>
+</section>
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3@m">
+    <header>
+      <h1 class="uk-h1 uk-text-center">
+        <a href="/posts/2024/Mar/the-iliad/" rel="bookmark" title="Permalink to Exploring The Iliad">Exploring The&nbsp;Iliad</a>
+      </h1>
+      
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2024-03-04T00:00:00-08:00">
+        Mon 04 March 2024
+      </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
+      <div>
+        Tags:
+        <a href="/tag/rlang.html">Rlang</a>, 
+        <a href="/tag/nlp.html">Nlp</a>, 
+        <a href="/tag/data-science.html">Data Science</a>, 
+        <a href="/tag/art.html">Art</a>
+      </div>
+    </footer>
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <p>Lately I&#8217;ve been reading <a href="https://en.wikipedia.org/wiki/Iliad"><em>The Iliad</em></a> of Homer. As I was reading, the idea came to me of analyzing the text of the epic, just for fun. I kept that idea in my head a bit longer to mull it over as I read, to see what things I might want to&nbsp;analyze.</p>
+<p>I&#8217;ve noticed a number of quirks about the text that I thought I might be able to study in more depth. What I&#8217;ve ended up doing is really just an exploration of the&nbsp;book.</p>
+<p>To start, there are some low hanging fruit in terms of quantifying what I see in the book. For example, the number of words in each of the 24 books that <em>The Iliad</em> is separated (by editors, not Homer himself)&nbsp;into.</p>
+<p>The characters are diverse and numerous in the epic, and so I&#8217;ve been dreaming of some sort of social network analysis. The data (i.e. the text) isn&#8217;t &#8220;clean&#8221; per-se, but there are some quick things we can do to make it easier to&nbsp;analyze.</p>
+<p>There&#8217;s also an interesting honorific system used in throughout the story. For example, often warriors and kings are contextualized through their father (i.e. &#8220;Achilles, son of Peleus&#8221;). This patrilineality is interesting and new to me, so I want to look into it a bit&nbsp;deeper.</p>
+<p>Another quirk of the epic, which I suspect is due to the story originally being an <a href="https://en.wikipedia.org/wiki/Oral_storytelling">oral tale</a>, is the repetition of certain passages. This appears to happen when someone is relaying a message from one person to another. These messengers (sometimes actual heralds, other times kings themselves) often repeat verbatim what was told to them. There are many things to be impressed by here, and it&#8217;d be fascinating to describe this repetition&nbsp;numerically.</p>
+<p>One thing which I&#8217;m not analyzing here, but might in another post, is the expression of leadership in the epic. There are many leaders throughout the tale, and I&#8217;m finding it interesting to think about how Homer portrays strong&nbsp;leadership.</p>
+<p>This post is really just an exploration of the epic. It&#8217;s not unforgivingly systematic, so I&#8217;ll weave in some lessons and mistakes&nbsp;throughout.</p>
+<p>Overall, I&#8217;ll start with a quick descriptive look at the most surface level anatomy of the book. I&#8217;ll explore a little data art, and slowly move deeper in the analysis to answer some of the curiosities I mention&nbsp;above.</p>
+<h2>Analysis&nbsp;Setup</h2>
+<p>The first step is to load in some packages for analyzing text. Text analysis in R feels a bit clunky and underdeveloped, so I&#8217;m loading up several packages that are pretty&nbsp;similar.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span>
+
+<span class="c1"># text analysis</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">quanteda</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">&quot;quanteda.textplots&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="s">&quot;quanteda.textstats&quot;</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tidytext</span><span class="p">)</span>
+
+<span class="c1"># visualization</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">patchwork</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">scales</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">glue</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggtext</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">showtext</span><span class="p">)</span>
+</code></pre></div>
+
+<p>I found a few photos of ancient Grecian urns (known as amphora), and used the native Digital Color Meter on the Mac to sample some of the colors off these urns. This gives us a nice themed color palette to work&nbsp;with.</p>
+<p><a href="https://www.britishmuseum.org/collection/object/G_1836-0224-127" target="_blank"><img data-src="/images/the-iliad/amphora.png" class="uk-align-center" width="70%" height="" alt="Black-figured pottery amphora. Achilles slaying Penthesilea." uk-img></a></p>
+<div class="caption">
+    Black-figured pottery amphora. Achilles slaying Penthesilea.
+</div>
+<p><br/></p>
+<div class="highlight"><pre><span></span><code><span class="n">greek_colors</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span>
+<span class="w">    </span><span class="nf">rgb</span><span class="p">(</span><span class="m">18</span><span class="p">,</span><span class="w"> </span><span class="m">18</span><span class="p">,</span><span class="w"> </span><span class="m">18</span><span class="p">,</span><span class="w"> </span><span class="n">maxColorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">),</span><span class="w"> </span><span class="c1"># black</span>
+<span class="w">    </span><span class="nf">rgb</span><span class="p">(</span><span class="m">60</span><span class="p">,</span><span class="w"> </span><span class="m">68</span><span class="p">,</span><span class="w"> </span><span class="m">78</span><span class="p">,</span><span class="w"> </span><span class="n">maxColorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">),</span><span class="w"> </span><span class="c1"># gray blue</span>
+<span class="w">    </span><span class="nf">rgb</span><span class="p">(</span><span class="m">86</span><span class="p">,</span><span class="w"> </span><span class="m">53</span><span class="p">,</span><span class="w"> </span><span class="m">35</span><span class="p">,</span><span class="w"> </span><span class="n">maxColorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">),</span><span class="w"> </span><span class="c1"># dark brown</span>
+<span class="w">    </span><span class="nf">rgb</span><span class="p">(</span><span class="m">155</span><span class="p">,</span><span class="w"> </span><span class="m">75</span><span class="p">,</span><span class="w"> </span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="n">maxColorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">),</span><span class="w"> </span><span class="c1"># dark orange</span>
+<span class="w">    </span><span class="nf">rgb</span><span class="p">(</span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="m">110</span><span class="p">,</span><span class="w"> </span><span class="m">55</span><span class="p">,</span><span class="w"> </span><span class="n">maxColorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">),</span><span class="w"> </span><span class="c1"># orange</span>
+<span class="w">    </span><span class="nf">rgb</span><span class="p">(</span><span class="m">230</span><span class="p">,</span><span class="w"> </span><span class="m">204</span><span class="p">,</span><span class="w"> </span><span class="m">134</span><span class="p">,</span><span class="w"> </span><span class="n">maxColorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">),</span><span class="w"> </span><span class="c1"># cream</span>
+<span class="w">    </span><span class="nf">rgb</span><span class="p">(</span><span class="m">137</span><span class="p">,</span><span class="w"> </span><span class="m">157</span><span class="p">,</span><span class="w"> </span><span class="m">107</span><span class="p">,</span><span class="w"> </span><span class="n">maxColorValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">255</span><span class="p">)</span><span class="w"> </span><span class="c1"># green</span>
+<span class="p">)</span>
+<span class="nf">show_col</span><span class="p">(</span><span class="n">greek_colors</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/greek-colors.png" class="uk-align-left" width="60%" height="" alt="Greek colors" uk-img>
+</pre>
+
+<p>To bolster the style of my findings even more, I&#8217;ve found a nice serif font called <a href="https://fonts.google.com/specimen/Newsreader">Newsreader</a> which I&#8217;d like to use in my plots. I was hoping for a serif that reflected the sharp lines of ancient Greek and Cuniform a bit better, but this works well for now. We&#8217;re using <a href="https://github.com/yixuan/showtext">showtext</a> here in order to pull in new fonts. I find this package is great for that, and any font restrictions I face really boil down to ggplot&nbsp;limitations.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">font_add_google</span><span class="p">(</span><span class="s">&quot;Newsreader&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">)</span>
+<span class="nf">showtext_auto</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Lastly, I&#8217;ll pull this all into a single theme that we can add right onto plots for quick&nbsp;styling.</p>
+<div class="highlight"><pre><span></span><code><span class="n">theme_iliad</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">list</span><span class="p">(</span>
+<span class="w">    </span><span class="nf">theme_light</span><span class="p">(),</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">panel.grid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+
+<span class="w">        </span><span class="n">text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">),</span>
+
+<span class="w">        </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">),</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;bold&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">14</span><span class="p">),</span>
+<span class="w">        </span><span class="n">plot.caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gray70&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;plain&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<h2>Loading <em>The&nbsp;Iliad</em></h2>
+<p>First off, if we&#8217;re going to analyze the book we need the digitized text. Luckily, this is very easy to accomplish by heading to Project Gutenberg. My own physical copy is a <a href="https://en.wikipedia.org/wiki/Samuel_Butler_(novelist)">Samuel Butler</a> translation (1942) and I was able to find <a href="https://www.gutenberg.org/ebooks/2199">a digital copy</a> as&nbsp;well.</p>
+<p>Looking over the text though it&#8217;s not <em>exactly</em> the same as mine. I notice some minor punctuation differences mostly. The digital version uses Roman names which we revert to Greek in a&nbsp;second.</p>
+<p>After downloading the text file though, I manually removed the preamble and post-script. This leaves me with primarily just the epic&#8217;s&nbsp;text.</p>
+<p>Here&#8217;s a sample of what we&nbsp;see:</p>
+<div class="highlight"><pre><span></span><code><span class="n">text</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read_file</span><span class="p">(</span><span class="s">&quot;butler.txt&quot;</span><span class="p">)</span>
+<span class="nf">cat</span><span class="p">(</span><span class="nf">substr</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">400</span><span class="p">),</span><span class="w"> </span><span class="s">&#39;...&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+BOOK I.
+
+
+      The quarrel between Agamemnon and Achilles—Achilles withdraws
+      from the war, and sends his mother Thetis to ask Jove to help the
+      Trojans—Scene between Jove and Juno on Olympus.
+
+      Sing, O goddess, the anger of Achilles son of Peleus, that
+      brought countless ills upon the Achaeans. Many a brave soul did
+      it send hurrying down to Hades, and many a he ...
+</pre>
+
+<p>There is the famous and <a href="https://lithub.com/a-master-class-in-words-on-the-vitality-and-vividness-of-the-iliads-opening-lines/">beautiful opening line</a> (which has many translations) after the book&nbsp;summary.</p>
+<p>As mentioned, this particular transcription of Samuel Butler&#8217;s translation uses the Roman names of some of the characters. My translation was written with the Greek names, and so I&#8217;d like to <a href="https://www.theoi.com/articles/roman-gods-vs-greek-gods-know-the-difference/">revert</a> to those using <code>stringr</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">text</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Jove&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Zeus&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Saturn&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Cronus&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Juno&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hera&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Neptune&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Poseidon&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Minerva&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Athene&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Diana&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Artemis&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Venus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Aphrodite&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Mars&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ares&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Vulcan&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hephaestus&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Mercury&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hermes&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_replace_all</span><span class="p">(</span><span class="s">&quot;Ulysses&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Odysseus&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Although Homer did not intend the epic to be split into chapters or books, this is how most modern copies are divided. This organization is helpful so we&#8217;ll split the text into its&nbsp;books.</p>
+<div class="highlight"><pre><span></span><code><span class="n">books</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">text</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_split_1</span><span class="p">(</span><span class="s">&quot;BOOK [XIV]+\\.&quot;</span><span class="p">)</span>
+
+<span class="c1"># filter out some remaining empty books</span>
+<span class="n">books</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">books</span><span class="p">[</span><span class="n">books</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Finally, each book begins with a quick book summary. We want to remove those so that the text is not polluted by&nbsp;them.</p>
+<div class="highlight"><pre><span></span><code><span class="n">books_ps</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">books</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">map</span><span class="p">(</span>\<span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">paragraphs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">book</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">            </span><span class="nf">str_split_1</span><span class="p">(</span><span class="s">&quot;\r\n\r\n&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">            </span><span class="nf">str_squish</span><span class="p">()</span>
+
+<span class="w">        </span><span class="n">paragraphs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paragraphs</span><span class="p">[</span><span class="n">paragraphs</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">]</span>
+
+<span class="w">        </span><span class="n">paragraphs</span><span class="p">[</span><span class="m">2</span><span class="o">:</span><span class="nf">length</span><span class="p">(</span><span class="n">paragraphs</span><span class="p">)]</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">            </span><span class="nf">paste0</span><span class="p">(</span><span class="n">collapse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\n\n&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">})</span>
+</code></pre></div>
+
+<p>We&#8217;ll make use of <code>quanteda</code> next and put the books into a corpus&nbsp;object.</p>
+<div class="highlight"><pre><span></span><code><span class="n">book_names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">str_match_all</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BOOK [XIV]+&quot;</span><span class="p">)[[</span><span class="m">1</span><span class="p">]][,</span><span class="m">1</span><span class="p">]</span>
+
+<span class="n">key_text</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">corpus</span><span class="p">(</span>
+<span class="w">    </span><span class="nf">as.character</span><span class="p">(</span><span class="n">books_ps</span><span class="p">),</span>
+<span class="w">    </span><span class="n">docnames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book_names</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>This then gives us some nice helper functions, for example we can see how many words are in each&nbsp;book:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">summary</span><span class="p">(</span><span class="n">key_text</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+Corpus consisting of 24 documents, showing 24 documents:
+
+       Text Types Tokens Sentences
+     BOOK I  1313   6687       225
+    BOOK II  1893   9121       299
+   BOOK III  1066   4624       147
+    BOOK IV  1300   5685       166
+     BOOK V  1702   9675       295
+    BOOK VI  1239   5676       164
+   BOOK VII  1109   4977       142
+  BOOK VIII  1335   5915       175
+    BOOK IX  1449   7722       225
+     BOOK X  1241   6237       197
+    BOOK XI  1740   9449       237
+   BOOK XII  1157   5270       125
+  BOOK XIII  1708   9355       231
+   BOOK XIV  1277   5840       158
+    BOOK XV  1589   8245       236
+   BOOK XVI  1776   9888       263
+  BOOK XVII  1458   8071       211
+ BOOK XVIII  1454   6723       187
+   BOOK XIX  1057   4541       123
+    BOOK XX  1246   5611       164
+   BOOK XXI  1426   6905       206
+  BOOK XXII  1288   6087       151
+ BOOK XXIII  1737  10054       284
+  BOOK XXIV  1545   9398       264
+</pre>
+
+<h2>Scratching the Surface of the&nbsp;Epic</h2>
+<p>First, I want to visualize the above word count summary, to get a feel for how each book compares in terms of&nbsp;length:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">summary</span><span class="p">(</span><span class="n">key_text</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span><span class="n">Text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rev</span><span class="p">(</span><span class="n">book_names</span><span class="p">)))</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span><span class="w"> </span><span class="n">Tokens</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">coord_flip</span><span class="p">(</span><span class="n">ylim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="kc">NA</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_col</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">3</span><span class="p">],</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="o">/</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">number</span><span class="p">(</span><span class="n">Tokens</span><span class="p">,</span><span class="w"> </span><span class="n">big.mark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="p">)),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">200</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_y_continuous</span><span class="p">(</span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">label_number</span><span class="p">(</span><span class="n">big.mark</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;,&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Words per Book&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;liebscher.github.io&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="n">theme_iliad</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">axis.ticks.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">()</span>
+<span class="w">    </span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/words-per-book.png" class="uk-align-left" width="70%" height="" alt="Words per Book of The Iliad" uk-img>
+</pre>
+
+<p>Next we&#8217;ll break the books into&nbsp;tokens.</p>
+<div class="highlight"><pre><span></span><code><span class="n">text_tokens</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">key_text</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">tokens</span><span class="p">()</span>
+</code></pre></div>
+
+<p>And just out of curiosity, we&#8217;ll take a look at word frequency across all books. Before doing so we&#8217;ll remove all punctuation, numbers, and common stopwords so that our output consists primarily of &#8220;content&#8221; words, or words that will be more interesting to think about compared to &#8220;and&#8221; or &#8220;to&#8221; (i.e. <a href="https://en.wikipedia.org/wiki/Stop_word">stopwords</a>).</p>
+<div class="highlight"><pre><span></span><code><span class="n">token_freq</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">text_tokens</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">tokens</span><span class="p">(</span><span class="n">remove_punct</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">remove_numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">tokens_remove</span><span class="p">(</span><span class="nf">stopwords</span><span class="p">())</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">dfm</span><span class="p">(</span><span class="n">tolower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">textstat_frequency</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">30</span><span class="p">)</span>
+
+<span class="n">token_freq</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span>
+<span class="w">        </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">if_else</span><span class="p">(</span>
+<span class="w">            </span><span class="n">frequency</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">frequency</span><span class="p">),</span>
+<span class="w">            </span><span class="nf">glue</span><span class="p">(</span><span class="s">&quot;{frequency} total occurances&quot;</span><span class="p">),</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">frequency</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">frequency</span><span class="p">,</span><span class="w"> </span><span class="nf">fct_reorder</span><span class="p">(</span><span class="n">feature</span><span class="p">,</span><span class="w"> </span><span class="n">frequency</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">coord_cartesian</span><span class="p">(</span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1200</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_segment</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">xend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">frequency</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gray90&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">3</span><span class="p">])</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_text</span><span class="p">(</span>
+<span class="w">        </span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">label</span><span class="p">),</span>
+<span class="w">        </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">hjust</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">nudge_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">20</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">3</span><span class="p">]</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Most Common Words in The Iliad&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;liebscher.github.io&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="n">theme_iliad</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">()</span>
+<span class="w">    </span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/most-common-words.png" class="uk-align-left" width="80%" height="" alt="Most Common Words in The Iliad" uk-img>
+</pre>
+
+<p>Knowing the text, these frequencies make sense. For example &#8220;son&#8221; is said often as part of the noun phrase, &#8220;son of&#8230;&#8221; some patriarch, like Zeus is &#8220;son of Cronus&#8221;. We&#8217;ll actually return to this in the last&nbsp;section.</p>
+<p>It&#8217;s neat to see ships, spear, horses, and hand show up as often as they&nbsp;do.</p>
+<h2>Diving&nbsp;Below</h2>
+<p>While reading the <code>quanteda</code> documentation, I discovered a technique I haven&#8217;t seen before. Apparently it&#8217;s called an &#8220;x-ray&#8221; plot, based off <a href="https://thegogglesdonothing.com/archives/2012/09/amazon_kindle_and_text_mining.shtml">the original visualization for Kindle</a>. It shows the relative occurrences of a word across documents or&nbsp;books.</p>
+<p>I thought it&#8217;d be interesting to look at when certain characters come in and out of the story through one of these plots. These aren&#8217;t entirely accurate plots (e.g. some characters are only mentioned in terms of their father), but they&#8217;re a first&nbsp;approximation.</p>
+<p>To get started, we&#8217;ll create two helper functions. The first to create the data to plot, and the second to&nbsp;plot.</p>
+<div class="highlight"><pre><span></span><code><span class="n">pull_xray</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">token</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">token_xray</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">text_tokens</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">        </span><span class="nf">kwic</span><span class="p">(</span><span class="n">token</span><span class="p">)</span>
+
+<span class="w">    </span><span class="nf">tibble</span><span class="p">(</span>
+<span class="w">        </span><span class="n">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">token</span><span class="p">,</span>
+<span class="w">        </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">,</span>
+<span class="w">        </span><span class="n">docname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">token_xray</span><span class="o">$</span><span class="n">docname</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book_names</span><span class="p">),</span>
+<span class="w">        </span><span class="n">from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">token_xray</span><span class="o">$</span><span class="n">from</span><span class="p">,</span>
+<span class="w">        </span><span class="n">ntokens</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">attr</span><span class="p">(</span><span class="n">token_xray</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ntoken&quot;</span><span class="p">)[</span><span class="n">token_xray</span><span class="o">$</span><span class="n">docname</span><span class="p">],</span>
+<span class="w">        </span><span class="n">relative</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">ntokens</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="n">plot_xray</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">xray_df</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">xray_df</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">        </span><span class="nf">mutate</span><span class="p">(</span><span class="n">docname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">fct_rev</span><span class="p">(</span><span class="n">docname</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">        </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relative</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">docname</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">        </span><span class="nf">geom_segment</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span>
+<span class="w">            </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">,</span>
+<span class="w">            </span><span class="n">xend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">after_stat</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+<span class="w">            </span><span class="n">yend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">after_stat</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.5</span><span class="p">),</span>
+<span class="w">            </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">stage</span><span class="p">(</span><span class="n">docname</span><span class="p">,</span><span class="w"> </span><span class="n">after_stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">0.5</span><span class="p">)</span>
+<span class="w">        </span><span class="p">),</span>
+<span class="w">        </span><span class="n">linewidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="o">/</span><span class="m">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">        </span><span class="nf">scale_color_identity</span><span class="p">(</span>
+<span class="w">            </span><span class="n">guide</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">guide_legend</span><span class="p">(</span><span class="n">position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;top&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">unique</span><span class="p">(</span><span class="n">xray_df</span><span class="o">$</span><span class="n">token</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">        </span><span class="nf">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;liebscher.github.io&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">        </span><span class="n">theme_iliad</span><span class="w"> </span><span class="o">+</span>
+<span class="w">        </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">            </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">axis.text.x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">14</span><span class="p">)</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>While writing this code, I actually started with the data art aspect (covered in the next section). I&#8217;ll start with the simpler version first, but while exploring these solutions I ran into an unexpected headache. Two problems arose: I wanted the x-ray bars to show up on a normal discrete y-axis, and I wanted the x-ray bars to be centered on each discrete&nbsp;tick.</p>
+<p>The solution was to modify the plot layers for <code>y</code> and <code>yend</code> with <code>after_stat</code> and <code>stage</code>. The problem was that the discrete axis was being converted to a numeric axis under the hood, and in order to shift the segments vertically I needed to modify this conversion&nbsp;function.</p>
+<p>Early on in <em>The Iliad</em> we say goodbye to Achilles for a while. He returns a bit in the middle and at the end, but he has a distinct ebb and flow of appearances in <em>The Iliad</em>.</p>
+<p>Let&#8217;s compare how often he is mentioned to how often Zeus, who is present throughout, is&nbsp;mentioned:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">bind_rows</span><span class="p">(</span>
+<span class="w">    </span><span class="nf">pull_xray</span><span class="p">(</span><span class="s">&quot;Achilles&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">1</span><span class="p">]),</span>
+<span class="w">    </span><span class="nf">pull_xray</span><span class="p">(</span><span class="s">&quot;Zeus&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">4</span><span class="p">])</span>
+<span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">plot_xray</span><span class="p">()</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/xray-achilles.png" class="uk-align-left" width="80%" height="" alt="X-ray plot of Achilles and Zeus" uk-img>
+</pre>
+
+<p>It&#8217;s fairly easy to see different points in the plot here. For example, Achilles leaves the battle field (and plot) after his argument with Agamemnon in Book I. When faced with manic Hector and the encroaching Trojan army, Agamemnon sends his warriors to appeal to Achilles in Book <span class="caps">IX</span>. I like how you can see Agamemnon&#8217;s discussion of Achilles followed by the interactions with Achilles in Book <span class="caps">IX</span>.</p>
+<p>Another character that interests me is wise old Nestor, portrayed as an elder whose word is final, he offers sage advice to the Greeks. I suspect that Nestor must come in especially at pivotal decision points in the book. He seems the closest to the omniscient gods as the Greeks will get, so perhaps he plays an important plot delivery&nbsp;part.</p>
+<div class="highlight"><pre><span></span><code><span class="nf">pull_xray</span><span class="p">(</span><span class="s">&quot;Nestor&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">3</span><span class="p">])</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">plot_xray</span><span class="p">()</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/xray-nestor.png" class="uk-align-left" width="80%" height="" alt="X-ray plot of Nestor" uk-img>
+</pre>
+
+<p>I find this very compelling! For example, after Achilles turns down Agamemnon&#8217;s plea to join back in the battle in Book <span class="caps">IX</span>, Agamemnon is distressed and in need of guidance. He seeks out Nestor in the middle of the night in Book X. This even feels like a turning point in the novel &#8212; Hector and the Trojans are so close to laying siege the ships of the Achaeans and fate is too close for Agamemnon&#8217;s comfort. Nestor says to him, in a very prescient way, &#8220;Most noble son of Atreus, king of men, Agamemnon, <strong>Zeus will not do all for Hector that Hector thinks he will.</strong>&#8221; Very&nbsp;resolute!</p>
+<p>I&#8217;m also curious how the Gods appear in the story as well. I would think that Gods who favor different peoples are unlikely to co-appear, just as enemies are unlikely to have conversations with each other. We&#8217;ll explore this by looking at mentions of Athene (who favors the Greeks) and Apollo (who favors the&nbsp;Trojans):</p>
+<div class="highlight"><pre><span></span><code><span class="nf">bind_rows</span><span class="p">(</span>
+<span class="w">    </span><span class="nf">pull_xray</span><span class="p">(</span><span class="s">&quot;Athene&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">1</span><span class="p">]),</span>
+<span class="w">    </span><span class="nf">pull_xray</span><span class="p">(</span><span class="s">&quot;Apollo&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">7</span><span class="p">])</span>
+<span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">plot_xray</span><span class="p">()</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/xray-gods.png" class="uk-align-left" width="80%" height="" alt="X-ray plot of Athene and Apollo" uk-img>
+</pre>
+
+<p>It does appear that Athene, who favors the Greeks, and Apollo, who favors the Trojans, generally don&#8217;t overlap very often. Obviously this is just eye-balling, and we&#8217;d need to be more specific if we wanted to determine if these gods do interact&nbsp;often.</p>
+<h3>Being More&nbsp;Artful</h3>
+<p>I was introduced to <a href="https://www.visualcinnamon.com/about/">Nadieh Bremer&#8217;s</a> <a href="https://www.visualcinnamon.com/2020/06/sony-music-data-art/">data art posters for Sony Music</a> a few months ago. I felt inspired by this work, and wanted to mimic it just for fun and to try something new. My childhood and teenage years were very artistic and so some day I might like to come back to this, perhaps merging it with my technical&nbsp;expertise.</p>
+<p>Here I&#8217;m combining the x-ray plots of our two Achaean heros and the word count of each book. This is hardly a useful plot, but it is interesting to play with the <a href="https://ggplot2.tidyverse.org/news/index.html#ggplot2-350">new ggplot2 3.5.0</a> <a href="https://ggplot2.tidyverse.org/reference/coord_polar.html"><code>coord_radial()</code></a>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">p1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">bind_rows</span><span class="p">(</span>
+<span class="w">    </span><span class="nf">pull_xray</span><span class="p">(</span><span class="s">&quot;Achilles&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">3</span><span class="p">]),</span>
+<span class="w">    </span><span class="nf">pull_xray</span><span class="p">(</span><span class="s">&quot;Agamemnon&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">3</span><span class="p">])</span>
+<span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">relative</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.05</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">1.1</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">docname</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">coord_radial</span><span class="p">(</span><span class="n">inner.radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="n">expand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.2</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-0.2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_segment</span><span class="p">(</span>
+<span class="w">        </span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">color</span><span class="p">,</span><span class="w"> </span><span class="n">xend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">after_stat</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="n">yend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">after_stat</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">0.5</span><span class="p">),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">stage</span><span class="p">(</span><span class="n">docname</span><span class="p">,</span><span class="w"> </span><span class="n">after_stat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">0.5</span><span class="p">)),</span>
+<span class="w">        </span><span class="n">linewidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="o">/</span><span class="m">5</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_color_identity</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_y_discrete</span><span class="p">(</span><span class="n">drop</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">labs</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">())</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme_minimal</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">panel.border</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">axis.ticks.y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">axis.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">panel.grid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">14</span><span class="p">),</span>
+<span class="w">        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;#F2F4F4&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+
+
+<span class="n">p2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">summary</span><span class="p">(</span><span class="n">key_text</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">Tokens</span><span class="p">,</span><span class="w"> </span><span class="n">Text</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">coord_radial</span><span class="p">(</span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-0.06</span><span class="o">*</span><span class="kc">pi</span><span class="p">,</span><span class="w"> </span><span class="n">end</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.06</span><span class="o">*</span><span class="kc">pi</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_col</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">5</span><span class="p">],</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="o">/</span><span class="m">3</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme_void</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;transparent&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">),</span>
+<span class="w">        </span><span class="n">plot.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;transparent&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+
+
+<span class="n">p1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">inset_element</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">0.495</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/xray-art.png" class="uk-align-left" width="80%" height="" alt="X-ray art" uk-img>
+</pre>
+
+<p>Like I said, maybe not the most useful. But also it could be prettier if I kept experimenting with it. I could continue to layer and layer new data, but I felt like just this much was enough to try some new things. There was a surprising amount of hard-coded-ness to this tangent, unfortunately, which might just be part of what makes this work akin to&nbsp;art.</p>
+<h2>Love and&nbsp;Death</h2>
+<p>Although I&#8217;m quick to disparage sentiment analyses, I wanted to give it a try with this project. I thought there might be an interesting visualization opportunity with these data&nbsp;too.</p>
+<p>For example, &#8220;fortune&#8221; and &#8220;death&#8221; have distinct sentiments according to the <a href="https://www.tidytextmining.com/sentiment#the-sentiments-datasets"><span class="caps">AFINN</span></a> (where greater than 0 is positive language and less than 0 is negative&nbsp;language):</p>
+<div class="highlight"><pre><span></span><code><span class="nf">tibble</span><span class="p">(</span><span class="n">word</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;love&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;death&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">left_join</span><span class="p">(</span><span class="nf">get_sentiments</span><span class="p">(</span><span class="s">&quot;afinn&quot;</span><span class="p">))</span>
+</code></pre></div>
+
+<pre class="code-output">
+  word  value
+1 love      3
+2 death    -2
+</pre>
+
+<p>The question is: how does the sentiment change over time? The goal is to measure sentiment from words like these over the course of each book. We&#8217;ll take every word in the book and match it to a sentiment rating. Here we do that and print out the first six words in the book along with their sentiment&nbsp;rating:</p>
+<div class="highlight"><pre><span></span><code><span class="n">tidy_corpus</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tibble</span><span class="p">(</span>
+<span class="w">    </span><span class="n">doc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">as.character</span><span class="p">(</span><span class="n">books_ps</span><span class="p">),</span>
+<span class="w">    </span><span class="n">docnames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">str_match_all</span><span class="p">(</span><span class="n">text</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BOOK [XIV]+&quot;</span><span class="p">)[[</span><span class="m">1</span><span class="p">]][,</span><span class="m">1</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="n">tidy_tokens</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy_corpus</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">unnest_tokens</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="w"> </span><span class="n">doc</span><span class="p">,</span><span class="w"> </span><span class="n">to_lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">)</span>
+
+<span class="n">sentiment</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy_tokens</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">left_join</span><span class="p">(</span><span class="nf">get_sentiments</span><span class="p">(</span><span class="s">&quot;afinn&quot;</span><span class="p">))</span>
+
+<span class="n">sentiment</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">head</span><span class="p">()</span>
+</code></pre></div>
+
+<pre class="code-output">
+  docnames word    value
+1 BOOK I   sing       NA
+2 BOOK I   o          NA
+3 BOOK I   goddess    NA
+4 BOOK I   the        NA
+5 BOOK I   anger      -3
+6 BOOK I   of         NA
+</pre>
+
+<p>We finally compute the cumulative sentiment over each&nbsp;book.</p>
+<div class="highlight"><pre><span></span><code><span class="n">book_labels</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sentiment</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">distinct</span><span class="p">(</span><span class="n">docnames</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span>
+<span class="w">        </span><span class="n">docnames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">docnames</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">docnames</span><span class="p">),</span>
+
+<span class="w">        </span><span class="c1"># for visualization purposes we want just the roman numeral</span>
+<span class="w">        </span><span class="n">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">str_remove</span><span class="p">(</span><span class="n">docnames</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;BOOK &quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="n">book</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">book</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+
+<span class="n">sentiment</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span><span class="n">docnames</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">factor</span><span class="p">(</span><span class="n">docnames</span><span class="p">,</span><span class="w"> </span><span class="n">levels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book_names</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">group_by</span><span class="p">(</span><span class="n">docnames</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span>
+<span class="w">        </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">row_number</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">rel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">n</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">cum_sent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">cumsum</span><span class="p">(</span><span class="nf">replace_na</span><span class="p">(</span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="m">0</span><span class="p">))</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">filter</span><span class="p">(</span><span class="nf">round</span><span class="p">(</span><span class="n">rel</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">100</span><span class="p">)</span><span class="w"> </span><span class="o">%%</span><span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+
+<span class="w">    </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">rel</span><span class="p">,</span><span class="w"> </span><span class="n">cum_sent</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">150</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cum_sent</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">coord_radial</span><span class="p">(</span><span class="n">expand</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">,</span><span class="w"> </span><span class="n">inner.radius</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0.25</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">facet_wrap</span><span class="p">(</span><span class="o">~</span><span class="w"> </span><span class="n">docnames</span><span class="p">,</span><span class="w"> </span><span class="n">ncol</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_smooth</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">after_stat</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">200</span><span class="p">),</span><span class="w"> </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">method</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;loess&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">formula</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">se</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">,</span><span class="w"> </span><span class="n">linewidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.5</span><span class="p">,</span><span class="w"> </span><span class="n">show.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book</span><span class="p">),</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">book_labels</span><span class="p">,</span><span class="w"> </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-155</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2.25</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">2</span><span class="p">])</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_color_gradient2</span><span class="p">(</span><span class="n">low</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;red3&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gray90&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">high</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;green4&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">labs</span><span class="p">(</span><span class="n">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;liebscher.github.io&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme_void</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">strip.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">plot.caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gray70&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;plain&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/sentiment.png" class="uk-align-left" width="80%" height="" alt="Sentiment" uk-img>
+</pre>
+
+<p>To explain this just a&nbsp;bit:</p>
+<p>We have a data frame of every word and its associated <span class="caps">AFINN</span> sentiment. Then for each book, we create a cumulative sum of those sentiment ratings. Where <span class="caps">AFINN</span> rates 0 as neutral sentiment, and positive and negative sentiment. We scale the books so that we&#8217;re visualizing sentiment from the relative beginning to&nbsp;end.</p>
+<p>This is on a by-word basis, which is a lot of data to plot on its own. That&#8217;s why we sample only every 500th cumulative sentiment measure. We then plot a Loess smoothing curve over these ratings to give us a smooth line from beginning to end. We could do the same thing with the raw data as points, but I think this looks&nbsp;nicer.</p>
+<p>As the swirls drift into green, the story has gotten more positive. As they head toward red, it&#8217;s more&nbsp;negative.</p>
+<p>We can see that most books are rather dark, except Book <span class="caps">IX</span>. We probably could expect this, since, after all, it is on the surface a book about war (with lots of slaying and misfortune). It is interesting to see Book <span class="caps">XXII</span> particularly dark (this is where Hector is&nbsp;killed).</p>
+<p>One shortcoming of this approach is the sheer missingness of sentiments for&nbsp;tokens.</p>
+<div class="highlight"><pre><span></span><code><span class="n">sentiment</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">summarize</span><span class="p">(</span><span class="n">total_words</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">n</span><span class="p">(),</span><span class="w"> </span><span class="n">words_with_rating</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+</code></pre></div>
+
+<pre class="code-output">
+  total_words words_with_rating
+1      153268              8833
+</pre>
+
+<p>In total, only 8,833 words of the 153,268 have a sentiment rating (barely 5%)! In an ideal world, many more words would have an attached sentiment rating, that way our visuals are more certain. However, sentiment is highly contextual, so it&#8217;s unsurprising that this data is so&nbsp;incomplete.</p>
+<h2>The Web of&nbsp;Characters</h2>
+<p>I&#8217;ll be honest, there&#8217;s <em>a lot</em> of characters in <em>The Iliad</em>, and even more names mentioned. At first it was a bit hard to keep track of, but five books in and you definitely start to solidify your understanding of who&#8217;s&nbsp;who.</p>
+<p>All these characters though have had me dreaming about some sort of &#8220;web of characters&#8221;. I was partially motivated by similar work, such as <a href="https://mediarep.org/server/api/core/bitstreams/699b22aa-9bf8-4a75-92e8-c9caf00530e9/content">Venturini et al. (2017)</a>. Unlike this work though, I want to focus solely on characters. I think this is a particularly interesting way to evaluate the story at a high&nbsp;level.</p>
+<p>First, we have a few new packages to load for working with&nbsp;graphs:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">widyr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">tidygraph</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">igraph</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggraph</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggnewscale</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Next, I&#8217;m interested in looking at how characters co-occur as a proxy for who&#8217;s interacting with who. We might anticipate that certain characters will have interactions with the gods more than other characters, and hopefully we see a distinction between the Gods, the Achaeans, and the&nbsp;Trojans.</p>
+<p>We&#8217;ll start by splitting the text into paragraphs. This is extremely rudimentary, but it&#8217;s a first step which we can later critique. I firmly believe that one step must be taken, no matter how poor, so that we can continuously improve based on concrete&nbsp;evidence.</p>
+<p>I&#8217;ll count how often characters are mentioned in the same paragraph together. I also split the paragraphs into tokens, and finally calculate the pairwise correlation between tokens within&nbsp;paragraphs.</p>
+<div class="highlight"><pre><span></span><code><span class="n">tidy_paragraphs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy_corpus</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">unnest_paragraphs</span><span class="p">(</span><span class="n">paragraph</span><span class="p">,</span><span class="w"> </span><span class="n">doc</span><span class="p">,</span><span class="w"> </span><span class="n">to_lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span><span class="n">paragraph_ix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">row_number</span><span class="p">())</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ungroup</span><span class="p">()</span>
+
+<span class="n">tidy_paragraph_tokens</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy_paragraphs</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">unnest_tokens</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="w"> </span><span class="n">paragraph</span><span class="p">,</span><span class="w"> </span><span class="n">to_lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span>
+
+<span class="n">token_cor</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy_paragraph_tokens</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">anti_join</span><span class="p">(</span><span class="n">stop_words</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">group_by</span><span class="p">(</span><span class="n">word</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">filter</span><span class="p">(</span><span class="nf">n</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">10</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">pairwise_cor</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="w"> </span><span class="n">paragraph_ix</span><span class="p">,</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">)</span>
+
+<span class="n">token_cor</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">head</span><span class="p">(</span><span class="m">10</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+   item1     item2     correlation
+ 1 mell      pell            1    
+ 2 pell      mell            1    
+ 3 Argus     slayer          0.925
+ 4 slayer    Argus           0.925
+ 5 bowl      mixing          0.728
+ 6 mixing    bowl            0.728
+ 7 bearing   aegis           0.703
+ 8 aegis     bearing         0.703
+ 9 addressed goodwill        0.616
+10 goodwill  addressed       0.616
+</pre>
+
+<p>As we can see, the resulting data frame lists all token pairs and their correlation. The most frequently co-occuring tokens are &#8220;pell&#8221; and &#8220;mell&#8221;, which always show up in the same paragraph together. Another pair which stands out to me is &#8220;<a href="https://en.wikipedia.org/wiki/Aegis">aegis</a>-bearing&#8221;. This was new to me when I first read it, and the phrase is typically &#8220;aegis-bearing Zeus&#8221;, meaning Zeus who carries the aegis&nbsp;shield.</p>
+<p>Next, I&#8217;ll filter to only pairs of key characters, including gods, Greeks, Trojans, and Women. The Women in <em>The Iliad</em> are worthy of their own entire study (and this has probably already been done), but I separate them because they are quite important to the epic. Helen is the reason why this monstrous war is even happening, and Breseis is the part of the reason Achilles leaves the battle in the&nbsp;beginning.</p>
+<p>This doesn&#8217;t capture every mention of these characters though. For example, Homer sometimes used &#8220;Olympian Thunderer&#8221; as an alias for Zeus. That&#8217;s okay though, this is just a rough&nbsp;start.</p>
+<div class="highlight"><pre><span></span><code><span class="n">gods</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Zeus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hera&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Athene&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Poseidon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hades&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Apollo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Artemis&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s">&quot;Aphrodite&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ares&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hephaestus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hermes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Iris&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Thetis&quot;</span><span class="p">)</span>
+<span class="n">greeks</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Agamemnon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achilles&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Menelaus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Nestor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Odysseus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ajax&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="s">&quot;Diomed&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Calchas&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Idomeneus&quot;</span><span class="p">)</span>
+<span class="n">trojans</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Priam&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Paris&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Helenus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Antenor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Sarpedon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Galaucus&quot;</span><span class="p">)</span>
+<span class="n">women</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Helen&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Briseis&quot;</span><span class="p">)</span>
+
+<span class="n">character_graph</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">token_cor</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">filter</span><span class="p">(</span>
+<span class="w">        </span><span class="n">item1</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">gods</span><span class="p">,</span><span class="w"> </span><span class="n">greeks</span><span class="p">,</span><span class="w"> </span><span class="n">trojans</span><span class="p">,</span><span class="w"> </span><span class="n">women</span><span class="p">),</span>
+<span class="w">        </span><span class="n">item2</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">gods</span><span class="p">,</span><span class="w"> </span><span class="n">greeks</span><span class="p">,</span><span class="w"> </span><span class="n">trojans</span><span class="p">,</span><span class="w"> </span><span class="n">women</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">graph_from_data_frame</span><span class="p">(</span><span class="n">directed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">as_tbl_graph</span><span class="p">()</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">activate</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">left_join</span><span class="p">(</span>
+<span class="w">        </span><span class="n">tidy_paragraph_tokens</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">            </span><span class="nf">count</span><span class="p">(</span><span class="n">word</span><span class="p">),</span>
+<span class="w">        </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;name&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;word&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span>
+<span class="w">        </span><span class="n">group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">case_when</span><span class="p">(</span>
+<span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">gods</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&quot;God&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">greeks</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&quot;Greek&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">trojans</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&quot;Trojan&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="n">women</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="s">&quot;Woman&quot;</span>
+<span class="w">        </span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">activate</span><span class="p">(</span><span class="n">edges</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">filter</span><span class="p">(</span><span class="n">correlation</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">0.05</span><span class="p">)</span>
+
+<span class="n">character_graph</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">summary</span><span class="p">()</span>
+</code></pre></div>
+
+<pre class="code-output">
+IGRAPH c9d4c51 UN-- 29 166 -- 
++ attr: name (v/c), n (v/n), group (v/c), correlation (e/n)
+</pre>
+
+<p>We can refer to <a href="https://igraph.org/r/doc/print.igraph.html">the documentation</a> to interpret this summary. It tells us that we have an undirected graph with named nodes, and that it is unweighted and&nbsp;non-bipartite.</p>
+<p>Most of the above code should be self-explanatory. The last line though I&#8217;m filtering to only retain dyads with a slightly positive correlation (co-occurance). This will keep the edges in our graph to the bare&nbsp;minimum.</p>
+<p>Next, we&#8217;ll plot this&nbsp;graph:</p>
+<div class="highlight"><pre><span></span><code><span class="n">character_graph</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ggraph</span><span class="p">(</span><span class="n">layout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;nicely&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_edge_link</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">correlation</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gray50&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">show.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_node_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">),</span><span class="w"> </span><span class="n">show.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_size_continuous</span><span class="p">(</span><span class="n">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">8</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">new_scale</span><span class="p">(</span><span class="s">&quot;size&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_node_label</span><span class="p">(</span>
+<span class="w">        </span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">group</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="p">),</span>
+<span class="w">        </span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">repel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">,</span><span class="w"> </span><span class="n">label.size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">rgb</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">0.3</span><span class="p">),</span>
+<span class="w">        </span><span class="n">show.legend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_size_continuous</span><span class="p">(</span><span class="n">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">2.5</span><span class="p">,</span><span class="w"> </span><span class="m">6</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_color_manual</span><span class="p">(</span><span class="n">values</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="n">greek_colors</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">3</span><span class="p">],</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">5</span><span class="p">],</span><span class="w"> </span><span class="n">greek_colors</span><span class="p">[</span><span class="m">7</span><span class="p">]))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">labs</span><span class="p">(</span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;liebscher.github.io&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span>
+<span class="w">        </span><span class="n">panel.background</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_rect</span><span class="p">(</span><span class="n">fill</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;white&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NA</span><span class="p">),</span>
+<span class="w">        </span><span class="n">plot.caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">family</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;newsreader&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gray70&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">face</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;plain&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/network.png" class="uk-align-left" width="80%" height="" alt="Network" uk-img>
+</pre>
+
+<p>Spectacular!</p>
+<p>We can see some interesting patterns arise. For example, Helen connects Paris and Menelaus (she was originally Menelaus&#8217;s wife, but Paris of Troy abducted her, thus initiating the war). We can also see Diomed linked to Athene (who seems to favor him), Iris sending messages between gods, and the overall three separate camps of&nbsp;people.</p>
+<p>I&#8217;m pleased that this graph closely resembles more rigorous network analyses of the book (see e.g. <a href="https://www.euppublishing.com/doi/abs/10.3366/ijhac.2015.0141">Kydros et al (2015)</a>). Some shortcomings of our approaches are the rather 1-dimensional perspective that characters are nodes, and edges are simple interactions. It would be nice to be a bit more inclusive with these&nbsp;definitions.</p>
+<h2>Who&#8217;s your&nbsp;patriarch?</h2>
+<p>In <em>The Iliad</em>, often times men are <a href="https://en.wikipedia.org/wiki/Patrilineality">mentioned by their father&#8217;s name</a>, which appears to be an&nbsp;honorific.</p>
+<p>I&#8217;m curious which fathers are mentioned the most relative to how often their sons are mentioned. First, we&#8217;ll join all the text into a single string so that it&#8217;s easier to search for substring across all&nbsp;books:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flat_text</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tidy_corpus</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">pull</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_flatten</span><span class="p">(</span><span class="n">collapse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Then we&#8217;ll define a regular expression to search for mentions of patriarchs. This often is written like &#8220;son of Atreus&#8221; but could also be &#8220;Sons of aegis-bearing Zeus&#8221;. In both cases, we&#8217;d want to capture &#8220;Atreus&#8221; and &#8220;Zeus&#8221;&nbsp;respectively.</p>
+<div class="highlight"><pre><span></span><code><span class="n">fathers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">flat_text</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">str_match_all</span><span class="p">(</span><span class="s">&quot;[Ss]ons? of[\\- A-Za-z]*? (?:King )?(?&lt;name&gt;[A-Z][a-z]+)&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="n">magrittr</span><span class="o">::</span><span class="nf">extract2</span><span class="p">(</span><span class="m">1</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">as_tibble</span><span class="p">()</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">filter</span><span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Troy&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Trojans&quot;</span><span class="p">)))</span>
+</code></pre></div>
+
+<p>Great, how many unique fathers are&nbsp;mentioned?</p>
+<div class="highlight"><pre><span></span><code><span class="nf">n_distinct</span><span class="p">(</span><span class="n">fathers</span><span class="o">$</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div>
+
+<pre class="code-output">
+162
+</pre>
+
+<p>Which fathers are most often&nbsp;mentioned?</p>
+<div class="highlight"><pre><span></span><code><span class="n">fathers</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">count</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">head</span><span class="p">()</span>
+</code></pre></div>
+
+<pre class="code-output">
+  name        n
+1 Atreus    133
+2 Peleus     99
+3 Tydeus     84
+4 Cronus     73
+5 Priam      48
+6 Telamon    45
+</pre>
+
+<p>Next we&#8217;ll map each son to his father, and count mentions of the son&#8217;s name. We&#8217;ll work with just a subset of characters here to keep the analysis&nbsp;interpretable.</p>
+<div class="highlight"><pre><span></span><code><span class="n">patrilineality</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">tribble</span><span class="p">(</span>
+<span class="w">    </span><span class="o">~</span><span class="n">father</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">son</span><span class="p">,</span><span class="w"> </span><span class="o">~</span><span class="n">people</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Cronus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Zeus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Gods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Cronus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hades&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Gods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Cronus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Poseidon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Gods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Zeus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Apollo&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Gods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Zeus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ares&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Gods&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Priam&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Hector&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Trojans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Priam&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Paris&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Trojans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Priam&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Helenus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Trojans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Atreus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Agamemnon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Atreus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Menelaus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Peleus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achilles&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Laertes&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Odysseus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Neleus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Nestor&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Laomedon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Priam&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Trojans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Telamon&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ajax&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Oileus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Ajax&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Tydeus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Diomed&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s">&quot;Menoetius&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Patroclus&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Achaeans&quot;</span>
+<span class="p">)</span>
+</code></pre></div>
+
+<p>Finally, I&#8217;ll count how often each son is mentioned in the text, and join that with the data frame of how often his father is&nbsp;mentioned.</p>
+<div class="highlight"><pre><span></span><code><span class="n">patrilineality_mentions</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">patrilineality</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">rowwise</span><span class="p">()</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span><span class="n">son_mentions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">str_count</span><span class="p">(</span><span class="n">flat_text</span><span class="p">,</span><span class="w"> </span><span class="n">son</span><span class="p">))</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">group_by</span><span class="p">(</span><span class="n">father</span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">summarize</span><span class="p">(</span>
+<span class="w">        </span><span class="n">sons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="n">son</span><span class="p">,</span><span class="w"> </span><span class="n">collapse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;, &quot;</span><span class="p">),</span>
+<span class="w">        </span><span class="n">sons_mentions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">son_mentions</span><span class="p">),</span>
+<span class="w">        </span><span class="n">people</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">first</span><span class="p">(</span><span class="n">people</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">left_join</span><span class="p">(</span>
+<span class="w">        </span><span class="n">fathers</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">            </span><span class="nf">count</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;father_mentions&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">T</span><span class="p">),</span>
+<span class="w">        </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;father&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ungroup</span><span class="p">()</span>
+
+<span class="n">patrilineality_mentions</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">head</span><span class="p">()</span>
+</code></pre></div>
+
+<pre class="code-output">
+  father    sons                  sons_mentions people   father_mentions
+1 Atreus    Agamemnon, Menelaus             342 Achaeans             133
+2 Cronus    Zeus, Hades, Poseidon           580 Gods                  73
+3 Laertes   Odysseus                        124 Achaeans               9
+4 Laomedon  Priam                           184 Trojans                3
+5 Menoetius Patroclus                       173 Achaeans              27
+6 Neleus    Nestor                           93 Achaeans              10
+</pre>
+
+<p>This looks good. Let&#8217;s assume that the more a father is mentioned compared to his son, the more important that father is. Let&#8217;s plot this importance measure as the ratio of father mentions to son&nbsp;mentions:</p>
+<div class="highlight"><pre><span></span><code><span class="n">patrilineality_mentions</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">mutate</span><span class="p">(</span>
+<span class="w">        </span><span class="n">pair</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="n">father</span><span class="p">,</span><span class="w"> </span><span class="s">&quot; &gt; &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sons</span><span class="p">),</span>
+<span class="w">        </span><span class="n">father_importance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">father_mentions</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">sons_mentions</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">|&gt;</span>
+<span class="w">    </span><span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">father_importance</span><span class="p">,</span><span class="w"> </span><span class="nf">fct_reorder</span><span class="p">(</span><span class="n">pair</span><span class="p">,</span><span class="w"> </span><span class="n">father_importance</span><span class="p">)))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">coord_cartesian</span><span class="p">(</span><span class="n">xlim</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_segment</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">,</span><span class="w"> </span><span class="n">xend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">father_importance</span><span class="p">),</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;gray90&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">people</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">scale_x_continuous</span><span class="p">(</span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="w"> </span><span class="m">0.9</span><span class="p">),</span><span class="w"> </span><span class="n">labels</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&quot;Very Unimportant&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Very Important&quot;</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">labs</span><span class="p">(</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_blank</span><span class="p">(),</span>
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Homer&#39;s Patriarchy&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">caption</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;liebscher.github.io&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="n">theme_iliad</span><span class="w"> </span><span class="o">+</span>
+<span class="w">    </span><span class="nf">theme</span><span class="p">(</span><span class="n">legend.position</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;top&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">legend.text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">element_text</span><span class="p">(</span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">10</span><span class="p">))</span>
+</code></pre></div>
+
+<pre class="code-output">
+<img data-src="/images/the-iliad/patriarchy.png" class="uk-align-left" width="80%" height="" alt="Patriarchy" uk-img>
+</pre>
+
+<p><a href="https://en.wikipedia.org/wiki/Tydeus">Tydeus</a> comes out as a very important patriarch, as the story is told. <a href="https://en.wikipedia.org/wiki/Atreus">Atreus</a> as well. At first I was surprised to see Zeus so low in importance, although I think we can explain this as a difference between Zeus as the patriarch and Zeus as the subject. Essentially, his name is being double counted as a patriarch when some of those mentions are him as an individual. We could say the same of&nbsp;Priam.</p>
+<h2>Conclusion</h2>
+<p><em>The Iliad</em> is a must-read. It is one of the foundational layers of Western civilization: whether we realize it not, contemporary thought reflects authors like Goethe (<a href="https://www.tandfonline.com/doi/pdf/10.1080/19306962.1967.11754688">Wohlleben, 1967</a>) and Socrates (<a href="https://www.google.com/books/edition/The_Philosophy_Of_Socrates/_1NRAAAAYAAJ?hl=en">Brickhouse <span class="amp">&amp;</span> Smith, 2000</a>), who reflect Homer. Reading <em>The Iliad</em> has not been nearly as difficult or monotonous as I expected. On the contrary, it&#8217;s engaging, accessible, and colorful. The characters are rich, emotive, and complex. There may be many of them (nearly 100), but Homer&#8217;s storytelling is crisp and we don&#8217;t get too lost in the web. I would love to dive deeper in a more literary analysis of leadership and values as expressed by the characters. For example, I really enjoy such lessons as, &#8220;he that foments civil discord is a clanless, hearthless&nbsp;outlaw.&#8221;</p>
+<p>There&#8217;s too many ways to dive computationally into a story like this, so this is just a start. In fact, I&#8217;d estimate that <em>The Iliad</em> is one of the most analyzed stories ever. I&#8217;m happy to be able to contribute one piece more to this timeless endeavor. I&#8217;d like to explore more of the extant analyses on the subject, although even that feels like a big&nbsp;task.</p>
+<p>I have a copy of <em>The Odyssey</em> which I bought at the same time, and I&#8217;d like to read that next. I will consider writing a follow-up post on any analyses I do for that&nbsp;story.</p>
+  </div>
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2024 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
+              </div>
+       </footer>
+</body>
+
+</html>
