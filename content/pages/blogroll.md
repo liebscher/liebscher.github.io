@@ -26,6 +26,7 @@ Modified: 11-24-2022
         <tr><td>Alan, online.</td><td><a href="https://acjay.com/" target="_new">https://acjay.com/</a></td><td>[Software / Management / Entrepreneurship]</td></tr>
         <tr><td>Apple Machine Learning Journal</td><td><a href="https://machinelearning.apple.com" target="_new">https://machinelearning.apple.com</a></td><td>[Machine Learning]</td></tr>
         <tr><td>Atoms & Void</td><td><a href="https://atomsandvoid.wordpress.com" target="_new">https://atomsandvoid.wordpress.com</a></td><td>[Topology / Geometry / Philosophy]</td></tr>
+        <tr><td>Brian Kihoon Lee</td><td><a href="https://www.moderndescartes.com/essays/" target="_new">https://www.moderndescartes.com/essays</a></td><td>[Chemistry / Software]</td></tr>
         <tr><td>Cathay O’Neal</td><td><a href="https://mathbabe.org" target="_new">https://mathbabe.org</a></td><td>[Data Science / AI]</td></tr>
         <tr><td>Chris Said</td><td><a href="https://chris-said.io" target="_new">https://chris-said.io</a></td><td>[Statistics / Technology]</td></tr>
         <tr><td>Colin Raffel</td><td><a href="https://colinraffel.com/blog/" target="_new">https://colinraffel.com/blog/</a></td><td>[ML]</td></tr>
