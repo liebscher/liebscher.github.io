@@ -1,6 +1,6 @@
 Title: Music Collection
 Date: 2020-05-13
-Tags: music, programming, design
+Tags: music, programming, design, javascript
 Category: meta
 Slug: music-collection
 Authors: Alex Liebscher
