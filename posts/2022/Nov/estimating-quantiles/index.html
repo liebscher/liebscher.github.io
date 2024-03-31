@@ -70,20 +70,14 @@
 </section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
   <div class="uk-container uk-width-2-3@m">
-    <header>
-      <h1 class="uk-h1 uk-text-center">
-        <a href="/posts/2022/Nov/estimating-quantiles/" rel="bookmark" title="Permalink to Estimating Quantiles">Estimating&nbsp;Quantiles</a>
-      </h1>
-      
+    <header class="uk-text-center">
+      <h1 class="uk-h1">Estimating&nbsp;Quantiles</h1>
+      <p><p>What are quantiles, and what&#8217;s happening underneath the hood of&nbsp;quantile()?</p></p>
     </header>
     <footer class="uk-text-center uk-margin">
       <time datetime="2022-11-05T00:00:00-07:00">
         Sat 05 November 2022
       </time>
-      <!--     <div>
-        Category: <a href="/">meta</a>
-    </div>
- -->
       <div>
         Tags:
         <a href="/tag/statistics.html">Statistics</a>, 
@@ -509,7 +503,7 @@ $x_p$ is called the p-quantile of the population. $Q(p) = x_p$. -->
 <p>It&#8217;s possible to visualize this plot because the equation for the normal distribution has an inverse. Now, it&#8217;s easy to take a proportion, say 0.5, and use that equation to quickly and easily output the value of the data that corresponds with it. I drew this plot in R with the <code>qnorm</code> function.</p>
 <h2>Sample Estimation of Quantiles with Real&nbsp;Data</h2>
 <p>Let&#8217;s play with some real data. Here we&#8217;ll take the publication dates of the top 20 most cited scientific papers in history. The years these papers were published are, in chronological&nbsp;order,</p>
-<div class="highlight"><pre><span></span><code><span class="mf">1951</span><span class="p">,</span><span class="w"> </span><span class="mf">1957</span><span class="p">,</span><span class="w"> </span><span class="mf">1958</span><span class="p">,</span><span class="w"> </span><span class="mf">1959</span><span class="p">,</span><span class="w"> </span><span class="mf">1962</span><span class="p">,</span><span class="w"> </span><span class="mf">1970</span><span class="p">,</span><span class="w"> </span><span class="mf">1975</span><span class="p">,</span><span class="w"> </span><span class="mf">1975</span><span class="p">,</span><span class="w"> </span><span class="mf">1976</span><span class="p">,</span><span class="w"> </span><span class="mf">1977</span><span class="p">,</span><span class="w"> </span><span class="mf">1979</span><span class="p">,</span><span class="w"> </span><span class="mf">1987</span><span class="p">,</span><span class="w"> </span><span class="mf">1987</span><span class="p">,</span><span class="w"> </span><span class="mf">1988</span><span class="p">,</span><span class="w"> </span><span class="mf">1990</span><span class="p">,</span><span class="w"> </span><span class="mf">1993</span><span class="p">,</span><span class="w"> </span><span class="mf">1994</span><span class="p">,</span><span class="w"> </span><span class="mf">1996</span><span class="p">,</span><span class="w"> </span><span class="mf">1997</span><span class="p">,</span><span class="w"> </span><span class="mf">2008</span>
+<div class="highlight"><pre><span></span><code><span class="mf">1951</span><span class="p">,</span><span class="w"> </span><span class="mf">1957</span><span class="p">,</span><span class="w"> </span><span class="mf">1958</span><span class="p">,</span><span class="w"> </span><span class="mf">1959</span><span class="p">,</span><span class="w"> </span><span class="mf">1962</span><span class="p">,</span><span class="w"> </span><span class="mf">1970</span><span class="p">,</span><span class="w"> </span><span class="mf">1975</span><span class="p">,</span><span class="w"> </span><span class="mf">1975</span><span class="p">,</span><span class="w"> </span><span class="mf">1976</span><span class="p">,</span><span class="w"> </span><span class="mf">1977</span><span class="p">,</span><span class="w"> </span><span class="mf">1979</span><span class="p">,</span><span class="w"> </span><span class="mf">1987</span><span class="p">,</span><span class="w"> </span><span class="mf">1987</span><span class="p">,</span><span class="w"> </span><span class="mf">1988</span><span class="p">,</span><span class="w"> </span><span class="mf">1990</span><span class="p">,</span><span class="w"> </span><span class="mf">1993</span><span class="p">,</span><span class="w"> </span><span class="mf">1994</span><span class="p">,</span><span class="w"> </span><span class="mf">1996</span><span class="p">,</span><span class="w"> </span><span class="mf">1997</span><span class="p">,</span><span class="w"> </span><span class="mf">2008</span><span class="w"></span>
 </code></pre></div>
 
 <p>This data was put together in 2014 by Thompson Reuters/Web of Science and <a href="https://www.nature.com/news/the-top-100-papers-1.16224">written up by a few at Nature</a>. There&#8217;s an alternative list put together by <a href="https://www.nature.com/news/the-top-100-papers-1.16224#/alternative">Google Scholar</a>.</p>
@@ -629,7 +623,7 @@ According to the list I found, the top three most cited papers are:
 x_p = X^n \frac{p_{k+1} - p}{p_{k+1} - p_k} + X^{n+1} \frac{p - p_k}{p_{k+1} - p_k}
 $$</div>
 <p>The equation between 1997 and 2008 is like: <span class="math">\(x_p = 1997(1 - p)/(1 - 0.95) + 2008(p - 0.95)/(1 - 0.95)\)</span>, where <span class="math">\(p \in [0.95, 1.0]\)</span>. Thus, for the 97.5th-quantile, <span class="math">\(x_p = 2002.5\)</span>. Similarly, with the right values from the table above, <span class="math">\(Q(0.475) = x_p = 1976.5\)</span> We can confirm this in&nbsp;R:</p>
-<div class="highlight"><pre><span></span><code><span class="nf">quantile</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">0.475</span><span class="p">,</span><span class="w"> </span><span class="m">0.975</span><span class="p">),</span><span class="w"> </span><span class="n">type</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nf">quantile</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">year</span><span class="p">,</span> <span class="nf">c</span><span class="p">(</span><span class="m">0.475</span><span class="p">,</span> <span class="m">0.975</span><span class="p">),</span> <span class="n">type</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
 </code></pre></div>
 
 <pre class="code-output">
@@ -651,7 +645,7 @@ $$</div>
 where <span class="math">\(h = Np\)</span>. For example, for 20 data points and the quantile 0.55, we have <span class="math">\(x_p=1979\)</span>.</p>
 <p>This formula has the benefit of being slightly more general, and is the form that five commonly used estimators use. One of these is the mode-based estimator. This is the default in R when we use the <code>quantile</code> function, so it&#8217;s very important we understand&nbsp;it.</p>
 <p>The mode-based estimator has <span class="math">\(h = (N - 1)p + 1\)</span>. Thus, when <span class="math">\(p=0.55\)</span> we have <span class="math">\(x_p = 1982.6\)</span>. We can confirm this with&nbsp;R:</p>
-<div class="highlight"><pre><span></span><code><span class="nf">quantile</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="m">0.55</span><span class="p">)</span><span class="w"> </span><span class="c1"># type = 7</span>
+<div class="highlight"><pre><span></span><code><span class="nf">quantile</span><span class="p">(</span><span class="n">data</span><span class="o">$</span><span class="n">year</span><span class="p">,</span> <span class="m">0.55</span><span class="p">)</span> <span class="c1"># type = 7</span>
 </code></pre></div>
 
 <pre class="code-output">
@@ -673,7 +667,7 @@ where <span class="math">\(h = Np\)</span>. For example, for 20 data points and 
 <p>The dashed line is <span class="math">\(y=x\)</span>. Based on this image, we can tell that the two sample distributions are fairly similar, but not exactly the same. Each point represents a percentile (thus, 100 points shown). Areas of the graph where the points line up on the <span class="math">\(y=x\)</span> line indicate points in the distributions that have the same proportion of data below them. For example, you can see that 1975 or so is one of these points: about the same amount of data is before 1975 in both distributions. Areas where the line is steeper than <span class="math">\(y=x\)</span> indicate areas where the data in the vertical distribution is more dispersed than the horizontal. Likewise, those flat parts indicate the data is more dispersed in the horizontal&nbsp;distribution.</p>
 <p>If we considered the top 100 papers as the theoretical population, we might choose not to use the top 20 papers to estimate quantiles of the&nbsp;population.</p>
 <p>To round everything out, let&#8217;s calculate the sample median of the top 20 papers using a few different methods and compare that to our &#8220;population&#8221; median (from all 100&nbsp;papers):</p>
-<div class="highlight"><pre><span></span><code><span class="nf">quantile</span><span class="p">(</span><span class="n">all_paper_years</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nf">quantile</span><span class="p">(</span><span class="n">all_paper_years</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
 </code></pre></div>
 
 <pre class="code-output">
@@ -682,9 +676,9 @@ where <span class="math">\(h = Np\)</span>. For example, for 20 data points and 
 </pre>
 
 <p>This is our &#8220;population&#8221; median (I use type 1 because this is avoids any interpolation at all of the quantiles). Now, our sample median&nbsp;estimates:</p>
-<div class="highlight"><pre><span></span><code><span class="n">types</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">8</span><span class="p">)</span>
-<span class="n">quantiles</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sapply</span><span class="p">(</span><span class="n">types</span><span class="p">,</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="nf">quantile</span><span class="p">(</span><span class="n">top_20_paper_years</span><span class="p">,</span><span class="w"> </span><span class="m">0.5</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">F</span><span class="p">))</span>
-<span class="nf">names</span><span class="p">(</span><span class="n">quantiles</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">types</span>
+<div class="highlight"><pre><span></span><code><span class="n">types</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">4</span><span class="p">,</span><span class="m">7</span><span class="p">,</span><span class="m">8</span><span class="p">)</span>
+<span class="n">quantiles</span> <span class="o">&lt;-</span> <span class="nf">sapply</span><span class="p">(</span><span class="n">types</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="nf">quantile</span><span class="p">(</span><span class="n">top_20_paper_years</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="n">type</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="bp">F</span><span class="p">))</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">quantiles</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">types</span>
 <span class="n">quantiles</span>
 </code></pre></div>
 

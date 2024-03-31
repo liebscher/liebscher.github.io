@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - Modern Day Psychography (Part 1)</title>
+       <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+       <meta name="generator" content="Pelican" />
+
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="python" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
+              </div>
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>Modern Day Psychography (Part&nbsp;1)</span></li>
+    </ul>
+  </div>
+</section>
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3@m">
+    <header class="uk-text-center">
+      <h1 class="uk-h1">Modern Day Psychography (Part&nbsp;1)</h1>
+      <p><p>Speech-to-Text and Séance with my&nbsp;Journal</p></p>
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2022-11-29T00:00:00-08:00">
+        Tue 29 November 2022
+      </time>
+      <div>
+        Tags:
+        <a href="/tag/python.html">python</a>
+      </div>
+    </footer>
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <!-- Cover: images/window-overlooking-green-pasture.png -->
+
+<p>This is the first part in a&nbsp;series.</p>
+<p>Creating a py 3.10&nbsp;env</p>
+<p>One of my strongest habits is journaling. I try to journal everyday and, I&#8217;ve accumulated a rich picture of my life that I&#8217;m proud of. Being the linguaphile I am, I wondered: what patterns and insights might emerge in this narrative of my&nbsp;life?</p>
+<p>This post describes how I&#8217;m approaching the problem from the very beginning. The end product is a Jupyter notebook where I can record myself reading out loud my journal, which then gets transcribed and organized onto my computer. For perspective, I was able to get the majority of this notebook written in about 15&nbsp;minutes.</p>
+<h2>Dictating my&nbsp;Journal</h2>
+<p>The first part is to load up a few packages and a model we&#8217;ll need. I&#8217;m making use of Jupyter Notebooks right now. OpenAI&#8217;s latest <a href="https://github.com/openai/whisper">whisper</a> model has really impressed me; both because it&#8217;s open-source and because it works&nbsp;well.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="kn">import</span> <span class="nn">pendulum</span>
+
+<span class="kn">from</span> <span class="nn">ipywebrtc</span> <span class="kn">import</span> <span class="n">AudioRecorder</span><span class="p">,</span> <span class="n">CameraStream</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Audio</span>
+
+<span class="kn">import</span> <span class="nn">whisper</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">whisper</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span><span class="s2">&quot;base&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Next we need an interface to record the audio. We&#8217;ll use a Jupyter widget for that, which I learned about via <a href="https://medium.com/@harrycblum/record-audio-in-a-jupyter-notebook-da08a88278bb">a Medium post</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">camera</span> <span class="o">=</span> <span class="n">CameraStream</span><span class="p">(</span><span class="n">constraints</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;audio&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span><span class="s1">&#39;video&#39;</span><span class="p">:</span><span class="kc">False</span><span class="p">})</span>
+<span class="n">recorder</span> <span class="o">=</span> <span class="n">AudioRecorder</span><span class="p">(</span><span class="n">stream</span><span class="o">=</span><span class="n">camera</span><span class="p">)</span>
+<span class="n">recorder</span>
+</code></pre></div>
+
+<p>After we have the audio sorted out, we save that memory-based audio to a file and have whisper load that file to transcribe it. ffmpeg here is crucial for converting the audio, although I&#8217;d really like to find a way to just keep the audio in&nbsp;memory.</p>
+<div class="highlight"><pre><span></span><code><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;recording.webm&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">recorder</span><span class="o">.</span><span class="n">audio</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="err">!</span><span class="n">ffmpeg</span> <span class="o">-</span><span class="n">i</span> <span class="n">recording</span><span class="o">.</span><span class="n">webm</span> <span class="o">-</span><span class="n">ac</span> <span class="mi">1</span> <span class="o">-</span><span class="n">f</span> <span class="n">wav</span> <span class="n">file</span><span class="o">.</span><span class="n">wav</span> <span class="o">-</span><span class="n">y</span> <span class="o">-</span><span class="n">hide_banner</span> <span class="o">-</span><span class="n">loglevel</span> <span class="n">panic</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">transcribe</span><span class="p">(</span><span class="s2">&quot;file.wav&quot;</span><span class="p">)</span>
+
+<span class="err">!</span><span class="n">rm</span> <span class="n">recording</span><span class="o">.</span><span class="n">webm</span>
+</code></pre></div>
+
+<p>Lastly, we can view the out from that&nbsp;model.</p>
+<div class="highlight"><pre><span></span><code><span class="n">text_out</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span>
+<span class="n">text_out</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;...&#39;</span>
+</code></pre></div>
+
+<pre class="code-output" style="overflow:">
+" September 26th, 2021. One behavior I'd like to try would be the annual quarterly and monthly reviews. I could start by breaking down the last of each period using my previous journal, perhaps tonight I will. Well, I started to read backwards one month, then two, and then maybe three. It's hard to summarize more than just factual events. I should attempt to capture more emotion and internal dialogue, especially with regards to work. Three things I'm grateful for, a healthy body, Kaelin's unwavering support, and being illiterate.
+</pre>
+
+<p>It&#8217;s pretty good, although it messed up a few things. Notably, Kaelin should be Kaylin (although even she would agree it&#8217;s hard to spell this based on audio), illiterate should crucially be literate, and it seems to have skipped the commas I had in the first&nbsp;sentence.</p>
+<h2>Organization</h2>
+<p>Naturally, we want to save this text to our computer so that we can comes back to it. Here we&#8217;ll take a first step towrad&nbsp;that.</p>
+<p>The path of least resistance for me is to have this recorded text in a <span class="caps">JSON</span>&nbsp;file.</p>
+<div class="highlight"><pre><span></span><code><span class="k">try</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;notebook.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">notebook</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fh</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+    <span class="n">notebook</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">notebook</span><span class="p">)</span><span class="si">}</span><span class="s2"> existing entries&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>With a <code>notebook</code> object ready to use, we want to organize our new data in a dictionary with dates as keys and entries as&nbsp;values.</p>
+<p>I was interested in trying out the <code>pendulum</code> library for parsing dates. The <span class="caps">API</span> looks great, unfortunately the project is only lightly maintained so issues may arise and not be fixed. However, in my case here it&#8217;s not an a&nbsp;problem.</p>
+<p>I wanted to make sure I didn&#8217;t accidentally overwrite an entry, so we check if something already exists for that date. If it does we prompt the user about&nbsp;it.</p>
+<div class="highlight"><pre><span></span><code><span class="n">date</span> <span class="o">=</span> <span class="n">pendulum</span><span class="o">.</span><span class="n">from_format</span><span class="p">(</span><span class="n">text_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">(),</span> <span class="s1">&#39;MMMM Do, YYYY&#39;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;America/Los_Angeles&#39;</span><span class="p">)</span>
+<span class="n">date_str</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">to_date_string</span><span class="p">()</span>
+
+<span class="n">write</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="k">if</span> <span class="n">date_str</span> <span class="ow">in</span> <span class="n">notebook</span><span class="p">:</span>
+    <span class="n">write</span> <span class="o">=</span> <span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Date exists, overwrite? [y|n]&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">write</span><span class="p">:</span>
+    <span class="n">notebook</span><span class="p">[</span><span class="n">date_str</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">text_out</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;notebook.json&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">notebook</span><span class="p">,</span> <span class="n">fh</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Entry saved!&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>I&#8217;m not saving the audio file, which I think is okay but I might regret&nbsp;that.</p>
+<p>As a quick example of what value this now provides, something I&#8217;ve always been interested in is about how many words my journal entries are. I&#8217;m too lazy to count them, so let&#8217;s just have Python do it&nbsp;instead.</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">notebook</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+</code></pre></div>
+
+<p>That concludes this first&nbsp;part.</p>
+  </div>
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2024 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
+              </div>
+       </footer>
+</body>
+
+</html>

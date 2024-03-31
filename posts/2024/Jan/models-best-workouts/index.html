@@ -71,20 +71,14 @@
 </section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
   <div class="uk-container uk-width-2-3@m">
-    <header>
-      <h1 class="uk-h1 uk-text-center">
-        <a href="/posts/2024/Jan/models-best-workouts/" rel="bookmark" title="Permalink to Bayes for my Best Workouts">Bayes for my Best&nbsp;Workouts</a>
-      </h1>
-      
+    <header class="uk-text-center">
+      <h1 class="uk-h1">Bayes for my Best&nbsp;Workouts</h1>
+      <p><p>Building models to predict my optimal&nbsp;workouts</p></p>
     </header>
     <footer class="uk-text-center uk-margin">
       <time datetime="2024-01-28T00:00:00-08:00">
         Sun 28 January 2024
       </time>
-      <!--     <div>
-        Category: <a href="/">meta</a>
-    </div>
- -->
       <div>
         Tags:
         <a href="/tag/rlang.html">Rlang</a>, 
@@ -105,12 +99,12 @@
 <p><img data-src="/images/pred-weights.png"  uk-img/></p>
 <h3>A Few&nbsp;Details</h3>
 <p>I&#8217;m leaving out many of the details, but to start, the target weight prediction model is formulated as&nbsp;follows:</p>
-<div class="highlight"><pre><span></span><code><span class="n">weight</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">reps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sets</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rpe_of_10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">reps</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rpe_of_10</span><span class="o">|</span><span class="n">exercise</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">weight</span> <span class="o">~</span> <span class="m">0</span> <span class="o">+</span> <span class="n">reps</span> <span class="o">+</span> <span class="n">sets</span> <span class="o">+</span> <span class="n">rpe_of_10</span> <span class="o">+</span> <span class="p">(</span><span class="n">reps</span> <span class="o">+</span> <span class="n">rpe_of_10</span><span class="o">|</span><span class="n">exercise</span><span class="p">)</span>
 </code></pre></div>
 
 <p>In other words, we predict the target weight according the number of reps, sets, and rating of perceived exertion, accounting for baseline variation by exercise and variation in the slope of reps and <span class="caps">RPE</span> by exercise. We replace the fixed intercept with random intercepts so that the random intercepts are the baseline weight for each, not the offset from the mean of all. Moreover, after sampling, we reject all posterior samples where the coefficient on sets is greater than zero, the sum of the fixed and random slopes for reps is greater than zero, or the sum of the fixed and random slopes for <span class="caps">RPE</span> is less than zero. Ideally we&#8217;d constrain the model early on without this ad hoc post-sampling modification, but I&#8217;ve found that too time consuming to figure out. Finally, the likelihood function models a Log-Normal&nbsp;distribution.</p>
 <p>We also have a model for predicting the number of total reps for an exercise in the case that the weight in non-adjustable. The model looks&nbsp;like:</p>
-<div class="highlight"><pre><span></span><code><span class="n">total</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nf">trials</span><span class="p">(</span><span class="m">60</span><span class="p">)</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rpe_of_10</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">rpe_of_10</span><span class="o">|</span><span class="n">exercise</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">total</span> <span class="o">|</span> <span class="nf">trials</span><span class="p">(</span><span class="m">60</span><span class="p">)</span> <span class="o">~</span> <span class="m">0</span> <span class="o">+</span> <span class="n">rpe_of_10</span> <span class="o">+</span> <span class="p">(</span><span class="n">rpe_of_10</span><span class="o">|</span><span class="n">exercise</span><span class="p">)</span>
 </code></pre></div>
 
 <p>A slightly simpler model, we assume that the number of total reps is some proportion of the possible 60 (chosen arbitrarily). This binomial model is actually far superior to a poisson model, or a negative binomial model, since there&#8217;s such strong under-dispersion. I constrain post-sampling here as&nbsp;well. </p>
