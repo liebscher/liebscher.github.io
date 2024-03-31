@@ -71,14 +71,20 @@
 </section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
   <div class="uk-container uk-width-2-3@m">
-    <header class="uk-text-center">
-      <h1 class="uk-h1">Deploying a containerized Heroku app with Apple&#8217;s M1&nbsp;processor</h1>
-      <p><p>The M1 is fast and furious, but bound to cause&nbsp;headaches</p></p>
+    <header>
+      <h1 class="uk-h1 uk-text-center">
+        <a href="/posts/2021/Nov/deploying-heroku-app/" rel="bookmark" title="Permalink to Deploying a containerized Heroku app with Apple’s M1 processor">Deploying a containerized Heroku app with Apple&#8217;s M1&nbsp;processor</a>
+      </h1>
+      
     </header>
     <footer class="uk-text-center uk-margin">
       <time datetime="2021-11-19T00:00:00-08:00">
         Fri 19 November 2021
       </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
       <div>
         Tags:
         <a href="/tag/programming.html">programming</a>, 
@@ -160,7 +166,7 @@
 <p>We also look for the environment variable, <code>PORT</code>, which is really <a href="https://blog.heroku.com/python_and_django">for Heroku</a>. Heroku will choose and set the port which your app will use. We also set <code>host</code> to 0.0.0.0 which overrides the default locahost parameter so that the site is <a href="https://stackoverflow.com/q/30323224/3234482">accessible through Docker</a>.</p>
 <h2>2. Test&nbsp;locally</h2>
 <p>To test our web app locally, we can just&nbsp;run,</p>
-<div class="highlight"><pre><span></span><code>python server.py
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>server.py
 </code></pre></div>
 
 <p>This launches our Flask app as a local server on a localhost port, specifically port 5000. Visit the <span class="caps">URL</span> <code>127.0.0.1:5000</code> to&nbsp;test.</p>
@@ -173,11 +179,11 @@
 </code></pre></div>
 
 <p>We need to install our Python dependencies. This could also be done with a requirements file, but here we just write them&nbsp;out.</p>
-<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>pip install flask
+<div class="highlight"><pre><span></span><code><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>flask
 </code></pre></div>
 
 <p>We need to copy our <span class="caps">HTML</span> and Python source files into the&nbsp;image.</p>
-<div class="highlight"><pre><span></span><code><span class="k">COPY</span><span class="w"> </span>. .
+<div class="highlight"><pre><span></span><code><span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
 </code></pre></div>
 
 <p>Flask expects to host the server through an open port, so we&#8217;ll expose a port just for&nbsp;Flask.</p>
@@ -189,9 +195,9 @@
 
 <div class="highlight"><pre><span></span><code><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.8</span>
 
-<span class="k">RUN</span><span class="w"> </span>pip install flask
+<span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>flask
 
-<span class="k">COPY</span><span class="w"> </span>. .
+<span class="k">COPY</span><span class="w"> </span>.<span class="w"> </span>.
 
 <span class="k">EXPOSE</span><span class="w"> </span><span class="s">$PORT</span>
 
@@ -199,16 +205,16 @@
 </code></pre></div>
 
 <p>For more of this process, see the <a href="https://devcenter.heroku.com/articles/container-registry-and-runtime">documentation</a>. Now we need to build the image. Typically, we&#8217;d&nbsp;see,</p>
-<div class="highlight"><pre><span></span><code>docker build . -t example-app
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>example-app
 </code></pre></div>
 
 <p>but because we&#8217;re working on a different architecture, we actually&nbsp;need,</p>
-<div class="highlight"><pre><span></span><code>docker buildx build --platform linux/amd64 -t example-app .
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>buildx<span class="w"> </span>build<span class="w"> </span>--platform<span class="w"> </span>linux/amd64<span class="w"> </span>-t<span class="w"> </span>example-app<span class="w"> </span>.
 </code></pre></div>
 
 <p><code>buildx</code> allows the devloper to, among other things, build an image to run cross-platform. This is important to us since our source machine, an Apple M1 device, is a different architecture (<code>arm64</code>) than the destination machine (<code>amd64</code>).</p>
 <p>Now that we have it setup with the right architecture, we can test the image locally by building a container. For&nbsp;example,</p>
-<div class="highlight"><pre><span></span><code>docker run --rm -e <span class="nv">PORT</span><span class="o">=</span><span class="m">5000</span> -p <span class="m">5000</span>:5000 example-app
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>-e<span class="w"> </span><span class="nv">PORT</span><span class="o">=</span><span class="m">5000</span><span class="w"> </span>-p<span class="w"> </span><span class="m">5000</span>:5000<span class="w"> </span>example-app
 </code></pre></div>
 
 <p>To break down the arguments here: <code>--rm</code> removes the container from the running container list once it exits, <code>-e PORT=5000</code> sets our port environment variable, and <code>-p 5000:5000</code> opens the port 5000 within the container to the host machine&#8217;s port 5000. The last argument is the name of our image to&nbsp;run.</p>
@@ -217,22 +223,22 @@
 <p>First, we need to create a Heroku account. After that&#8217;s been setup, create an app with any name you want, say <code>example-heroku-deployment</code>.</p>
 <p>We&#8217;ll be deploying to the Heroku registry manually, but we still will use the Heroku <span class="caps">CLI</span> for some parts, so make sure that&#8217;s <a href="https://devcenter.heroku.com/articles/heroku-cli#download-and-install">installed</a>.</p>
 <p>We&#8217;ll authenticate Heroku from the command line, make sure Docker is <a href="https://docs.docker.com/get-docker/">installed</a>, and login to the Heroku Container&nbsp;Registry,</p>
-<div class="highlight"><pre><span></span><code>heroku login
-docker ps
-heroku container:login
+<div class="highlight"><pre><span></span><code>heroku<span class="w"> </span>login
+docker<span class="w"> </span>ps
+heroku<span class="w"> </span>container:login
 </code></pre></div>
 
 <p>Now, we want to retag our image with the location of our Heroku app registry. For example, if we run <code>docker images</code>, we can view the image <span class="caps">ID</span> of the image we just built for <code>example-app</code>. In order to get our local image to the right place in the Heroku Registry, we need to label it&nbsp;correctly,</p>
-<div class="highlight"><pre><span></span><code>docker tag xxxxxxxxxxxx registry.heroku.com/example-heroku-deployment/web
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>tag<span class="w"> </span>xxxxxxxxxxxx<span class="w"> </span>registry.heroku.com/example-heroku-deployment/web
 </code></pre></div>
 
 <p>where the image <span class="caps">ID</span> is copy and pasted from the <code>docker images</code> command.</p>
 <p>Next we want to manually push the image to the Registry,&nbsp;like,</p>
-<div class="highlight"><pre><span></span><code>docker push registry.heroku.com/example-heroku-deployment/web
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>push<span class="w"> </span>registry.heroku.com/example-heroku-deployment/web
 </code></pre></div>
 
 <p>Now our app is pushed up to Heroku, and we just need to tell Heroku to take the image&nbsp;live!</p>
-<div class="highlight"><pre><span></span><code>heroku container:release web -a example-heroku-deployment
+<div class="highlight"><pre><span></span><code>heroku<span class="w"> </span>container:release<span class="w"> </span>web<span class="w"> </span>-a<span class="w"> </span>example-heroku-deployment
 </code></pre></div>
 
 <p>To open your app, try <code>heroku open -a example-heroku-deployment</code>.</p>

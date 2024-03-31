@@ -71,14 +71,20 @@
 </section>
 <section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
   <div class="uk-container uk-width-2-3@m">
-    <header class="uk-text-center">
-      <h1 class="uk-h1">Open Source <span class="caps">OCR</span>&#8217;ing <span class="caps">PDF</span> Documents in&nbsp;Python</h1>
-      <p><p>An introduction to <span class="caps">OCR</span> using high quality open source&nbsp;software</p></p>
+    <header>
+      <h1 class="uk-h1 uk-text-center">
+        <a href="/posts/2021/Feb/ocr-pdfs/" rel="bookmark" title="Permalink to Open Source OCR’ing PDF Documents in Python">Open Source <span class="caps">OCR</span>&#8217;ing <span class="caps">PDF</span> Documents in&nbsp;Python</a>
+      </h1>
+      
     </header>
     <footer class="uk-text-center uk-margin">
       <time datetime="2021-02-23T08:00:00-08:00">
         Tue 23 February 2021
       </time>
+      <!--     <div>
+        Category: <a href="/">meta</a>
+    </div>
+ -->
       <div>
         Tags:
         <a href="/tag/python.html">python</a>, 
@@ -114,7 +120,7 @@
 <p><embed src="/pdf/propublica-tax.pdf" height="500" type="application/pdf" style="margin:2em 0;"></p>
 <p>Yes, I chose the 2018 tax returns of <a href="https://www.propublica.org/">ProPublica</a>. They&#8217;re always investigating people, I think it&#8217;s only fair we investigate them too. Besides saving only the most interesting pages in the full 65 page <span class="caps">IRS</span> report, I didn&#8217;t alter the document at all. You&#8217;ll notice you can&#8217;t select any of the text in the document&nbsp;though!</p>
 <p>OCRmyPDF to the rescue. If we save this document, and in the working folder run the following Bash&nbsp;command:</p>
-<div class="highlight"><pre><span></span><code>ocrmypdf propublica-tax.pdf propublica-tax-out.pdf --sidecar propublica-tax.txt
+<div class="highlight"><pre><span></span><code>ocrmypdf<span class="w"> </span>propublica-tax.pdf<span class="w"> </span>propublica-tax-out.pdf<span class="w"> </span>--sidecar<span class="w"> </span>propublica-tax.txt
 </code></pre></div>
 
 <p>the package will process the original <span class="caps">PDF</span> (the first argument), then output the <span class="caps">OCR</span>&#8217;d <span class="caps">PDF</span> to the output file (second argument), and will also output a text file with the extracted text (file provided by the <code>--sidecar</code> flag). Here is the <span class="caps">OCR</span>&#8217;d&nbsp;file:</p>
