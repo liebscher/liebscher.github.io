@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+         <title>Alex Liebscher - A Map of New York City Bookshops</title>
+       <meta charset="utf-8" />
+       <meta name="description" content="">
+       <meta name="viewport" content="width=device-width, initial-scale=1" />
+       <meta name="generator" content="Pelican" />
+
+       <link href="/feeds/all.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Full Atom Feed" />
+       <link href="/feeds/meta.atom.xml"
+              type="application/atom+xml" rel="alternate" title="Alex Liebscher Categories Atom Feed" />
+
+
+
+
+    <meta name="tags" content="data science" />
+    <meta name="tags" content="Rlang" />
+    <meta name="tags" content="books & literature" />
+
+
+       <!-- UIkit CSS -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/css/uikit.min.css" />
+
+       <!-- UIkit JS -->
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit.min.js"></script>
+       <script src="https://cdn.jsdelivr.net/npm/uikit@3.10.0/dist/js/uikit-icons.min.js"></script>
+
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,200;0,400;0,600;1,400&family=Playfair+Display:wght@400;600&display=swap"
+              rel="stylesheet">
+
+       <link rel="stylesheet" type="text/css" href="/theme/css/default.css" />
+       <link rel="stylesheet" type="text/css" href="/theme/css/style.css" />
+
+       <!-- favicon licensing -->
+       <!-- Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji) -->
+       <!-- License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) -->
+       <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+       <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+       <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+       <link rel="icon" type="image/png" href="/favicon.ico">
+
+       <script data-goatcounter="https://liebscher.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+
+<body>
+       <header class="uk-section uk-section-small">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <!-- show a bigger name on mobile -->
+                     <h1 class="uk-heading uk-text-center uk-visible@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <h1 class="uk-heading-medium uk-text-center uk-hidden@s">
+                            <a href="/">Alex Liebscher</a>
+                     </h1>
+                     <!-- 
+ -->
+              </div>
+       </header>
+<section class="uk-section uk-section-xsmall uk-width-2-3@m uk-margin-auto">
+  <div class="uk-container uk-text-justify">
+    <ul class="uk-breadcrumb">
+      <li><a href="/index.html">Home</a></li>
+      <li><span>A Map of New York City&nbsp;Bookshops</span></li>
+    </ul>
+  </div>
+</section>
+<section class="uk-section uk-background-cover" style="background-image: url(/images/unsplash-header-bg.jpg)">
+  <div class="uk-container uk-width-2-3@m">
+    <header class="uk-text-center">
+      <h1 class="uk-h1">A Map of New York City&nbsp;Bookshops</h1>
+      <p><p>A map of almost all bookshops in <span class="caps">NYC</span>, whether they have a cafe or a bar, and how I used R to visualize this hand-curated&nbsp;dataset</p></p>
+    </header>
+    <footer class="uk-text-center uk-margin">
+      <time datetime="2025-07-26T00:00:00-07:00">
+        Sat 26 July 2025
+      </time>
+      <div>
+        Tags:
+        <a href="/tag/data-science.html">data science</a>, 
+        <a href="/tag/rlang.html">Rlang</a>, 
+        <a href="/tag/books-literature.html">books & literature</a>
+      </div>
+    </footer>
+  </div>
+</section>
+<section class="uk-section">
+  <div class="uk-container uk-width-expand uk-width-2-3@m uk-text-justify">
+    <iframe src="/static/coords.html" width="100%" height="500px"></iframe>
+
+<h1><span class="caps">NYC</span>&nbsp;Bookshops</h1>
+<p>I really love bookshops. Bookshops are places of serendipity, knowledge, and craft. They&#8217;re multi-sensory (reminder: smell old books) and generally attract an interesting&nbsp;crowd.</p>
+<p>For these reasons and more, I was curious about where all the bookshops are in New York City. I saw an opportunity to appreciate bookshops from a different perspective by simply looking them all up and drawing them on a&nbsp;map.</p>
+<p>I did a quick Google search to see if others had done this, and I found one (aged) list, and no robust map (update: just before publishing, I found <a href="https://www.nycbookstores.org/">this great resource</a>). Feeling like there was a gap here, I started searching for bookshops nearby and recording them in a&nbsp;spreadsheet.</p>
+<p>I recorded 38 bookshops on one day, and 18 on another. A good number since then too. It might not be every bookstore in the city, but it&#8217;s many of them. Some bookshops have a cafe, or a bar, or both inside too. I made note of this, since these are often great spaces to spend time. I chose to focus only on general, independent bookstores, not Barnes <span class="amp">&amp;</span> Noble or bookstores that cater to, for example, cookbooks only (sorry <a href="http://www.archestrat.us/">Archestratus</a>)</p>
+<p>I hope that this map is useful to some, and just interesting or inspiring to&nbsp;others.</p>
+<p>The rest of this article details my process for visualizing the bookshops. I&#8217;m a research scientist by day, and I love a good data visualization problem. I don&#8217;t often work with spatial data though, so it was a learning experience for&nbsp;me.</p>
+<h2>Technical&nbsp;Project</h2>
+<p>In addition to this being a bibliophile&#8217;s project, I also was hoping to learn how to create good maps with R. So, below I&#8217;ll explain a bit of the technical side of the project for anyone&nbsp;interested.</p>
+<p>At first, I was looking at tidygeocoder. I planned to manually record and load in a few data points to start, and if I liked what I saw, I&#8217;d try to automate the bookshop search. I ended up never automating the search, because I enjoyed the process of finding the bookstores through a more intentional process. This meant using Google and Google Maps to find bookstores, as well as paying closer attention in conversations and while walking through neighborhoods. Manually compiling my list gave me the opportunity to look far and wide in unconventional places, both online and in the real world, and to meticulously curate the&nbsp;list.</p>
+<p>As mentioned, I chose to keep track of a few extra variables that matter to me. In addition to the presence of a cafe or bar in the bookstore, I recorded their address; opening year; whether they sold new, used, or both; and whether I had visited or&nbsp;not.</p>
+<p>It turned out quickly that geocoding from the address worked great on the first time through with the freely available <span class="caps">OSM</span>. I ended up creating a method to cache the coordinates, so I wouldn&#8217;t have to repeatedly call the <span class="caps">API</span> for all addresses when I wanted to generate a new one, which would take too much&nbsp;time.</p>
+<p>I thought about how I might get these coordinates on a map of <span class="caps">NYC</span>. I decided it might be nice to plot borough boundaries, or neighborhood boundaries, as well, for better spatial orientation. I learned that neighborhood boundaries are more ambiguous, especially with the many social and historical contexts here in <span class="caps">NYC</span>. I also thought it might be nice to plot subway lines, or the nearest subway lines to each bookstore. I didn&#8217;t get around to this piece, but maybe in the&nbsp;future.</p>
+<p>I searched the internet, mostly on the <span class="caps">NYC</span> gov website for data to leverage&#8212;map data, public transit data, and sociodemographic data. I discovered that approximate neighborhoods are called Public Use Microdata Areas (PUMAs). There are also <a href="https://www.nyc.gov/assets/planning/download/pdf/data-maps/nyc-population/census2010/puma_cd_map.pdf"><span class="caps">NYC</span> Community Districts</a>&nbsp;(CDs).</p>
+<p>I faced a problem though: it was very hard to find a usable file of neighborhoods. There were lots of broken links with the opendata&nbsp;site.</p>
+<p>As I was looking for workarounds, I found <code>nycgeo</code>. Given the scale of <span class="caps">NYC</span>, I had a feeling someone had solved my problem before. After a fairly straightforward install process, here is how I ended up visualizing the boundary shapefiles from the&nbsp;package:</p>
+<div class="highlight"><pre><span></span><code><span class="n">boundaries</span> <span class="o">|&gt;</span>
+    <span class="nf">ggplot</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">fill</span> <span class="o">=</span> <span class="n">borough_name</span><span class="p">))</span> <span class="o">+</span>
+    <span class="nf">geom_sf</span><span class="p">(</span><span class="n">linewidth</span> <span class="o">=</span> <span class="m">1</span><span class="o">/</span><span class="m">10</span><span class="p">,</span> <span class="n">show.legend</span> <span class="o">=</span> <span class="bp">F</span><span class="p">)</span> <span class="o">+</span>
+    <span class="nf">scale_fill_manual</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;#ccd5ae&quot;</span><span class="p">,</span> <span class="s">&quot;#e9edc9&quot;</span><span class="p">,</span> <span class="s">&quot;#fefae0&quot;</span><span class="p">,</span> <span class="s">&quot;#f5ebe0&quot;</span><span class="p">,</span> <span class="s">&quot;#faedcd&quot;</span><span class="p">))</span> <span class="o">+</span>
+    <span class="nf">theme_void</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img data-src="/images/bookshops/nta-boundaries.png" width="640px" class="uk-align-center" uk-img/></p>
+<p>Originally, based on the addresses, the bookshop coordinates were very, very wrong. I couldn&#8217;t figure out why though. I checked the data that <span class="caps">OSM</span> gave and it seemed right. I thought maybe I needed to convert the lat/long to shapefile geometry for a correct overlay. I tried using <code>st_as_sf</code>, but this was also very&nbsp;wrong.</p>
+<p>I searched high and low on StackOverflow, but still could not figure out how to correctly plot the coordinates on the above map. Almost ready to just throw in the towel, I went to ChatGPT and told it my issue. Miraculously, it suggested that long and lat might be reversed in my map call. That was correct, and after switching those I could see the bookstores show up on my&nbsp;map!</p>
+<p>However, it was too zoomed out. I was curious if there was an easy way to just &#8220;zoom&#8221; in. I found a little code snippet online to do that zooming around a centroid coordinate, and this ended up working&nbsp;great.</p>
+<p>At this point, I still only had a few data points (bookstores) to work with, and this was all taking place on a non-interactive map. It was now time to go and actually fill out the&nbsp;dataset.</p>
+<p>I soon discovered that there are <em>a lot</em> of bookshops in <span class="caps">NYC</span>. I decided to focus my work to the generalist book shops, not specialty ones (cooking, performance arts,&nbsp;etc.).</p>
+<p>I had some of the data visualized on the map, and then I discovered <code>mapview</code>. This package handled <strong>a lot</strong> of the manual work of plotting data on a map, plus it included interactivity which was extremely nice. This package is ultimately what I&#8217;ve ended up using to plot the bookshops. Importantly though, the interactive map at the top is embedded on this static website. This is different from showing up interactively in my R session. To accomplish this, luckily <code>mapview</code> has an export-to-<span class="caps">HTML</span>&nbsp;function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">coords_sf</span> <span class="o">|&gt;</span>
+    <span class="nf">select</span><span class="p">(</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">has_cafe</span><span class="p">,</span> <span class="n">has_bar</span><span class="p">,</span> <span class="n">geometry</span><span class="p">))</span> <span class="o">|&gt;</span>
+    <span class="nf">mapview</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">zcol</span> <span class="o">=</span> <span class="s">&quot;type&quot;</span><span class="p">,</span> <span class="n">burst</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">,</span> <span class="n">map.types</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&quot;CartoDB.Positron&quot;</span><span class="p">,</span> <span class="s">&quot;OpenStreetMap&quot;</span><span class="p">))</span> <span class="o">|&gt;</span>
+    <span class="nf">mapshot</span><span class="p">(</span><span class="n">url</span> <span class="o">=</span> <span class="s">&quot;coords.html&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Here, <code>coords_sf</code> has a column <code>geometry</code> that contains each bookstores&#8217; coordinates&nbsp;point.</p>
+<p>With the data I&#8217;ve compiled, I can explore <span class="caps">NYC</span> bookshops on a bigger scale. For example, here is a distribution of when all the currently open bookshops opened their doors (I pulled this data from the bookstore&#8217;s website or from new articles of its&nbsp;opening):</p>
+<p><img data-src="/images/bookshops/opening-years.png" width="640px" class="uk-align-center" uk-img/></p>
+<p>Here is a map showing the count of bookshops within neighborhood&nbsp;boundaries:</p>
+<p><img data-src="/images/bookshops/neighborhood-count.png" width="640px" class="uk-align-center" uk-img/></p>
+<p>The top six neighborhoods containing the most bookshops&nbsp;are:</p>
+<table style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th style="padding: 6px; background-color: #f2f2f2; border-right: 1px solid #333333; border-bottom: 1px solid #333333;">Neighborhood</th>
+      <th style="padding: 6px; background-color: #f2f2f2; border-left: 1px solid #333333; border-right: 1px solid #333333; border-bottom: 1px solid #333333;">Count</th>
+      <th style="padding: 6px; background-color: #f2f2f2; border-left: 1px solid #333333; border-bottom: 1px solid #333333;">Bookshops</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="border-bottom: 1px solid #333333;">
+      <td style="padding: 6px; border-right: 1px solid #333333;">West Village</td>
+      <td style="padding: 6px; border-left: 1px solid #333333; border-right: 1px solid #333333;">5</td>
+      <td style="padding: 6px; border-left: 1px solid #333333;">Strand Book Store, Mercer Street Books <span class="amp">&amp;</span> Records, Alabaster Bookshop, Three Lives <span class="amp">&amp;</span> Company, Codex</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #333333;">
+      <td style="padding: 6px; border-right: 1px solid #333333;">Bushwick North</td>
+      <td style="padding: 6px; border-left: 1px solid #333333; border-right: 1px solid #333333;">4</td>
+      <td style="padding: 6px; border-left: 1px solid #333333;">Human Relations, Molasses Books, Mil Mundos Books, Hive Mind Books <span class="amp">&amp;</span> Coffee Shop</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #333333;">
+      <td style="padding: 6px; border-right: 1px solid #333333;">Williamsburg</td>
+      <td style="padding: 6px; border-left: 1px solid #333333; border-right: 1px solid #333333;">3</td>
+      <td style="padding: 6px; border-left: 1px solid #333333;">Spoonbill <span class="amp">&amp;</span> Sugartown Books, Quimby&#8217;s Bookstore <span class="caps">NYC</span>, Book Thug Nation</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #333333;">
+      <td style="padding: 6px; border-right: 1px solid #333333;">East Village</td>
+      <td style="padding: 6px; border-left: 1px solid #333333; border-right: 1px solid #333333;">3</td>
+      <td style="padding: 6px; border-left: 1px solid #333333;">Book Club Bar, East Village Books, Mast Books</td>
+    </tr>
+    <tr style="border-bottom: 1px solid #333333;">
+      <td style="padding: 6px; border-right: 1px solid #333333;"><span class="caps">UES</span></td>
+      <td style="padding: 6px; border-left: 1px solid #333333; border-right: 1px solid #333333;">3</td>
+      <td style="padding: 6px; border-left: 1px solid #333333;">James Cummins Bookseller, Shakespeare <span class="amp">&amp;</span> Co, The Corner Bookstore</td>
+    </tr>
+    <tr>
+      <td style="padding: 6px; border-right: 1px solid #333333;">Ridgewood</td>
+      <td style="padding: 6px; border-left: 1px solid #333333; border-right: 1px solid #333333;">3</td>
+      <td style="padding: 6px; border-left: 1px solid #333333;">Topos Bookstore Cafe, Topos Too, Honey Moon Coffee Shop</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><span class="caps">NYC</span> residents might quible with the neighborhood boundaries, but boundaries are <a href="https://www.nytimes.com/interactive/2023/10/29/upshot/new-york-neighborhood-guide.html">nearly impossible to get exact</a> so this is just a rough approximation that is hopefully still a little&nbsp;helpful.</p>
+  </div>
+</section>
+       <footer class="uk-section">
+              <div class="uk-container uk-width-2-3@m uk-margin-auto">
+                     <address>
+                            <a href="/pages/copyright.html">© 2024 Alex Liebscher</a> | Powered by <a
+                                   href="https://getpelican.com/">Pelican</a>.
+                     </address>
+              </div>
+       </footer>
+</body>
+
+</html>
