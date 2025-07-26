@@ -6,7 +6,7 @@ Slug: nyc-bookshops
 Authors: Alex Liebscher
 Summary: A map of almost all bookshops in NYC, whether they have a cafe or a bar, and how I used R to visualize this hand-curated dataset
 Status: published
-Cover: /images/bookshops/cover.png
+Cover: images/bookshops/cover.png
 
 <iframe src="{static}/static/coords.html" width="100%" height="500px"></iframe>
 
