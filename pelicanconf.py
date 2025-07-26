@@ -3,7 +3,7 @@ SITENAME = 'Alex Liebscher'
 SITEURL = 'http://127.0.0.1:8000'
 
 PATH = 'content'
-STATIC_PATHS = ['images', 'pdf']
+STATIC_PATHS = ['images', 'pdf', 'static']
 
 TIMEZONE = 'America/Los_Angeles'
 
@@ -24,6 +24,10 @@ ARTICLE_SAVE_AS = 'posts/{date:%Y}/{date:%b}/{slug}/index.html'
 DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = False
 DELETE_OUTPUT_DIRECTORY = True
+
+# Exclude static directory from content processing
+ARTICLE_EXCLUDES = ['static']
+PAGE_EXCLUDES = ['static']
 
 DIRECT_TEMPLATES = ['index', 'tags']
 
